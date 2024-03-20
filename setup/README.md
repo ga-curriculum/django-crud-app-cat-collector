@@ -1,25 +1,56 @@
-# ![[tktk Module Name] - Setup](./assets/hero.png)
+# ![Django CRUD App - Cat Collector - Setup](./assets/hero.png)
 
 ## Setup
 
-Open your Terminal application and navigate to your **`~/code/ga/lectures`** directory:
+Open your Terminal application and navigate to your `~/code/ga/lessons` directory:
 
 ```bash
-cd ~/code/ga/lectures
+cd ~/code/ga/lessons
 ```
 
-Make a new directory called **`[tktk-module-name]`**, then enter this directory:
+Create a new repository on [GitHub](https://github.com/) named `django-crud-app-cat-collector`.
 
 ```bash
-mkdir [tktk-module-name]
-cd [tktk-module-name]
+git clone https://git.generalassemb.ly/<your-username>/django-crud-app-cat-collector.git
 ```
 
-<!-- Other setup instructions here -->
+> 🚨 Do not copy the above command. It will not work. Your GitHub username will replace <github-username> (including the < and >) in the URL above.
+
+Next, `cd` into your new cloned directory, `django-crud-app-cat-collector`:
 
 
-Open the contents of the directory in VSCode:
+```bash
+cd django-crud-app-cat-collector
+```
+
+Initialize a new virtual environment inside your project directory and install Django:
+
+```bash
+pipenv install django
+```
+
+This command will create a new `Pipfile` and `Pipfile.lock` in your project directory, specifying Django as a dependency.
+
+Activate the virtual environment:
+
+```bash
+pipenv shell
+```
+
+Start a new Django project within your virtual environment:
+
+```bash
+django-admin startproject cat-collector
+```
+
+Open the project's folder in your code editor:
 
 ```bash
 code .
+```
+
+To deactivate the virtual environment when you're done, simply type:
+
+```bash
+exit
 ```

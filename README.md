@@ -1,4 +1,4 @@
-# ![[tktk Module Name]](./assets/tktk-hero.png)
+# ![Django CRUD App - Cat Collector](./assets/tktk-hero.png)
 
 ## About
 
@@ -12,21 +12,20 @@ tktk Write a short but descriptive summary of the content in this module.
 
 ## Content
 
-| Lesson | Video Time | Video | Skills |
-| ------ |:----------:|:-----:| ------ |
-| [Setup](./setup/README.md)                               | -- | -- | Setting up the development environment  |
-| [Concepts](./concepts/README.md)                         | -- | -- | tktk skills covered                     |
-| [tktk Microlesson Name](./tktk-microlesson-01/README.md) | -- | -- | tktk skills covered                     |
-| [tktk Microlesson Name](./tktk-microlesson-02/README.md) | -- | -- | tktk skills covered                     |
-| [tktk Microlesson Name](./tktk-microlesson-03/README.md) | -- | -- | tktk skills covered                     |
-| **Total content**                                        | -- | -- |                                         |
+| Lesson                                                   | Video Time | Video | Skills                                 |
+| -------------------------------------------------------- | :--------: | :---: | -------------------------------------- |
+| [Setup](./setup/README.md)                               |     --     |  --   | Setting up the development environment |
+| [tktk Microlesson Name](./tktk-microlesson-01/README.md) |     --     |  --   | tktk skills covered                    |
+| [tktk Microlesson Name](./tktk-microlesson-02/README.md) |     --     |  --   | tktk skills covered                    |
+| [tktk Microlesson Name](./tktk-microlesson-03/README.md) |     --     |  --   | tktk skills covered                    |
+| **Total content**                                        |     --     |  --   |                                        |
 
 ## Level Up content
 
-| Lesson | Video Time | Video | Skills |
-| ------ |:----------:|:-----:| ------ |
-| [tktk Microlesson Name](./tktk-microlesson-04/README.md) | -- | -- | tktk skills covered                     |
-| **Total Level Up content**                               | -- | -- |                                         |
+| Lesson                                                   | Video Time | Video | Skills              |
+| -------------------------------------------------------- | :--------: | :---: | ------------------- |
+| [tktk Microlesson Name](./tktk-microlesson-04/README.md) |     --     |  --   | tktk skills covered |
+| **Total Level Up content**                               |     --     |  --   |                     |
 
 ## References
 
