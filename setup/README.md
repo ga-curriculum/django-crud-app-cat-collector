@@ -40,7 +40,13 @@ pipenv shell
 Start a new Django project within your virtual environment:
 
 ```bash
-django-admin startproject cat-collector
+django-admin startproject catcollector
+```
+
+Once the project is created, `cd` into the new `catcollector` directory:
+
+```bash
+cd catcollector
 ```
 
 Open the project's folder in your code editor:
