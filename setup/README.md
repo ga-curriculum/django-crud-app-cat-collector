@@ -60,3 +60,5 @@ To deactivate the virtual environment when you're done, simply type:
 ```bash
 exit
 ```
+
+During this lesson we will be using premade assets for images. These images are located in the `lesson-assets` folder. Copy the `lesson-assets` folder into your project directory.

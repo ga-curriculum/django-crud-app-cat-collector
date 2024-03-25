@@ -130,14 +130,11 @@ We changed our `models.py` file, so it’s that time again! Open your terminal a
 python3 manage.py makemigrations
 ```
 
-<details>
-<summary>Now what’s the next command we need to type?<summary>
+Then run:
 
 ```bash
 python3 manage.py migrate
 ```
-</details>
-    
 
 # Don’t Forget the Admin Portal
 
@@ -616,8 +613,6 @@ class Feeding(models.Model):
   class Meta:
     ordering = ['-date']
 ```
-
-Second, let's show that a cat hasn't been fed when there are no feedings associated with it. It's easier than you think!
 
 Second, let's show that a cat hasn't been fed when there are no feedings associated with it. It's easier than you think!
 

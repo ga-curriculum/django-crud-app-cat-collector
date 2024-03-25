@@ -297,7 +297,7 @@ Use Devtools to explore the DOM. You’ll see how Django’s ModelForm wrote the
 - `{{ form.as_p }}` - Wraps a `<p>` tag around the `<label>` & `<input>` tags
 - `{{ form.as_ul }}` - Wraps an `<li>` tag around the `<label>` & `<input>` tags
 
->Note: To ease custom styling, you can add an id or class to your <table> and/or <form> tags. Also note how Django automatically assigns an id to each input.
+> Note: To ease custom styling, you can add an id or class to your`<table>` and/or `<form>` tags. Also note how Django automatically assigns an id to each input.
 
 ## Redirecting
 

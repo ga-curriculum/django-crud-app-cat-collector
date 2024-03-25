@@ -233,6 +233,46 @@ Watch your indentation here! This is a class method so it belongs in the `Cat` c
 An ERD Entity maps to a **Model** in Django, which maps to a **table** in the database.
 </details>
 
+## Connecting to the Database
+
+We'll need a new package to work with our database, so we'll need to install that into our virtual environment. Install the package by running the following command in the terminal:
+
+```bash
+pipenv install psycopg2-binary
+```
+
+We should see it added to our `Pipfile`.
+
+Once we have this package, we'll be able to tell Django to use PostgreSQL instead of the default, which is a very minimalist database called SQLite3.
+
+Open up **`catcollector/settings.py`** and locate this code:
+
+```py
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
+```
+
+Currently, Django is defaulted to using this sqlite3 database. This would be fine, but we want to use PostgreSQL instead.
+
+Update the above to look like:
+
+```py
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'catcollector',
+    }
+}
+```
+
+The name of our database can be anything we want, but ideally it's something that will make sense for our project.
+
+> **Windows Note:** Windows users may need to provide a `USER` and `PASSWORD` as well as `ENGINE` and `NAME`. The `USER` will be `postgres`, and the `PASSWORD` will be the password you set up for your PostgreSQL user and use to sign into the PostgreSQL shell.
+
 # Making and Running Migrations
 
 ## What are Migrations?
@@ -279,7 +319,19 @@ python3 manage.py migrate
 
 ## What Exactly Was Created in the Database?
 
-To checkout the tables we have in our database, head over to your bit.io database.  You should see the following:
+To check out the database to see this table being added, we can use our `psql` command in the terminal:
+
+```bash
+psql catcollector
+```
+
+Then, we can list the tables in the database:
+
+```sql
+\dt
+```
+
+You should see a table named `main_app_cat` listed!
 
 tktk - Hunter this is the image from the notion content
 ![](./assets/database-tables.png)
@@ -638,34 +690,6 @@ The `int:` part is called a converter and it’s used to match and convert the c
 As far as the UI is concerned, clicking on a cat’s card in the `**index.html**` should trigger the request to the server to view the details of a cat.
 
 We can accomplish this by wrapping the card’s content with an `<a>` tag and setting its `href` appropriately:
-
-```html
-<section class="card-container">
-  {% for cat in cats %}
-    <div class="card">
-      {% comment %} Add this line {% endcomment %}
-      <a href="/cats/{{ cat.id }}">
-        <div class="card-content">
-          <div class="card-img-container">
-            <img 
-              src="{% static 'images/sk8r-boi-cat.svg' %}" 
-              alt="A skater boy cat"
-            >
-          </div>
-          <h2 class="card-title">{{ cat.name }}</h2>
-          {% if cat.age > 0 %}
-            <p>A {{ cat.age }} year old {{ cat.breed }}</p>
-          {% else %}
-            <p>A {{ cat.breed }} kitten.</p>
-          {% endif %}
-          <p><small>{{ cat.description }}</small></p>
-        </div>
-      {% comment %} And this line {% endcomment %}
-      </a>
-    </div>
-  {% endfor %}
-</section>
-```
 
 ```html
 <section class="card-container">

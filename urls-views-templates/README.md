@@ -31,7 +31,13 @@ INSTALLED_APPS = [
 ]
 ```
 
-## Success!
+## Run the Server
+
+Now let’s test the new app by running the server:
+
+```bash
+python manage.py runserver
+```
 
 Browse to `http://localhost:3000` and make sure you see the rocket on the page. If so then you’re all set to go in the new app.
 
@@ -42,7 +48,7 @@ tktk - Hunter this is the image from the notion content
 
 Now let’s test our database connection by getting rid of the unapplied migration message. 
 
-Run this command in the **Web Container Shell**:
+Run this command in the terminal:
 
 ```bash
 python manage.py migrate
@@ -481,6 +487,8 @@ The `static` DTL template tag ensures that the correct URL is assigned to the `h
 > Django recommends name-spacing our files within the `static` directory further, but that is overkill for this application, so we won’t be doing that here.
 
 Refresh - and red background tells us that `**base.css**` is being loaded. Let’s update it with the following more pleasing CSS. We're going to be adding the mostly complete CSS to each one of our CSS files as we go through this app, so these CSS files may look really bulky at first and we won't use all the rules initially - don't worry though we'll use it all eventually. These files also implement mobile responsiveness as well.
+
+> If you do not see the red background, you may need to restart the server. Static files are not reloaded automatically.
 
 ```css
 html {
