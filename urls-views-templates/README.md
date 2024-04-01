@@ -4,23 +4,24 @@
 
 ## Set Up the App
 
-Take a look at the `INSTALLED_APPS` list in `**catcollector/settings.py**`. Those pre-installed apps provide services such as the admin app and the ability to serve static files.
+Take a look at the `INSTALLED_APPS` list in `catcollector/settings.py`. Those pre-installed apps provide services such as the admin app and the ability to serve static files.
 
-For catcollector, as well as any other Django application you create, you will need an app to implement the main functionality, in this case collecting cats.
+For catcollector, as well as any other Django application you create, you will need an app to implement the main functionality Our main functionality in this case is collecting cats.
 
 It makes sense to name the main app generically, so let’s do it!
 
-Back to the task at hand. Run this command to create the app where we will implement the main functionality of our project:
+From the `catcollector` directory, run this command to create the app where we will implement the main functionality of our project:
 
 ```bash
 python manage.py startapp main_app
 ```
 ​
 You’ll now find a `main_app` folder within the top-level project folder. That folder has been configured to be a Python module.
-Let’s include it as part of the catcollector project by adding it to the `INSTALLED_APPS` in `**catcollector/settings.py**`:
+Let’s include it as part of the catcollector project by adding it to the `INSTALLED_APPS` in `catcollector/settings.py`:
 
 ```python
 INSTALLED_APPS = [
+  # add main_app here
 	'main_app',
 	'django.contrib.admin',
 	'django.contrib.auth',
@@ -40,6 +41,8 @@ python manage.py runserver
 ```
 
 Browse to `http://localhost:3000` and make sure you see the rocket on the page. If so then you’re all set to go in the new app.
+
+> Localhost:3000 doesn't work? Django may indicate a different server in the startup message in your console. Check there to see where your app is being served to.
 
 tktk - Hunter this is the image from the notion content
 ![](https://i.imgur.com/RozMgJ0.png)
@@ -73,13 +76,13 @@ For the HOME page functionality, we’ll use the root route (http://localhost:30
 
 ## One-time URL Setup
 
-In Django, routes are defined within **URLconf** modules named `**urls.py**`.
+In Django, routes are defined within **URLconf** modules named `urls.py`.
 
-There’s an existing project **`catcollector/urls.py`** that we could add additional routes to, but it’s a best practice for each Django app to define its own and **include** those URLs in the project’s URLconf.
+There’s an existing project `catcollector/urls.py` that we could add additional routes to, but it’s a best practice for each Django app to define its own and **include** those URLs in the project’s URLconf.
 
-> 🧠 FYI, There are some helpful comments at the top of **`catcollector/urls.py`**.
+> 🧠 FYI, There are some helpful comments at the top of `catcollector/urls.py`.
 
-So, let’s start by setting up `**main_app**`’s own `**urls.py**`:
+So, let’s start by setting up `main_app`’s own `urls.py`:
 
 1. Create the URLconf module in the terminal:
     
@@ -87,7 +90,7 @@ So, let’s start by setting up `**main_app**`’s own `**urls.py**`:
 touch main_app/urls.py
 ```
     
-2. Include it in the project’s `**catcollector/urls.py**`
+2. Include it in the project’s `catcollector/urls.py`
 
 ```python
 from django.contrib import admin
@@ -107,9 +110,9 @@ Each item in the `urlpatterns` list defines a URL-based route or, as in the case
 
 Note that similar to how Express appends paths defined in a router module to the path in `app.use`, the paths defined in `'main_app.urls'` will be appended to the path specified in the `include` function.
 
-You can close `**catcollector/urls.py**` since all routes we define from this point forward will be defined within `**main_app/urls.py**`.
+You can close `catcollector/urls.py` since all routes we define from this point forward will be defined within `main_app/urls.py`.
 
-3. Now for the boilerplate needed in `**main_app/urls.py**`:
+3. Now for the boilerplate needed in `main_app/urls.py`:
 
 ```python
 from django.urls import path
@@ -128,7 +131,7 @@ We’ve also created the required `urlpatterns` list that will hold each route w
 
 With the setup done, we’re ready to define the route to display the Home page.
 
-In `**main_app/urls.py**`:
+In `main_app/urls.py`:
 
 ```python
 urlpatterns = [
@@ -148,7 +151,7 @@ The Home page route has been defined! On to the view…
 
 In the URL for the Home page we referenced a view function named `home`.
 
-Let’s define it where we will define all of the app’s views, in `**main_app/views.py**`:
+Let’s define it where we will define all of the app’s views, in `main_app/views.py`:
 
 ```python
 from django.shortcuts import render
@@ -206,15 +209,15 @@ Not surprisingly, a Django project is pre-configured to use DTL, which is very c
 
 ## One-time Template Setup
 
-By default, a Django project is configured to look for templates inside of a `**templates**` folder within each app’s folder (`**main_app**` in this case).
+By default, a Django project is configured to look for templates inside of a `templates` folder within each app’s folder (`main_app` in this case).
 
-In the terminal let’s create that `**templates**` folder for `**main_app**` to hold all of its template files:
+In the terminal let’s create that `templates` folder for `main_app` to hold all of its template files:
 
 ```bash
 mkdir main_app/templates
 ```
 
-### Create an `**about.html**` Template
+### Create an `about.html` Template
 
 Let’s start with a simple template for the About page:
 
@@ -226,7 +229,7 @@ touch main_app/templates/about.html
     
 Note that Django templates have a simple `.html` file extension. With a proper configuration Django will identify these files as Django HTML. Ensure you have installed the [**Django extension**](https://marketplace.visualstudio.com/items?itemName=batisteo.vscode-django) in VS Code.
 
-2. Open `**about.html**` and add the boilerplate (`! + tab`) and update the `<title>`:
+2. Open `about.html` and add the boilerplate (`! + tab`) and update the `<title>`:
     
 ```html
 <!DOCTYPE html>
@@ -249,7 +252,7 @@ Note that Django templates have a simple `.html` file extension. With a proper c
 <h1>About the Cat Collector</h1>
 ```
 
-4. Now update the `about` view in `**views.py**` to `render` the **`about.html`** template instead of sending a string response:
+4. Now update the `about` view in `views.py` to `render` the `about.html` template instead of sending a string response:
     
 ```python
 # We're already importing render from django.shortcuts
@@ -284,12 +287,12 @@ The reason Django calls it template *inheritance* is because:
 
 Here's an example of how this works:
 
-`**base.html**`:
+`base.html`:
 
 tktk - Hunter this is the image from the notion content
 ![](./assets/base-html.png)
 
-`**index.html**`:
+`index.html`:
 
 tktk - Hunter this is the image from the notion content
 ![](./assets/index-html.png)
@@ -305,7 +308,7 @@ Here’s how it works in practice. Most of the job of this file will be to house
 tktk - Hunter this is the image from the notion content
 ![](./assets/template-wireframe.png)
 
-First, in the terminal, let’s create a **`base.html`** template (named by convention):
+First, in the terminal, let’s create a `base.html` template (named by convention):
 
 ```bash
 touch main_app/templates/base.html
@@ -313,7 +316,7 @@ touch main_app/templates/base.html
 
 This is the template that will hold all of the boilerplate and markup that belongs on every page, such as the `<head>`, navigation, even a footer if you wish.
 
-This will be our boilerplate for now:
+This will be our boilerplate in `main_app/templates/base.html` for now:
 
 ```html
 <!DOCTYPE html>
@@ -375,9 +378,9 @@ Hey, that’s our first look at DTL **template tags**, `block` & `endblock`, enc
 
 Django **[template tags](https://docs.djangoproject.com/en/4.2/ref/templates/builtins/#ref-templates-builtins-tags)** control logic within a template. Depending upon the tag, they may, or may not result in content being emitted in the page.
 
-Whenever another template **extends** this `**base.html**`, that other template’s `{% block content %}` will replace the same block in `**base.html**`.
+Whenever another template **extends** this `base.html`, that other template’s `{% block content %}` will replace the same block in `base.html`.
 
-To see template inheritance in action, let’s update `**about.html**` so that it extends `**base.html**`:
+To see template inheritance in action, let’s update `about.html` so that it extends `base.html`:
 
 ```html
 {% extends 'base.html' %}
@@ -397,13 +400,13 @@ Refresh. Yeah, it’s not great looking (yet), but the template inheritance is w
 
 # Including Static Files in a Template
 
-As you know, web apps usually have static files such as `**.css**`, `**.js**`, image files, etc.
+As you know, web apps usually have static files such as `.css`, `.js`, image files, etc.
 
 If we want Cat Collector to look better, we’re going to have to be able to define some custom CSS.
 
 Django projects are pre-configured with a `'django.contrib.staticfiles'` app installed for the purpose of serving static files.
 
-At the bottom of `**settings.py**`, there is a `STATIC_URL = 'static/'` variable that declares what folder within apps to look for static files in.
+At the bottom of `settings.py`, there is a `STATIC_URL = 'static/'` variable that declares what folder within apps to look for static files in.
 
 We need that folder, so let’s create it in the terminal:
 
@@ -417,7 +420,7 @@ Next, let’s create a folder within `static` dedicated to CSS in the terminal:
 mkdir main_app/static/css
 ```
 
-Now let’s create a `**base.css**` in the terminal:
+Now let’s create a `base.css` in the terminal:
 
 ```bash
 touch main_app/static/css/base.css
@@ -461,9 +464,7 @@ The end result should look like this:
 tktk - Hunter this is the image from the notion content
 ![](./assets/file-structure.png)
 
-I’ll also complete a push after this step and you can fetch the images that way if you’d prefer.
-
-And add a valid `href` to the favicon:
+And add a valid `href` to the favicon in the `head` of our `base.html`:
 
 ```html
 <link
@@ -486,9 +487,11 @@ The `static` DTL template tag ensures that the correct URL is assigned to the `h
 
 > Django recommends name-spacing our files within the `static` directory further, but that is overkill for this application, so we won’t be doing that here.
 
-Refresh - and red background tells us that `**base.css**` is being loaded. Let’s update it with the following more pleasing CSS. We're going to be adding the mostly complete CSS to each one of our CSS files as we go through this app, so these CSS files may look really bulky at first and we won't use all the rules initially - don't worry though we'll use it all eventually. These files also implement mobile responsiveness as well.
+Refresh - and red background tells us that `base.css` is being loaded. 
 
-> If you do not see the red background, you may need to restart the server. Static files are not reloaded automatically.
+Let’s update it with the following more pleasing CSS. We're going to be adding the mostly complete CSS to each one of our CSS files as we go through this app, so these CSS files may look really bulky at first and we won't use all the rules initially - don't worry though we'll use it all eventually. These files also implement mobile responsiveness as well.
+
+> If you do not see the red background, **you may need to restart the server**. Static files are not reloaded automatically.
 
 ```css
 html {
@@ -788,7 +791,7 @@ For this **index** page user story, what would the RESTful route be? `/cats`
 
 ## Step 2 - Create the UI
 
-For the UI, it makes sense to add the **View All My Cats** link to the navigation bar in `**base.html**`:
+For the UI, it makes sense to add the **View All My Cats** link to the navigation bar in `base.html`:
 
 ```html
 <!-- new markup below -->
@@ -806,7 +809,7 @@ tktk - Hunter this is the image from the notion content
 
 ## Step 3 - Define the Route
 
-Now let’s add the new route to `**main_app/urls.py**`:
+Now let’s add the new route to `main_app/urls.py`:
 
 ```python
 urlpatterns = [
@@ -817,7 +820,7 @@ urlpatterns = [
 ]
 ```
 
-We only have a single `**views.py**`, so by naming the view `cat_index` we’re anticipating that there might be another *index* view for a different resource in the future (*toys* maybe?).
+We only have a single `views.py`, so by naming the view `cat_index` we’re anticipating that there might be another *index* view for a different resource in the future (*toys* maybe?).
 
 Of course, by referencing a nonexistent view, the server’s not happy.
 
@@ -825,7 +828,7 @@ Of course, by referencing a nonexistent view, the server’s not happy.
 
 Let's simulate some cats...
 
-We’re going to use a `Cat` class to simulate a Cat Model and use it to create some cats in a `cats` list:
+We’re going to use a `Cat` class to simulate a Cat Model and use it to create some cats in a `cats` list. We'll do this in `main_app/views`:
 
 ```python
 # Add the Cat class & list and view function below the imports
@@ -846,9 +849,7 @@ cats = [
 
 > 🧠 Note: Everything in a Python module is automatically exported, thus, the Cat class and the cats list will be accessible in other modules.
 
-When working in Django, we’ll just have to get used to calling *controller actions*, **views** instead.
-
-Let’s type in the `cat_index` view inside of `**views.py**`:
+Let’s type in the `cat_index` view inside of `views.py`:
 
 ```python
 # Add new view
@@ -858,22 +859,22 @@ def cat_index(request):
 
 Two interesting things above:
 
-1. We’re going to be name-spacing the `**index.html**` template by putting it in a new `**templates/cats**` folder for organizational purposes - just like we did in Express.
+1. We’re going to be name-spacing the `index.html` template by putting it in a new `templates/cats` folder for organizational purposes - just like we did in Express.
 2. Similar to how we passed data to a template in Express using a JS object, we pass a dictionary as a third positional argument in Django’s `render` function.
 
 ## Step 5 - Respond to the Client’s HTTP Request
 
 We’ve already written the code to respond using the `render` method in the view.
 
-However, we need to create the `**cats/index.html**` template we want to render.
+However, we need to create the `cats/index.html` template we want to render.
 
-First, in the terminal, we need to create the `**templates/cats**` folder we’ll use to organize cat related templates:
+First, in the terminal, we need to create the `templates/cats` folder we’ll use to organize cat related templates:
 
 ```bash
 mkdir main_app/templates/cats
 ```
 
-Now in the terminal, create the `**cats/index.html**` template file:
+Now in the terminal, create the `cats/index.html` template file:
 
 ```bash
 touch main_app/templates/cats/index.html

@@ -41,7 +41,7 @@ class Cat(models.Model):
     return self.feeding_set.filter(date=date.today()).count() >= len(MEALS)
 ```
 
-Be sure to add the import at the top of `**models.py**`.
+Be sure to add the import at the top of `models.py`.
 
 The `fed_for_today` method demonstrates the use of `filter()` to obtain a `<QuerySet>` for today’s feedings, then `count()` is chained on to the query to return the actual number of objects returned.
 
@@ -55,7 +55,7 @@ because this code would return all objects from the database when all we need is
 
 ## Update the **`detail.html`** Template
 
-All that’s left is to sprinkle in a little template code like this:
+All that’s left is to sprinkle in a little template code into `detail.html`:
 
 ```html
     <form
@@ -95,7 +95,7 @@ class Toy(models.Model):
     return reverse('toy-detail', kwargs={'pk': self.id})
 ```
 
-A new model means new entry in `**admin.py**`. Here it is!
+A new model means new entry in `admin.py`. Here it is!
 
 ```python
 from django.contrib import admin
@@ -122,13 +122,13 @@ Here's our wireframe for adding toys - the concept here was to have the Add a To
 tktk - Hunter this is the image from the notion content
 ![](./assets/add-toy-wireframe.png)
 
-Start by adding the URL we want to create in `**main_app/urls.py**`.
+Start by adding the URL we want to create in `main_app/urls.py`.
 
 ```python
   path('toys/create/', views.ToyCreate.as_view(), name='toy-create'),
 ```
 
-Update the `**base.html**` with the new link so that we can get to the template we're going to build.
+Update the `base.html` with the new link so that we can get to the template we're going to build.
 
 ```html
         <ul>
@@ -140,7 +140,7 @@ Update the `**base.html**` with the new link so that we can get to the template 
         </ul>
 ```
 
-Add the Class Based View to create for the `Toy` model. Make sure you import the Toy model!
+Add the Class Based View to create for the `Toy` model in `main_app/views.html`. Make sure you import the Toy model!
 
 ```python
 from .models import Cat, Toy
@@ -292,7 +292,7 @@ mkdir main_app/static/css/toys
 touch main_app/static/css/toys/toy-index.css main_app/static/css/toys/toy-detail.css
 ```
 
-And here's the CSS for this page:
+And here's the CSS for `toy-index.css`:
 
 ```css
 .card-container {

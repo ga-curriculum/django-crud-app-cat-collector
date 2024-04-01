@@ -18,13 +18,13 @@ If we did need additional capability, it usually meant installing and configurin
 
 Unlike Express, Django, is a full-featured web framework that provides a lot of built-in functionality.
 
-However, Django has many *conventions*, and it expects us to follow its rules.
+Django has many *conventions*, and it expects us to follow its rules.
 
 You will find that Django has all sorts of *helper* classes, methods, etc.
 
 What Express has to offer can be grasped in a matter of days, whereas Django could take months to feel comfortable with what it has to offer.
 
-Luckily for us though, the basics aren’t too bad though, as long as you don’t try to learn every little detail about each helper, etc.
+Luckily for us, the basics of Django aren’t too bad, as long as you keep it simple.
 
 # The Request/Response Cycle in Django
 
