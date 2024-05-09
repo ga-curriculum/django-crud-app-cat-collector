@@ -26,7 +26,7 @@ tktk - Hunter, sorry this is not the original from the notion content. For some 
 <details>
 <summary>What file are we going to add the new Feeding Model in?</summary>
 
-`**main_app/models.py**`
+`main_app/models.py`
 </details>
 
 ## Creating the basics for the `Feeding` Model
@@ -40,7 +40,7 @@ class Feeding(models.Model):
   meal = models.CharField(max_length=1)
 ```
 
-Note that we’re going to use just a single-character to represent what meal the feeding is for: **B**reakfast, **L**unch or **D**inner…
+Note that we’re going to use just a single-character to represent what meal the feeding is for: ***B***reakfast, ***L***unch or ***D***inner…
 
 ## Field.choices
 
@@ -142,7 +142,7 @@ You know about the Django Admin Portal now so we're going to skip out on adding 
 
 Remember, before a Model can be CRUD’d using the built-in Django admin portal, the Model must be registered.
 
-Update `**main_app/admin.py**` so that it looks as follows:
+Update `main_app/admin.py` so that it looks as follows:
 
 ```python
 from django.contrib import admin
@@ -167,7 +167,7 @@ Let’s say though that you would like a less vague label than **Date**.
 
 Because Django subscribes to the philosophy that **a Model is the single, definitive source of truth about your data**, you can bet that’s where we will add customization.
 
-In `**main_app/models.py**`, add the desired user-friendly label to the field-type like so:
+In `main_app/models.py`, add the desired user-friendly label to the field-type like so:
 
 ```python
 class Feeding(models.Model):
@@ -191,7 +191,7 @@ Just like it would make sense in an app to show *comments* for a *post* when tha
 
 No additional views or templates necessary. All we have to do is update the **`detail.html`**.
 
-Here’s the new content of `**detail.html**`. Best to copy/paste this new markup, then we’ll review:
+Here’s the new content of `detail.html`. Best to copy/paste this new markup, then we’ll review:
 
 ```html
     </div>
@@ -285,9 +285,9 @@ For more options, check out the **[Django ModelForms documentation](https://docs
 
 ## Passing an Instance of `FeedingForm`
 
-`FeedingForm` is a class that needs to be instantiated in the `cat_detail` view function so that it can be rendered inside of `**detail.html**`.
+`FeedingForm` is a class that needs to be instantiated in the `cat_detail` view function so that it can be rendered inside of `detail.html`.
 
-Here’s the updated `cat_detail` view function in `**views.py**`:
+Here’s the updated `cat_detail` view function in `main_app/views.py`:
 
 ```python
 from .models import Cat
@@ -307,7 +307,7 @@ def cat_detail(request, cat_id):
   })
 ```
 
-`feeding_form` is set to an instance of `FeedingForm` and then it’s passed to `**detail.html**` just like `cat`.
+`feeding_form` is set to an instance of `FeedingForm` and then it’s passed to `detail.html` just like `cat`.
 
 ## Displaying `FeedingForm` Inside of **`detail.html`**
 
@@ -315,7 +315,7 @@ Okay, so we’re going to need a form used to submit a new feeding.
 
 We’re going to display a `<form>` at the top of the feedings column in **`detail.html`**.
 
-This is how we can “render” the `ModelForm`’s inputs within `<form>` tags in `**templates/cats/detail.html**`:
+This is how we can “render” the `ModelForm`’s inputs within `<form>` tags in `templates/cats/detail.html`:
 
 ```html
     </div>
@@ -355,6 +355,7 @@ We're going to use [**MCDatepicker**](https://mcdatepicker.netlify.app/) to allo
 
 ```html
 {% block head %}
+<!--new content-->
 <link 
   href="https://cdn.jsdelivr.net/npm/mc-datepicker/dist/mc-calendar.min.css" 
   rel="stylesheet" 
@@ -364,6 +365,7 @@ We're going to use [**MCDatepicker**](https://mcdatepicker.netlify.app/) to allo
   src="https://cdn.jsdelivr.net/npm/mc-datepicker/dist/mc-calendar.min.js"
 >
 </script>
+<!--existing css link-->
 <link 
   rel="stylesheet" 
   type="text/css" 
@@ -467,6 +469,8 @@ It takes three steps to get the input the way we want it:
 
 That's right, we're doing a Unit 1 throwback! The good news is though is that we're only 12 lines away from a functioning date picker!
 
+In your `main_app/static/js/cat-detail`:
+
 ```jsx
 const dateInput = document.getElementById('id_date')
 
@@ -498,7 +502,7 @@ tktk - Hunter this is the image from the notion content
 
 Now let’s make this form work!
 
-## Add Another `path(...)` to `urls.py`
+## Add Another `path(...)` to `main_app/urls.py`
 
 Every `Feeding` object needs a `cat_id` that holds the primary key of the cat object that it belongs to.
 
@@ -513,11 +517,11 @@ urlpatterns = [
 ]
 ```
 
-The above route is basically saying that the `<form>`’s **action** attribute will need to look something like `**/cats/2/add-feeding**`. Let’s go there now…
+The above route is basically saying that the `<form>`’s **action** attribute will need to look something like `/cats/2/add-feeding`. Let’s go there now…
 
 ## Add the `action` Attribute to the `<form>`
 
-Now that we have a *named URL*, let’s add the `action` attribute to the `<form>` in `**detail.html**`:
+Now that we have a *named URL*, let’s add the `action` attribute to the `<form>` in `detail.html`:
 
 ```html
     <h3>Add a Feeding</h3>
@@ -544,7 +548,7 @@ We won’t be able to refresh and check it out until we add the `views.add_feedi
 
 ## Add the `views.add_feeding` View Function to `views.py`
 
-Let’s start by stubbing up an `add_feeding` view function in `**views.py**` so that the server will start back up and we can inspect our `<form>`:
+Let’s start by stubbing up an `add_feeding` view function in `main_app/views.py` so that the server will start back up and we can inspect our `<form>`:
 
 ```python
 ...
@@ -600,7 +604,7 @@ Two quick details. First, it would be nice to have the most recent dates display
 
 Yup, *a Model is the single, definitive source of truth…*
 
-The answer lies in adding a `class Meta` with the `ordering` *Model Meta option* within the `Feeding` Model:
+The answer lies in adding a `class Meta` with the `ordering` *Model Meta option* within the `Feeding` Model. Let's update it:
 
 ```python
 class Feeding(models.Model):
@@ -614,7 +618,7 @@ class Feeding(models.Model):
     ordering = ['-date']
 ```
 
-Second, let's show that a cat hasn't been fed when there are no feedings associated with it. It's easier than you think!
+Second, let's show that a cat hasn't been fed when there are no feedings associated with it. It's easier than you think! Let's update the cat detail template:
 
 ```html
     <h3>Past Feedings</h3>

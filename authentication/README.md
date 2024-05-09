@@ -59,7 +59,7 @@ The functionality of Cat Collector is about to change!
 
 By the end of this lesson, with authentication implemented, all cats will belong to a user.
 
-Ordinarily, it’s important to implement an app’s authentication up front to avoid having to make the changes to the code we’re going to have to make in Cat Collector.
+< Ordinarily, it’s important to implement an app’s authentication up front to avoid having to make the changes to the code we’re going to have to make in Cat Collector. For the sake of learning purposes, we're completing it last.
 
 ## Update the `Cat` Model
 
@@ -146,7 +146,7 @@ Django provides several class-based views that we can use for handling logging i
 
 However, before we can use those views, we’ll need URLs to map to them.
 
-Lucky for us, the `django.contrib.auth` module contains predefined URLS that we can simply `include` like this in **`catcollector/urls.py`**:
+Lucky for us, the `django.contrib.auth` module contains predefined URLS that we can simply `include` like this in **`catcollector/urls.py`**. Let's do so now:
 
 ```python
 ...
@@ -180,7 +180,7 @@ I know, it looks like there’s a lot there, but don’t worry, we get to pick a
 
 We're going to convert the existing `home` view function to a CBV that inherits from the `LoginView` class.
 
-First import this class:
+First import this class into `main_app/views.py`:
 
 ```python
 from django.contrib.auth.views import LoginView
@@ -193,13 +193,13 @@ class Home(LoginView):
   template_name = 'home.html'
 ```
 
-Don't forget to update `**urls.py**` to use the new CBV.
+Don't forget to update `main_app/urls.py` to use the new CBV.
 
 ```python
 path('', views.Home.as_view(), name='home'),
 ```
 
-When `LoginView` renders the `**home.html**` template, it passes in the context a default `form` object we can display in `**home.html`.** Add it after the existing section:
+When `LoginView` renders the `home.html` template, it passes in the context a default `form` object we can display in `home.html`.** Add it after the existing section:
 
 ```html
   />
@@ -231,7 +231,7 @@ Here's our new home page!
 tktk - Hunter this is the image from the notion content
 ![](./assets/home-login.png)
 
-You can log in now, but you’ll get an error because by default, the login view redirects to `**/accounts/profile**`, but we can change this…
+You can log in now, but you’ll get an error because by default, the login view redirects to `/accounts/profile`, but we can change this…
 
 ## Specifying the Default Redirect After Logging In
 
@@ -273,7 +273,7 @@ Thanks again to the built-in auth, we automatically have a `user` variable avail
 
 To check if the user is logged in, we simply use `user.is_authenticated`, which returns `True` when logged in and `False` otherwise.
 
-With this knowledge in hand, let’s make the nav bar dynamic in `**base.html**`:
+With this knowledge in hand, let’s make the nav bar dynamic in `base.html`:
 
 ```html
       <nav>
@@ -309,7 +309,7 @@ tktk - Hunter this is the image from the notion content
 
 Nice!
 
-We also want to prevent the login form from being shown when there is a user logged in. A simple `if` template tag will accomplish this:
+We also want to prevent the login form from being shown when there is a user logged in. A simple `if` template tag in `home.html` will accomplish this:
 
 ```html
 {% if not user.is_authenticated %}
@@ -370,7 +370,7 @@ In Python, methods inherited by the superclass can be invoked by prefacing the m
 
 Okay, let’s check out the refactor by:
 
-- First, opening the admin app: http://localhost:3000/admin
+- First, venture to the `/admin` route in a separate tab in your browser
 - Click on **Cats**
 - Select a cat and verify the user is assigned to it
 - Leave the admin app open, and go add a new cat in Cat Collector
@@ -384,7 +384,7 @@ Unfortunately, Django’s built-in auth does not provide a URL or view for signi
 
 ## Add a URL
 
-First we’ll add the last URL pattern to this application, which will implement the sign up functionality in `**main_app/urls.py**`:
+First we’ll add the last URL pattern to this application, which will implement the sign up functionality in `main_app/urls.py`:
 
 ```python
 path('cats/<int:cat_id>/assoc-toy/<int:toy_id>/', views.assoc_toy, name='assoc-toy'),
@@ -447,7 +447,7 @@ There’s really no way to remember that code, so just refer to this lesson, the
 
 ## Add the **Sign Up** Link to the Nav
 
-Now that we know the URL, we can add a **Sign Up** link to the nav in `**base.html**`:
+Now that we know the URL, we can add a **Sign Up** link to the nav in `base.html`:
 
 ```html
           {% else %}
@@ -465,7 +465,7 @@ Run the following in the terminal:
 touch main_app/templates/signup.html
 ```
 
-Here's the code for `**signup.html**`:
+Here's the code for `signup.html`:
 
 ```html
 {% extends 'base.html' %}
@@ -510,7 +510,7 @@ However, notice that the form does not include inputs for the user’s:
 
 To include these, you’ll have to create your own `ModelForm` based upon the `User` Model.
 
-If you want to remove some of the password validations, you can comment them out or remove them from the `AUTH_PASSWORD_VALIDATORS` list in `**settings.py**`.
+If you want to remove some of the password validations, you can comment them out or remove them from the `AUTH_PASSWORD_VALIDATORS` list in `settings.py`.
 
 You should now be able to sign up!
 
@@ -551,7 +551,7 @@ Of course Django provides an easy way to protect both function and class-based v
 
 To protect view functions, we use the `login_required` decorator.
 
-First we need to import it near the top of `**views.py**`:
+First we need to import it near the top of `views.py`:
 
 ```python
 ...
@@ -568,9 +568,9 @@ def cat_index(request):
   ...
 ```
 
-Trying to browse to http://localhost:3000/cats while not logged in will now send you to the Log In page!
+Trying to browse to http://localhost:3000/cats - it throws an error!
 
-This doesn't quite work yet though - we need to tell Django where we want these decorators and mixins to actually redirect to. We just need to add a `LOGIN_URL` to our `settings.py` file and have it redirect to the `'home'` URL:
+To complete this, we need to tell Django where we want these decorators and mixins to actually redirect to. We just need to add a `LOGIN_URL` to our `settings.py` file and have it redirect to the `'home'` URL:
 
 ```python
 STATIC_URL = '/static/'
@@ -582,6 +582,8 @@ LOGIN_REDIRECT_URL = 'cat-index'
 
 LOGOUT_REDIRECT_URL = 'home'
 ```
+
+You'll now be navigated to the login page if you try to navigate to that url without signing in.
 
 Be sure to add the `@login_required` to these remaining view functions:
 

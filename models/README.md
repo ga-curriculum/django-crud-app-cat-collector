@@ -27,7 +27,7 @@ First we need a file, so in the terminal:
 touch main_app/templates/home.html
 ```
 
-Instead of using `HttpResponse` to send back a string, let's render `**home.html**`. 
+In `main_app/views`, let's update our `home` view so that it renders `home.html` instead of using `HttpResponse` to send back a string:
 
 ```python
 def home(request):
@@ -37,7 +37,7 @@ def home(request):
 > ❗ Note that since the `HttpResponse` function is no longer being used in `views.py`, its import can be removed.
 
 
-Extend the template we're using as a base and add a simple `<section>`:
+Let's go to our new `home.html` template. There we'll update it to extend the our base template and add in a simple `<section>`:
 
 ```html
 {% extends 'base.html' %}
@@ -62,11 +62,13 @@ Extend the template we're using as a base and add a simple `<section>`:
 {% endblock %}
 ```
 
-New html file, new CSS file, let's do it! In the terminal:
+New html file means new CSS file. In the terminal:
 
 ```bash
 touch main_app/static/css/home.css
 ```
+
+In your new file add in:
 
 ```css
 main {
@@ -157,6 +159,8 @@ main > section {
 }
 ```
 
+Navigate to `http://locahost:3000` and see your new homepage in action!
+
 # What’s a Model?
 
 **Models** are used to perform CRUD data operations on a database.
@@ -185,16 +189,28 @@ Here’s the **Cat** entity from an ERD and the code to define the equivalent Mo
 tktk - Hunter this is the image from the notion content
 ![](https://i.imgur.com/gwlOAXc.png)
 
-All of the Models for an app are defined in the app’s `models.py` file.
+## Creating the Model
 
-Let’s create the `Cat` Model!
+All of the Models for an app are defined in the app’s `models.py` file. 
 
-Note that each field (attribute) is represented by a Field class, e.g., `CharField`. Here are the **[docs of available Field types](https://docs.djangoproject.com/en/4.2/ref/models/fields/#model-field-types)** - there’s plenty of options.
+Let’s create the `Cat` into `main_app/models`:
 
-It’s important to note that the Field types for a Model don’t just determine the column’s data type in the table, Django also uses this information:
+```python
+from django.db import models
 
-- To implement some validation in automatically-generated forms.
-- To determine the default HTML **[widget](https://docs.djangoproject.com/en/4.2/ref/forms/widgets/)** to render in forms for the Model. For example, a `CharField` uses a `<input type="text">` as its *widget*, whereas, a `TextField` uses a `<textarea>`.
+class Cat(models.Model):
+    name = models.CharField(max_length=100)
+    breed = models.CharField(max_length=100)
+    description = models.TextField(max_length=250)
+    age = models.IntegerField()
+```
+
+> Note that each field (attribute) is represented by a Field class, e.g., `CharField`. Here are the **[docs of available Field types](https://docs.djangoproject.com/en/4.2/ref/models/fields/#model-field-types)** - there’s plenty of options.
+
+>It’s also important to note that the Field types for a Model don’t just determine the column’s data type in the table, Django also uses this information:
+
+> - To implement some validation in automatically-generated forms.
+> - To determine the default HTML **[widget](https://docs.djangoproject.com/en/4.2/ref/forms/widgets/)** to render in forms for the Model. For example, a `CharField` uses a `<input type="text">` as its *widget*, whereas, a `TextField` uses a `<textarea>`.
 
 ## Adding a `__str__` Method
 
@@ -258,7 +274,7 @@ DATABASES = {
 
 Currently, Django is defaulted to using this sqlite3 database. This would be fine, but we want to use PostgreSQL instead.
 
-Update the above to look like:
+**Update the above to look like:**
 
 ```py
 DATABASES = {
@@ -339,6 +355,8 @@ tktk - Hunter this is the image from the notion content
 You’ll find quite a few tables named like `django_*`. These tables are used by the framework to track migrations, server-side sessions, etc.
 
 You’ll also find several tables named like `auth_*`. These were created by the `django.contrib.auth` app that’s listed in the `INSTALLED_APPS` variable within `settings.py`.
+
+You can quit the shell using `\q`.
 
 ## Review Questions ❓
 
@@ -427,7 +445,7 @@ Besides `Cat.objects.all()`, let’s see some of the other common ORM operations
 
 ## Give Me a “C”
 
-Here’s how we can create an in-memory model (an instance of a Model) and then save it to the database:
+Here’s how we can create an in-memory model (an instance of a Model) and then save it to the database. In the terminal:
 
 ```python
 c = Cat(name='Biscuit', breed='Sphinx', description='Cuddle monster. Hairless.', age=2)
@@ -447,7 +465,7 @@ And now as if by magic:
 c.id
 ```
 
-Will return a `1`. We’ve crated a cat!
+Will return a `1`. We’ve created a cat!
 
 ## Give Me a “R”
 
@@ -577,13 +595,15 @@ Poor old cat:
 Cat.objects.order_by('-age')[0]
 ```
 
+You can now quit the shell using `quit()`.
+
 # Let’s Get Coding!
 
 Time to add some of this ORM magic to the Cat Collector app!
 
 Currently, we are “faking” the data with a `list` of cats.
 
-Time to update `**main_app/views.py**`…
+Time to update `main_app/views.py`…
 
 First let’s be sure to remove the `class Cat...` and the `cats` list.
 
@@ -614,7 +634,7 @@ But wait, there’s another really REALLY ***REALLY*** neat thing about Django -
 
 A *super user* is an administrator for the site. When you are logged in to this account, you can access the Admin app to add additional users and manipulate Model data.
 
-Run this command in the terminal:
+Run this command in the terminal and follow the prompts to create your user:
 
 ```bash
 python3 manage.py createsuperuser
@@ -622,9 +642,7 @@ python3 manage.py createsuperuser
 
 Django will want you to create a password that’s at least 8 characters long and complex, however, you can bypass it by typing `y` at the warning prompt.
 
-You will be prompted to enter a username, email address, and a password.
-
-Now go to your webpage and head over to the `/admin` route to see an *administration* portal!
+Now go to your webpage and navigate to the `/admin` route to see an *administration* portal!
 
 Did you mess up your password? It’s no biggie. Go back to your terminal and use this handy command:
 
@@ -632,7 +650,7 @@ Did you mess up your password? It’s no biggie. Go back to your terminal and us
 python3 manage.py changepassword <user_name>
 ```
 
-But I don’t see **Cats**! That’s because in order to manipulate Cat data, we need to “register” the `Cat` Model so that the admin portal knows about.
+But I don’t see **Cats** data! That’s because in order to manipulate Cat data, we need to “register” the `Cat` Model so that the admin portal knows about.
 
 We register our Models in the `main_app/admin.py` file:
 
@@ -667,8 +685,8 @@ When adding additional functionality to a web app we need to do the following:
 
 1. With Django, decide the appropriate URL for the route. Because Django does not follow the RESTful routing methodology, you are free to name the URLs as you see fit.
 2. Add the UI that is going to trigger the HTTP request to be sent to the server. For example, adding a `<form>` to submit a new cat.
-3. Code the route on the server. In the case of Django, this is done by adding an additional `path(...)` to the `urlpatterns` list within the app’s `**urls.py**` module. **Each entry in `urlpatterns` determines what code will run when the URL matches an HTTP request**.
-4. Now you need to add the *view function* referenced by the `path(...)` inside of the `**views.py**` module. The *view function* contains the code to perform CRUD, etc. It ultimately is responsible for responding to the client’s request…
+3. Code the route on the server. In the case of Django, this is done by adding an additional `path(...)` to the `urlpatterns` list within the app’s `urls.py` module. **Each entry in `urlpatterns` determines what code will run when the URL matches an HTTP request**.
+4. Now you need to add the *view function* referenced by the `path(...)` inside of the `views.py` module. The *view function* contains the code to perform CRUD, etc. It ultimately is responsible for responding to the client’s request…
 5. If data was changed, respond with a **redirect**. Otherwise, you’ll typically **render** a *template*, optionally passing data to it. If a *template* is required, write it and you’re done - other than debugging.
 
 Make it a habit to follow the steps above anytime you need new functionality in your app.
@@ -687,7 +705,7 @@ The `int:` part is called a converter and it’s used to match and convert the c
 
 ### Step 2
 
-As far as the UI is concerned, clicking on a cat’s card in the `**index.html**` should trigger the request to the server to view the details of a cat.
+As far as the UI is concerned, clicking on a cat’s card in the `templates/cats/index.html` should trigger the request to the server to view the details of a cat.
 
 We can accomplish this by wrapping the card’s content with an `<a>` tag and setting its `href` appropriately:
 
@@ -721,13 +739,13 @@ We can accomplish this by wrapping the card’s content with an `<a>` tag and se
 
 The above is pretty similar to what we did in EJS templates.
 
-After refreshing the page, hover over a cat card and check the URL in the bottom-left of the browser window. It should look something like: `**http://localhost:3000/cats/2**`.
+After refreshing the page, hover over a cat card and check the URL in the bottom-left of the browser window. It should look something like: `http://localhost:3000/cats/2`.
 
 Cool, on to the next step…
 
 ### Step 3
 
-Now that clicking a cat card is going to send a request like `GET /cats/1`, we need to add a new route entry to the `urlpatterns` list in `**urls.py**` that will match this request:
+Now that clicking a cat card is going to send a request like `GET /cats/1`, we need to add a new route entry to the `urlpatterns` list in `main_app/urls.py` that will match this request:
 
 ```python
 urlpatterns = [
@@ -741,7 +759,7 @@ urlpatterns = [
 
 ### Step 4
 
-As you know, *view functions* are defined within `**views.py**`.
+As you know, *view functions* are defined within `views.py`.
 
 Here’s the new `cat_detail` function:
 
@@ -761,11 +779,11 @@ The `cat_detail` function is using the `get` method to obtain the cat object by 
 
 ### Step 5
 
-So we want to render the cat data within a `**detail.html**` template…
+So we want to render the cat data within a `detail.html` template…
 
-The `cat_detail` view function is passing a dictionary of data (called the *context*) to a template called `**detail.html**`.
+The `cat_detail` view function is passing a dictionary of data (called the *context*) to a template called `detail.html`.
 
-Create that `**detail.html**` template with the following command in the terminal:
+Create that `detail.html` template with the following command in the terminal:
 
 ```bash
 touch main_app/templates/cats/detail.html
@@ -1051,7 +1069,7 @@ tktk - Hunter this is the image from the notion content
 
 Although everything works nicely, hand-coding the URLs in templates, is not considered a good practice because during development, URL’s may change.
 
-For example, in `**index.html**`, we find:
+For example, in `cats/index.html`, we find:
 
 ```html
 ...
@@ -1062,7 +1080,7 @@ For example, in `**index.html**`, we find:
 
 Django has a better way!
 
-Let’s take another look at the `urlpatterns` in `**urls.py**`:
+Let’s take another look at the `urlpatterns` in `urls.py`:
 
 ```python
 urlpatterns = [
@@ -1075,7 +1093,7 @@ urlpatterns = [
 
 That `name` argument within each `path` is used to obtain the correct URL in templates using DTL’s `url` template tag!
 
-In `index.html`, replace this code:
+In `cats/index.html`, replace this code:
 
 ```html
 <a href="/cats/{{cat.id}}">

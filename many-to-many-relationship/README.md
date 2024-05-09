@@ -48,6 +48,8 @@ class Cat(models.Model):
   toys = models.ManyToManyField(Toy)
 ```
 
+> Tip: If you don't already have your `Toy` model above your `Cat` model, move it there now. This will save you from a `toy not defined` error.
+
 ## Make and Run the Migration
 
 Because we’ve made a change to a Model that impacts the database’s schema, we must make a migration and migrate it to update the database with the terminal.
@@ -80,7 +82,7 @@ This isn't great. Right now when we add a cat we are forced to give it at least 
 
 ***Where do we need to make this change?***
 
-Here's the new `CatCreate` class:
+Here's the new `CatCreate` class in `main_app/views`:
 
 ```python
 fields = ['name', 'breed', 'description', 'age']
@@ -94,7 +96,7 @@ fields = ['name', 'breed', 'description', 'age']
 
 ## Displaying a List of Associated Toys
 
-Displaying a cat’s toys is just a matter of updating `**templates/cats/detail.html**`:
+Displaying a cat’s toys is just a matter of updating `templates/cats/detail.html`:
 
 ```html
 	  {% endif %}
@@ -153,7 +155,7 @@ To be able to display the list of unassociated toys, we’ll need to query for t
 
 The query to find all toys that a cat doesn’t have is a bit complicated, but it demonstrates the power of the Django ORM.
 
-In `**views.py**` update `cats_detail` as follows:
+In `views.py` update `cats_detail` as follows:
 
 ```python
 def cat_detail(request, cat_id):
@@ -177,7 +179,7 @@ cat.toys.all().values_list('id')
 
 Finally, we are passing the toys to the template by adding it to the context dictionary.
 
-Now for more markup to display the toys the cat doesn’t have:
+Now for more markup in `detail.py` to display the toys the cat doesn’t have:
 
 ```html
     <h3>Available Toys</h3>
@@ -236,7 +238,7 @@ As you can see, we’ve created two route parameters: `cat_id` and `toy_id`.
 
 Now let’s make sure the form will post to this route.
 
-Now that we know have defined the route and named it, we can use the `url` template tag to write out the proper URL in the form’s `action`:
+Now that we know have defined the route and named it, we can use the `url` template tag to write out the proper URL in the available toy form’s `action`:
 
 ```html
 <form action="{% url 'assoc-toy' cat.id toy.id %}" method="post">
@@ -249,7 +251,7 @@ Note how we need to provide both `id`s as space-separated parameters in the orde
 
 We’re done as soon as we write the `views.assoc_toy`:
 
-In `**views.py**`:
+In `views.py`:
 
 ```python
 def assoc_toy(request, cat_id, toy_id):

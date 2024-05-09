@@ -61,4 +61,4 @@ To deactivate the virtual environment when you're done, simply type:
 exit
 ```
 
-During this lesson we will be using premade assets for images. These images are located in the `lesson-assets` folder. Copy the `lesson-assets` folder into your project directory.
+During this lesson we will be using premade assets for images. These images are located in the [`lesson-assets`](./assets/) folder. Download the contents `lesson-assets` folder, create an `img` directory into your project directory, then either drag and drop the images into `img` or move them using the `mv` command.
