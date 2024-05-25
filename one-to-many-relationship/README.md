@@ -1,61 +1,45 @@
-# ![Django CRUD App - Cat Collector - tktk Microlesson Name](./assets/hero.png)
+# ![Django CRUD App - Cat Collector - One-to-Many Relationship](./assets/hero.png)
 
 **Learning objective:** By the end of this lesson, students will be able to tktk
 
-# Ready the Starter Code
+# A cat’s got to eat!
 
-This lesson will pick up from where [Django Class-based Views](../class-based-views/README.md) left off.
+In this lesson, we'll explore how to add another model in Django to demonstrate working with **one-to-many** relationships.
 
-# A Cat’s Got to Eat!
+We'll use an Entity-Relationship Diagram (ERD) to illustrate this relationship:
 
-In this lesson we’re going to look at how to add another model that demonstrates working with **one-to-many** relationships in Django.
+![tktk - Hunter, can we get a new erd here](./assets/one-to-many-erd.png)
 
-Let’s go with this relationship:
+In this relationship, each cat will have many feedings, and each feeding will belong to a specific cat.
 
-tktk - Hunter, sorry this is not the original from the notion content. For some reason this one would not let me save as and it's not am imgur link.
-![](./assets/one-to-many-erd.png)
+## Adding a new `Feeding` Model
 
-<details>
-<summary>How does the above relationship read?</summary>
-
-“A Cat has many Feedings” -and- “A Feeding belongs to a Cat”
-</details>
-
-# Add the New `Feeding` Model
-
-<details>
-<summary>What file are we going to add the new Feeding Model in?</summary>
-
-`main_app/models.py`
-</details>
-
-## Creating the basics for the `Feeding` Model
-
-Using the ERD above as a guide, let’s add the new `Feeding` Model (below the current `Cat` Model):
+Using the ERD above as a guide, let’s add a new `Feeding` Model (below the current `Cat` Model) in our `models.py`:
 
 ```python
 # Add new Feeding model below Cat model
+
 class Feeding(models.Model):
   date = models.DateField()
   meal = models.CharField(max_length=1)
 ```
 
-Note that we’re going to use just a single-character to represent what meal the feeding is for: ***B***reakfast, ***L***unch or ***D***inner…
+> Note that we’re going to use just a single-character to represent what meal the feeding is for: ***B***reakfast, ***L***unch or ***D***inner.
 
 ## Field.choices
 
-Django has a feature, **[Field.choices](https://docs.djangoproject.com/en/4.2/ref/models/fields/#choices)**, that will make the single-characters more user-friendly by automatically generating a select dropdown in the form using descriptions that we define.
+Django has a feature, **[Field.choices](https://docs.djangoproject.com/en/5.0/ref/models/fields/#choices)**, that will make the single-characters more user-friendly by automatically generating a select dropdown in the form using descriptions that we define.
 
 The first step is to define a tuple of 2-tuples. Because we might need to access this tuple within the `Cat` class also, let’s define it above both of the Model classes:
 
 ```python
-# A tuple of 2-tuples
+# A tuple of 2-tuples added above our models
 MEALS = (
   ('B', 'Breakfast'),
   ('L', 'Lunch'),
   ('D', 'Dinner')
 )
-# new code above
+
 
 class Cat(models.Model):
 ```
@@ -95,7 +79,7 @@ Check out the convenient `get_meal_display()` method Django automagically create
 
 ## Add the Foreign Key
 
-Since a `Feeding` **belongs to** a `Cat`, it must hold the `id` of the cat object it belongs to - yup, it needs a **foreign key**!
+Since a `Feeding` **belongs to** a `Cat`, it must hold the `id` of the cat object it belongs to - it needs a **foreign key**!
 
 Here’s how it’s done - Django style:
 
@@ -107,7 +91,7 @@ class Feeding(models.Model):
 		choices=MEALS,
 		default=MEALS[0][0]
   )
-  # Create a cat_id column in the database
+  # Create a cat_id column for each feeding in the database
   cat = models.ForeignKey(Cat, on_delete=models.CASCADE)
 
   def __str__(self):
@@ -116,13 +100,13 @@ class Feeding(models.Model):
 
 As you can see, the `ForeignKey` field-type is used to create a one-to-many relationship.
 
-The first argument provides the parent Model.
+- The first argument provides the parent Model, `Cat`.
 
-In a one-to-many relationship, the `on_delete=models.CASCADE` is required. It ensures that if a Cat record is deleted, all of the child Feedings will be deleted automatically as well - thus avoiding *orphan* records.
+- In a one-to-many relationship, the `on_delete=models.CASCADE` is required. It ensures that if a `Cat` record is deleted, all of the child `Feedings` will be deleted automatically as well - thus avoiding *orphan* records.
 
-> 🧠 In the database, the column in the feedings table for the FK will actually be called cat_id because Django by default appends _id to the name of the attribute we use in the Model.
+> 🧠 In the database, the column in the feedings table for the FK will actually be called `cat_id` because Django by default appends `_id` to the name of the attribute used in the Model.
 
-# Make and Run the Migration
+## Make and Run the Migration
 
 We changed our `models.py` file, so it’s that time again! Open your terminal and run:
 
@@ -136,68 +120,68 @@ Then run:
 python3 manage.py migrate
 ```
 
-# Don’t Forget the Admin Portal
+## Use the Admin Portal to create some new feedings
 
-You know about the Django Admin Portal now so we're going to skip out on adding data in the Django shell (check out the **Level Up 🚀** if you want to see some examples of this with a feeding).
+Before we start building the user interface (UI) for our new feedings model, let's practice adding a few feedings using the Django admin portal. This will give us some data to display and allow us to create our feedings' index UI first.
 
-Remember, before a Model can be CRUD’d using the built-in Django admin portal, the Model must be registered.
+### Registering the Model
 
-Update `main_app/admin.py` so that it looks as follows:
+To use the built-in Django admin portal for CRUD operations, we must first register the model. Update `main_app/admin.py` to include the `Feeding` model:
 
 ```python
 from django.contrib import admin
-# add Feeding to the import
+# Add Feeding to the import
 from .models import Cat, Feeding
 
 admin.site.register(Cat)
-# register the new Feeding Model 
+# Register the new Feeding model
 admin.site.register(Feeding)
 ```
 
-Now browse to http://localhost:3000/admin and click on the **Feeding +Add** link.
+Now, navigate to `http://127.0.0.1:8000/admin` and click on the **Feeding +Add** link.
 
-tktk - Hunter this is the image from the notion content
-![](./assets/django-admin.png)
 
-Check out those select drop-downs for assigning both the Meal and the Cat!
+![Django Admin UI Add Feeding](./assets/django-admin-add.png)
 
-## Custom Field Labels
+Notice the select drop-downs for assigning both the Meal and the Cat!
 
-Let’s say though that you would like a less vague label than **Date**.
+## Custom field labels
 
-Because Django subscribes to the philosophy that **a Model is the single, definitive source of truth about your data**, you can bet that’s where we will add customization.
+Let’s say though, that you would like a less vague label than **Date**.
 
-In `main_app/models.py`, add the desired user-friendly label to the field-type like so:
+If you want to use a more descriptive label than **Date**, you can customize field labels directly in the model. Since ***Django models are the single source of truth about your data***, this is where you should add customizations.
+
+In `main_app/models.py`, update the `Feeding` model to include a user-friendly label for the `date` field:
 
 ```python
 class Feeding(models.Model):
-  # the first optional positional argument overrides the label
+  # The first optional positional argument overrides the label
   date = models.DateField('Feeding date')
   ...
 ```
 
-Refresh and…
+After making this change, refresh the admin portal page to see the updated label.
 
-tktk - Hunter this is the image from the notion content
-![](./assets/add-feeding.png)
+![Feeding Label Update](./assets/update-date-label.png)
 
-What’s cool is that the custom labels will be used in all of Django’s `ModelForm`s too!
+These custom labels will also be used in all of Django’s `ModelForms`.
 
-Go ahead and add a few feedings to each of your cats now
+### Add a few feedings
 
-# Displaying a Cat’s Feedings
+Now, go ahead and add a few feedings for each of your cats using the admin portal. This will populate your database with initial data, which will be useful for building and testing your UI.
 
-Just like it would make sense in an app to show *comments* for a *post* when that post is displayed, a cat’s *detail* page is where it would make sense to display a cat’s feedings.
+## Displaying a Cat’s Feedings
 
-No additional views or templates necessary. All we have to do is update the **`detail.html`**.
+The cat's detail page is the perfect place to display a cat's feedings because it provides a comprehensive view of all the important information about that specific cat in one place. This is similar to how you would see a list of all tasks on a project detail page. By showing feedings on the cat's detail page, users can easily see the feeding history along with other details about the cat, making the information more accessible and organized.
 
-Here’s the new content of `detail.html`. Best to copy/paste this new markup, then we’ll review:
+No additional views or templates are necessary. We only need to update the `detail.html` template.
+
+### Update the `detail.html` template
+
+Here's the new content for `detail.html`. Copy and paste this markup, and then we'll review it:
 
 ```html
-    </div>
-  </div>
-</section>
-{% comment %} Existing cat-container above {% endcomment %}
+<!-- Existing cat-container above -->
 <div class="feedings-toy-container">
   <section class="feedings">
     <div class="subsection-title">
@@ -217,14 +201,17 @@ Here’s the new content of `detail.html`. Best to copy/paste this new markup, t
     </div>
     <table>
       <thead>
-        <tr><th>Date</th><th>Meal</th></tr>
+        <tr>
+          <th>Date</th>
+          <th>Meal</th>
+        </tr>
       </thead>
       <tbody>
         {% for feeding in cat.feeding_set.all %}
-          <tr>
-            <td>{{feeding.date}}</td>
-            <td>{{feeding.get_meal_display}}</td>
-          </tr>
+        <tr>
+          <td>{{feeding.date}}</td>
+          <td>{{feeding.get_meal_display}}</td>
+        </tr>
         {% endfor %}
       </tbody>
     </table>
@@ -234,28 +221,21 @@ Here’s the new content of `detail.html`. Best to copy/paste this new markup, t
 {% endblock %}
 ```
 
-A refresh results in this:
+- Here we use a table structure to present the feeding data in an organized way.
+- The table body (`<tbody>`) dynamically lists each feeding associated with the cat. This is done through a loop (`{% for feeding in cat.feeding_set.all %}`) that iterates over each feeding related to the cat.
+- For each feeding, the date is displayed, and the meal type is shown using Django's `get_meal_display` method, which translates a database value into a more user-friendly format (e.g., converting a single character like 'B' into "Breakfast").
 
-tktk - Hunter this is the image from the notion content
-![](./assets/feeding-wireframe.png)
+Refresh your browser and select a cat to see their feedings! 
 
-# Adding New Feeding Functionality
+![Feedings UI](./assets/feedings-ui.png)
 
-Now we want to add the capability to add a new feeding when viewing a cat’s details.
+## Adding new feedings from the Detail page
 
-Previously we used class-based views to productively perform create and update data operations for a Model.
+Next we will improve the user experience by allowing users to add feedings directly from a cat's detail page. This requires integrating a form on the page that can handle the creation of new feedings linked to that specific cat.
 
-The CBV we used automatically created a `ModelForm` for the Model that was specified like this: `model = Cat`.
+In previous sections, we've utilized Django's class-based views to manage create and update operations. These CBVs automatically handle form generation and data submission by using a `ModelForm` tied to a specific model behind the scenes. 
 
-The CBV then used the `ModelForm` behind the scenes to generate the inputs and provide the posted data to the server.
-
-Because we want to be able to show a form for adding a **feeding** on the *detail* page of a **cat**, we’re going to need to create a custom `ModelForm` from scratch that will:
-
-1. Generate a feeding’s inputs inside of the `<form>` tag we provide.
-2. Be used to validate the posted data by calling `is_valid()`.
-3. Persist the model instance to the database by calling `save()` on the instance of the ModelForm.
-
-There’s several steps we’re going to need to complete, so let’s get started…
+For adding feedings through the cat's detail page, we'll need to add a custom `ModelForm`. This form will allow us to embed feeding-related inputs within a custom `<form>` tag, manage form validation, and save new feeding entries to the database.
 
 ## Create the ModelForm for the `Feeding` Model
 
@@ -268,22 +248,22 @@ touch main_app/forms.py
 Let’s open it and add this code:
 
 ```python
-from django.forms import ModelForm
+from django import forms
 from .models import Feeding
 
-class FeedingForm(ModelForm):
-  class Meta:
-    model = Feeding
-    fields = ['date', 'meal']
+class FeedingForm(forms.ModelForm):
+    class Meta:
+        model = Feeding
+        fields = ['date', 'meal']
 ```
 
-Note that our custom form inherits from `ModelForm` and has a nested `class Meta:` to declare the Model being used and the fields we want inputs generated for. Confusing? Absolutely, but it’s just the way it is, so accept it and sleep well.
+Note that our custom form inherits from `ModelForm`.
 
-Many of the attributes in the `Meta` class are in common with CBVs because the CBV was using them behind the scenes to create a ModelForm as previously mentioned.
+> Many of the attributes in the `Meta` class are in common with CBVs because the CBV was using them behind the scenes to create a ModelForm as previously mentioned.
 
-For more options, check out the **[Django ModelForms documentation](https://docs.djangoproject.com/en/4.2/topics/forms/modelforms/#modelform)**.
+For more options, check out the **[Django ModelForms documentation](https://docs.djangoproject.com/en/5.0/topics/forms/modelforms/#modelform)**.
 
-## Passing an Instance of `FeedingForm`
+## Passing an instance of `FeedingForm`
 
 `FeedingForm` is a class that needs to be instantiated in the `cat_detail` view function so that it can be rendered inside of `detail.html`.
 
@@ -309,34 +289,30 @@ def cat_detail(request, cat_id):
 
 `feeding_form` is set to an instance of `FeedingForm` and then it’s passed to `detail.html` just like `cat`.
 
-## Displaying `FeedingForm` Inside of **`detail.html`**
+## Displaying `FeedingForm` inside of **`detail.html`**
 
 Okay, so we’re going to need a form used to submit a new feeding.
 
 We’re going to display a `<form>` at the top of the feedings column in **`detail.html`**.
 
-This is how we can “render” the `ModelForm`’s inputs within `<form>` tags in `templates/cats/detail.html`:
+This is how we can "render" the `ModelForm`’s inputs within `<form>` tags. Add this section in `templates/cats/detail.html` just above the `<table>` for displaying feedings:
 
 ```html
-    </div>
-    {% comment %} New code below {% endcomment %}
-    <h3>Add a Feeding</h3>
-    <form
-      method="post" 
-      class="subsection-content"
-			autocomplete="off"
-    >
-      {% csrf_token %}
-      {{ feeding_form.as_p }}
-      <button type="submit" class="btn submit">Add Feeding</button>
-    </form>
-    <h3>Past Feedings</h3>
-    {% comment %} New code above {% endcomment %}
-    <table>
+  <!-- Add just above the feedings table -->
+  <h3>Add a Feeding</h3>
+  <form
+    method="post" 
+    class="subsection-content"
+    autocomplete="off"
+  >
+    {% csrf_token %}
+    {{ feeding_form.as_p }}
+    <button type="submit" class="btn submit">Add Feeding</button>
+  </form>
   ...
 ```
 
-As always, we need to include the `{% csrf_token %}` for security purposes.
+As before, we need to include the `{% csrf_token %}` for security purposes.
 
 A form’s `action` attribute determines the URL that a form is submitted to. For now, we’ll leave it out and come back to it in a bit.
 
@@ -644,19 +620,3 @@ Second, let's show that a cat hasn't been fed when there are no feedings associa
 ```
 
 Feed your cats!
-
-Be sure to check out the Level Up section on your own.
-
-# Review Questions ❓
-
-<details>
-<summary>When two Models have a one-many relationship, which Model must include a field of type `models.ForeignKey`, the one side, or the many side?</summary>
-
-The many side!
-</details>
-    
-<details>
-<summary>True or False: `ModelForm`s are used to generate the form inputs for a model, validate the submitted form and save the data in the database.</summary>
-
-True
-</details>

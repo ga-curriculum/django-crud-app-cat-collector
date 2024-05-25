@@ -4,7 +4,7 @@
 
 # Set Up
 
-This lesson’s picks up from the [Django Many-to-Many Relationships](../many-to-many-relationship/README.md)  lesson.
+This lesson’s picks up from the [Django Many-to-Many Relationships](../many-to-many-relationship/README.md) lesson.
 
 **Be sure to be inside of the catcollector directory** before you open VS Code with `code .`.
 
@@ -53,7 +53,7 @@ Although these attributes are fine for the Cat Collector, some projects may need
 
 ## Cat Collector’s Functionality is Changing
 
-Currently, all furry critters in Cat Collector are wild - they don’t belong to a *Cat Collector* (the user).
+Currently, all furry critters in Cat Collector are wild - they don’t belong to a _Cat Collector_ (the user).
 
 The functionality of Cat Collector is about to change!
 
@@ -63,7 +63,7 @@ By the end of this lesson, with authentication implemented, all cats will belong
 
 ## Update the `Cat` Model
 
-Adding the relationship of ***A User has many Cats; and a Cat belongs to a User*** is much the same as with creating any other one-to-many relationship.
+Adding the relationship of **_A User has many Cats; and a Cat belongs to a User_** is much the same as with creating any other one-to-many relationship.
 
 The `User` Model lives in the `django.contrib.auth` app, so the first thing we need to do is import it into `models.py`:
 
@@ -75,12 +75,13 @@ from datetime import date
 from django.contrib.auth.models import User
 ```
 
-One of the Models needs a *Foreign Key* - `User` or `Cat`…
+One of the Models needs a _Foreign Key_ - `User` or `Cat`…
 
 <details>
 <summary>Which one makes sense?</summary>
 
 **Since the `Cat` Model belongs to another entity, it’s the one to hold the Foreign Key.**
+
 </details>
 
 Now let’s add the field linking a `Cat` to a `User`:
@@ -186,7 +187,7 @@ First import this class into `main_app/views.py`:
 from django.contrib.auth.views import LoginView
 ```
 
-And make use of it in a class based view that ***replaces*** the current home view function.
+And make use of it in a class based view that **_replaces_** the current home view function.
 
 ```python
 class Home(LoginView):
@@ -199,7 +200,7 @@ Don't forget to update `main_app/urls.py` to use the new CBV.
 path('', views.Home.as_view(), name='home'),
 ```
 
-When `LoginView` renders the `home.html` template, it passes in the context a default `form` object we can display in `home.html`.** Add it after the existing section:
+When `LoginView` renders the `home.html` template, it passes in the context a default `form` object we can display in `home.html`.\*\* Add it after the existing section:
 
 ```html
   />
@@ -221,7 +222,7 @@ When `LoginView` renders the `home.html` template, it passes in the context a de
 The
 
 ```html
-<input type="hidden" name="next" value="{{ next }}">
+<input type="hidden" name="next" value="{{ next }}" />
 ```
 
 is really cool. It is a feature of Django’s authentication that will automatically redirect a user that tries to access a protected route back to that route after they log in!
@@ -235,7 +236,7 @@ You can log in now, but you’ll get an error because by default, the login view
 
 ## Specifying the Default Redirect After Logging In
 
-In Cat Collector, when a user logs in, we want them to see their cat *index* page.
+In Cat Collector, when a user logs in, we want them to see their cat _index_ page.
 
 The easiest way to make this happen is to add a new variable at the bottom of `settings.py`:
 
@@ -276,21 +277,21 @@ To check if the user is logged in, we simply use `user.is_authenticated`, which 
 With this knowledge in hand, let’s make the nav bar dynamic in `base.html`:
 
 ```html
-      <nav>
-        <ul>
-          {% if user.is_authenticated %}
-            <li><a href="{% url 'cat-index' %}">All Cats</a></li>
-            <li><a href="{% url 'toy-index' %}">All Toys</a></li>
-            <li><a href="{% url 'cat-create' %}">Add a Cat</a></li>
-            <li><a href="{% url 'toy-create' %}">Add a Toy</a></li>
-            <li><a href="{% url 'about' %}">About</a></li>
-            <li><a href="{% url 'logout' %}">Log out</a></li>
-          {% else %}
-            <li><a href="{% url 'about' %}">About</a></li>
-            <li><a href="{% url 'home' %}">Login</a></li>
-          {% endif %}
-        </ul>
-      </nav>
+<nav>
+  <ul>
+    {% if user.is_authenticated %}
+    <li><a href="{% url 'cat-index' %}">All Cats</a></li>
+    <li><a href="{% url 'toy-index' %}">All Toys</a></li>
+    <li><a href="{% url 'cat-create' %}">Add a Cat</a></li>
+    <li><a href="{% url 'toy-create' %}">Add a Toy</a></li>
+    <li><a href="{% url 'about' %}">About</a></li>
+    <li><a href="{% url 'logout' %}">Log out</a></li>
+    {% else %}
+    <li><a href="{% url 'about' %}">About</a></li>
+    <li><a href="{% url 'home' %}">Login</a></li>
+    {% endif %}
+  </ul>
+</nav>
 ```
 
 Note how the **Log In** and **Log Out** links are using the `url` template tag along with the built-in named URL patterns (listed above).
@@ -313,19 +314,18 @@ We also want to prevent the login form from being shown when there is a user log
 
 ```html
 {% if not user.is_authenticated %}
-  <section>
-    <form action="{% url 'home' %}" method="post" class="login">
-      <h1>Login</h1>
-      {% csrf_token %}
-      {{ form.as_p }}
-      <input type="hidden" name="next" value="{{ next }}">
-      <button type="submit" class="btn submit">Login</button>
-    </form>
-  </section>
+<section>
+  <form action="{% url 'home' %}" method="post" class="login">
+    <h1>Login</h1>
+    {% csrf_token %} {{ form.as_p }}
+    <input type="hidden" name="next" value="{{ next }}" />
+    <button type="submit" class="btn submit">Login</button>
+  </form>
+</section>
 {% endif %}
 ```
 
-Logging out even works, but it doesn’t redirect to our *Home* page (root route)…
+Logging out even works, but it doesn’t redirect to our _Home_ page (root route)…
 
 # Logging Out
 
@@ -354,7 +354,7 @@ To do this, we’re going to have to add some additional code to the `CatCreate`
 class CatCreate(CreateView):
   model = Cat
   fields = ['name', 'breed', 'description', 'age']
-  
+
   # This inherited method is called when a
   # valid cat form is being submitted
   def form_valid(self, form):
@@ -450,11 +450,11 @@ There’s really no way to remember that code, so just refer to this lesson, the
 Now that we know the URL, we can add a **Sign Up** link to the nav in `base.html`:
 
 ```html
-          {% else %}
-            <li><a href="{% url 'about' %}">About</a></li>
-            <li><a href="{% url 'home' %}">Login</a></li>
-            <li><a href="{% url 'signup' %}">Sign Up</a></li>
-          {% endif %}
+{% else %}
+<li><a href="{% url 'about' %}">About</a></li>
+<li><a href="{% url 'home' %}">Login</a></li>
+<li><a href="{% url 'signup' %}">Sign Up</a></li>
+{% endif %}
 ```
 
 ## Create the **`signup.html`** Template
@@ -468,21 +468,16 @@ touch main_app/templates/signup.html
 Here's the code for `signup.html`:
 
 ```html
-{% extends 'base.html' %}
-{% load static %}
-
-{% block head %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/form.css' %}"/>
-{% endblock %}
-
-{% block content %}
+{% extends 'base.html' %} {% load static %} {% block head %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/form.css' %}" />
+{% endblock %} {% block content %}
 
 <div class="page-header">
   <h1>Sign Up</h1>
-  <img src="{% static 'images/nerd-cat.svg' %}" alt="A cat using a computer"/>
+  <img src="{% static 'images/nerd-cat.svg' %}" alt="A cat using a computer" />
 </div>
 {% if error_message %}
-  <p class="red-text">{{ error_message }}</p>
+<p class="red-text">{{ error_message }}</p>
 {% endif %}
 <form action="" method="post" class="form-container" autocomplete="off">
   {% csrf_token %}
@@ -516,7 +511,7 @@ You should now be able to sign up!
 
 # Displaying Only the User’s Cats
 
-If you sign up or log in with a different user, you’ll notice that all of the cats in the database are still showing up on the *index* page.
+If you sign up or log in with a different user, you’ll notice that all of the cats in the database are still showing up on the _index_ page.
 
 If we take a look at the `cat_index` view, we’ll see why:
 
@@ -543,7 +538,7 @@ Last step, coming up!
 
 Now that authentication has been implemented, the last step is to protect the routes that are dependent upon a user being logged in.
 
-Yes, the dynamic nav bar helps prevent access, but users can still type something like http://localhost:3000/cats in the address bar when nobody is logged in, which will raise an error.
+Yes, the dynamic nav bar helps prevent access, but users can still type something like http://127.0.0.1:8000/cats in the address bar when nobody is logged in, which will raise an error.
 
 Of course Django provides an easy way to protect both function and class-based views…
 
@@ -568,7 +563,7 @@ def cat_index(request):
   ...
 ```
 
-Trying to browse to http://localhost:3000/cats - it throws an error!
+Trying to browse to http://127.0.0.1:8000/cats - it throws an error!
 
 To complete this, we need to tell Django where we want these decorators and mixins to actually redirect to. We just need to add a `LOGIN_URL` to our `settings.py` file and have it redirect to the `'home'` URL:
 
@@ -593,7 +588,7 @@ Be sure to add the `@login_required` to these remaining view functions:
 
 ## Implement Authorization on Class-based Views
 
-Protecting class-based views is slightly different, it uses what’s called a mixin, which is another class to inherit from - in OOP, we call this *multiple inheritance*.
+Protecting class-based views is slightly different, it uses what’s called a mixin, which is another class to inherit from - in OOP, we call this _multiple inheritance_.
 
 As usual, we’ll need to import it:
 
@@ -634,4 +629,4 @@ Authentication is incredibly important to virtually every application.
 Most features of an application are dependent upon knowing which user is accessing the feature.
 
 This is why it’s **so important** to implement authentication in your projects up front, immediately after the user story for when first browsing as an anonymous user to the root route:
-*As a Visitor, upon browsing to the application I want [insert feature here]*
+_As a Visitor, upon browsing to the application I want [insert feature here]_

@@ -12,7 +12,7 @@ Unlike MongoDB, which can easily implement both one and many-to-many relationshi
 
 Join tables provide the glue between two other tables in a database.
 
-Each row in the join table contains *foreign keys* for the other two tables’ *primary keys* as diagrammed here:
+Each row in the join table contains _foreign keys_ for the other two tables’ _primary keys_ as diagrammed here:
 
 tktk - Hunter this is another one that wouldn't let me download but is from the notion content
 ![Many-to-Many Relationship](./assets/many-to-many-relationship.png)
@@ -80,7 +80,7 @@ Try making a new cat. You'll see a new form field: Toys.
 
 This isn't great. Right now when we add a cat we are forced to give it at least one toy, which we may not want. We need to make sure this field isn't shown when a user is creating a cat. Let's do it!
 
-***Where do we need to make this change?***
+**_Where do we need to make this change?_**
 
 Here's the new `CatCreate` class in `main_app/views`:
 
@@ -92,7 +92,7 @@ fields = ['name', 'breed', 'description', 'age']
 
 ## User Stories
 
-*As a User, when viewing the detail page of a cat, I want to see a list of toys the cat has and be able to add toys to the list that the cat doesn’t already have*
+_As a User, when viewing the detail page of a cat, I want to see a list of toys the cat has and be able to add toys to the list that the cat doesn’t already have_
 
 ## Displaying a List of Associated Toys
 
@@ -100,7 +100,7 @@ Displaying a cat’s toys is just a matter of updating `templates/cats/detail.ht
 
 ```html
 	  {% endif %}
-	</section> 
+	</section>
 	{% comment %} Add this section below the CLOSING tag (</section>) for <section class="feedings"> {% endcomment %}
   <section class="toys">
     <div class="subsection-title">
@@ -114,7 +114,7 @@ Displaying a cat’s toys is just a matter of updating `templates/cats/detail.ht
       {% if cat.toys.count %}
         {% for toy in cat.toys.all %}
           <div class="toy-container">
-            <div 
+            <div
               class="color-block"
               style="background-color: {{ toy.color }}"
             ></div>
@@ -140,7 +140,7 @@ After saving and viewing the detail page for a cat, you’ll see something like 
 tktk - Hunter this is the image from the notion content
 ![](./assets/cat-toys.png)
 
-Let’s use the Django admin app (http://localhost:3000/admin) to add a toy or two then refresh the page:
+Let’s use the Django admin app (http://127.0.0.1:8000/admin) to add a toy or two then refresh the page:
 
 tktk - Hunter this is the image from the notion content
 ![](./assets/cat-toys-with-toys.png)
@@ -188,7 +188,7 @@ Now for more markup in `detail.py` to display the toys the cat doesn’t have:
       {% if toys.count %}
         {% for toy in toys.all %}
           <div class="toy-container">
-            <div 
+            <div
               class="color-block"
               style="background-color: {{ toy.color }}"
             ></div>
@@ -268,4 +268,4 @@ Congrats on implementing a many-to-many relationship between cats and toys!
 
 Implement the following user story:
 
-*AAU, when viewing the detail page for a cat, I want to be able to remove a toy for that cat*
+_AAU, when viewing the detail page for a cat, I want to be able to remove a toy for that cat_
