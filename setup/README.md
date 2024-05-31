@@ -11,7 +11,7 @@ cd ~/code/ga/lessons
 Create a new repository on [GitHub](https://github.com/) named `django-crud-app-cat-collector`.
 
 ```bash
-git clone https://git.generalassemb.ly/<your-username>/django-crud-app-cat-collector.git
+git clone https://github.com/<your-username>/django-crud-app-cat-collector.git
 ```
 
 > 🚨 Do not copy the above command. It will not work. Your GitHub username will replace <github-username> (including the < and >) in the URL above.
@@ -63,6 +63,9 @@ To deactivate the virtual environment when you're done, simply type:
 exit
 ```
 
-## Image assets - tktk what to do about assets
+## Image assets
 
-During this lesson we will be using some existing assets for images. These images are located in the [`lesson-assets`](./assets/) folder. Download the contents `lesson-assets` folder, create an `img` directory into your project directory, then either drag and drop the images into `img` or move them using the `mv` command.
+During this lesson we will be using some existing assets for images. These images are located in a [`cat-collector-assets` repo](https://git.generalassemb.ly/modular-curriculum-all-courses/cat-collector-assets). 
+
+1. Clone the `cat-collector-assets` repo to your computer.
+2. Later, ***when prompted***, you will need to drag and drop the images from the `cat-collector-assets` repo into `catcollector` or move them using the `mv` command.
