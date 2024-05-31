@@ -1,6 +1,6 @@
 # ![Django CRUD App - Cat Collector - One-to-Many Relationship](./assets/hero.png)
 
-**Learning objective:** By the end of this lesson, students will be able to tktk
+**Learning objective:** By the end of this lesson, learners will be able to implement and manage one-to-many relationships in Django by adding a Feeding model related to the Cat model.
 
 # A cat’s got to eat!
 
@@ -24,7 +24,7 @@ class Feeding(models.Model):
   meal = models.CharField(max_length=1)
 ```
 
-> Note that we’re going to use just a single-character to represent what meal the feeding is for: ***B***reakfast, ***L***unch or ***D***inner.
+> Note that we’re going to use just a single-character to represent what meal the feeding is for: **_B_**reakfast, **_L_**unch or **_D_**inner.
 
 ## Field.choices
 
@@ -46,7 +46,7 @@ class Cat(models.Model):
 
 As you can see, the first item in each 2-tuple represents the value that will be stored in the database, e.g. `B`.
 
-The second item represents the human-friendly “display” value, e.g., `Breakfast`.
+The second item represents the human-friendly "display" value, e.g., `Breakfast`.
 
 Now let’s enhance the `meal` field as follows:
 
@@ -62,9 +62,9 @@ class Feeding(models.Model):
   )
 ```
 
-## Add the `__str__` Method
+## Override the `__str__` Method
 
-As recommended, we should override the `__str__` method to Models so that they provide more meaningful output when they are printed:
+As is common in python classes, we can override the `__str__` method in Models so that they provide more meaningful output when they are printed:
 
 ```python
 class Feeding(models.Model):
@@ -75,7 +75,7 @@ class Feeding(models.Model):
     return f"{self.get_meal_display()} on {self.date}"
 ```
 
-Check out the convenient `get_meal_display()` method Django automagically creates to access the human-friendly value of a Field.choice like we have on `meal`.
+Check out the convenient `get_meal_display()` method Django _automagically_ creates to access the human-friendly value of a `Field.choice` like we have on `meal`.
 
 ## Add the Foreign Key
 
@@ -102,7 +102,7 @@ As you can see, the `ForeignKey` field-type is used to create a one-to-many rela
 
 - The first argument provides the parent Model, `Cat`.
 
-- In a one-to-many relationship, the `on_delete=models.CASCADE` is required. It ensures that if a `Cat` record is deleted, all of the child `Feedings` will be deleted automatically as well - thus avoiding *orphan* records.
+- In a one-to-many relationship, the `on_delete=models.CASCADE` is required. It ensures that if a `Cat` record is deleted, all of the child `Feedings` will be deleted automatically as well - thus avoiding _orphan_ records for feedings that are no longer tied to an existing Cat.
 
 > 🧠 In the database, the column in the feedings table for the FK will actually be called `cat_id` because Django by default appends `_id` to the name of the attribute used in the Model.
 
@@ -140,7 +140,6 @@ admin.site.register(Feeding)
 
 Now, navigate to `http://127.0.0.1:8000/admin` and click on the **Feeding +Add** link.
 
-
 ![Django Admin UI Add Feeding](./assets/django-admin-add.png)
 
 Notice the select drop-downs for assigning both the Meal and the Cat!
@@ -149,7 +148,7 @@ Notice the select drop-downs for assigning both the Meal and the Cat!
 
 Let’s say though, that you would like a less vague label than **Date**.
 
-If you want to use a more descriptive label than **Date**, you can customize field labels directly in the model. Since ***Django models are the single source of truth about your data***, this is where you should add customizations.
+If you want to use a more descriptive label than **Date**, you can customize field labels directly in the model. Since **_Django models are the single source of truth about your data_**, this is where you should add customizations.
 
 In `main_app/models.py`, update the `Feeding` model to include a user-friendly label for the `date` field:
 
@@ -186,16 +185,13 @@ Here's the new content for `detail.html`. Copy and paste this markup, and then w
   <section class="feedings">
     <div class="subsection-title">
       <h2>Feedings</h2>
-      <img 
-        src="{% static 'images/cat-cone.svg' %}" 
+      <img
+        src="{% static 'images/cat-cone.svg' %}"
         alt="An ice cream cone cat"
       />
-      <img 
-        src="{% static 'images/cat-onigiri.svg' %}"
-        alt="A cat as onigiri"
-      />
-      <img 
-        src="{% static 'images/kitty-kabob.svg' %}" 
+      <img src="{% static 'images/cat-onigiri.svg' %}" alt="A cat as onigiri" />
+      <img
+        src="{% static 'images/kitty-kabob.svg' %}"
         alt="A kabob of kittens"
       />
     </div>
@@ -221,23 +217,25 @@ Here's the new content for `detail.html`. Copy and paste this markup, and then w
 {% endblock %}
 ```
 
-- Here we use a table structure to present the feeding data in an organized way.
+- In this code we have added an html table to present the feeding data in an more structured way.
 - The table body (`<tbody>`) dynamically lists each feeding associated with the cat. This is done through a loop (`{% for feeding in cat.feeding_set.all %}`) that iterates over each feeding related to the cat.
-- For each feeding, the date is displayed, and the meal type is shown using Django's `get_meal_display` method, which translates a database value into a more user-friendly format (e.g., converting a single character like 'B' into "Breakfast").
+- For each feeding, the date is displayed, and the meal type is shown using Django's `get_meal_display` method, which translates a database value into a more user-friendly format (such as converting a single character like 'B' into "Breakfast").
 
-Refresh your browser and select a cat to see their feedings! 
+Refresh your browser and select a cat to see their feedings!
 
 ![Feedings UI](./assets/feedings-ui.png)
 
 ## Adding new feedings from the Detail page
 
-Next we will improve the user experience by allowing users to add feedings directly from a cat's detail page. This requires integrating a form on the page that can handle the creation of new feedings linked to that specific cat.
+As developers, we can add feedings easily from the admin portal, but this helpful dashboard is not available to users of our application.
 
-In previous sections, we've utilized Django's class-based views to manage create and update operations. These CBVs automatically handle form generation and data submission by using a `ModelForm` tied to a specific model behind the scenes. 
+Next, we will add functionality for users to add feedings directly from a cat's detail page. This requires integrating a form on the page that can handle the creation of new feedings linked to that specific cat.
+
+In previous sections, we've utilized Django's class-based views to manage create and update operations. These CBVs automatically handle form generation and data submission by using a `ModelForm` tied to a specific model behind the scenes.
 
 For adding feedings through the cat's detail page, we'll need to add a custom `ModelForm`. This form will allow us to embed feeding-related inputs within a custom `<form>` tag, manage form validation, and save new feeding entries to the database.
 
-## Create the ModelForm for the `Feeding` Model
+## Create the `ModelForm` for the `Feeding` Model
 
 We could define the `ModelForm` inside of the `models.py` module, but we’re going to follow a best practice of defining it inside of a `forms.py` module instead. Run the following in the terminal:
 
@@ -278,13 +276,13 @@ from .forms import FeedingForm
 
 # update this view function
 def cat_detail(request, cat_id):
-  cat = Cat.objects.get(id=cat_id)
-  # instantiate FeedingForm to be rendered in the template
-  feeding_form = FeedingForm()
-  return render(request, 'cats/detail.html', {
-    # include the cat and feeding_form in the context
-    'cat': cat, 'feeding_form': feeding_form
-  })
+    cat = Cat.objects.get(id=cat_id)
+    # instantiate FeedingForm to be rendered in the template
+    feeding_form = FeedingForm()
+    return render(request, 'cats/detail.html', {
+      # include the cat and feeding_form in the context
+      'cat': cat, 'feeding_form': feeding_form
+    })
 ```
 
 `feeding_form` is set to an instance of `FeedingForm` and then it’s passed to `detail.html` just like `cat`.
@@ -298,18 +296,13 @@ We’re going to display a `<form>` at the top of the feedings column in **`deta
 This is how we can "render" the `ModelForm`’s inputs within `<form>` tags. Add this section in `templates/cats/detail.html` just above the `<table>` for displaying feedings:
 
 ```html
-  <!-- Add just above the feedings table -->
-  <h3>Add a Feeding</h3>
-  <form
-    method="post" 
-    class="subsection-content"
-    autocomplete="off"
-  >
-    {% csrf_token %}
-    {{ feeding_form.as_p }}
-    <button type="submit" class="btn submit">Add Feeding</button>
-  </form>
-  ...
+<h3>Add a Feeding</h3>
+<!-- Add just above the feedings table -->
+<form method="post" class="subsection-content" autocomplete="off">
+  {% csrf_token %} {{ feeding_form.as_p }}
+  <button type="submit" class="btn submit">Add Feeding</button>
+</form>
+...
 ```
 
 As before, we need to include the `{% csrf_token %}` for security purposes.
@@ -323,168 +316,45 @@ Let’s see what it looks like - not perfect but it’s a start:
 tktk - Hunter this is the image from the notion content
 ![](./assets/detail-feeding-wireframe.png)
 
-Unfortunately, the *Feeding Date* field is just a basic text input. This is what Django uses by default for `DateField`s. Let's make it a date picker instead.
+Unfortunately, you may have noticed that the _Feeding Date_ field is just a basic text input. This is what Django uses by default for `DateField`s. Let's make it a date picker instead.
 
-## Add MCDatepicker
+## Use Django's `DateInput`
 
-We're going to use [**MCDatepicker**](https://mcdatepicker.netlify.app/) to allow the user to pick a date using a fancy interface. We can use it just by adding the CDN to our head block on the cats detail page! Make sure it's ***above*** your existing CSS file.
+To improve user experience and maintain consistent date formatting, we'll be adding a "date picker"—a user interface component that lets users easily select dates. This feature is supported by HTML5 and is common in web forms. Django supports this with a built in `DateInput` widget, which is built on top of the standard HTML date picker to integrate smoothly with Django's `DateField`.
 
-```html
-{% block head %}
-<!--new content-->
-<link 
-  href="https://cdn.jsdelivr.net/npm/mc-datepicker/dist/mc-calendar.min.css" 
-  rel="stylesheet" 
-/>
-<link rel="stylesheet" href="{% static 'css/mcdp.css' %}">
-<script 
-  src="https://cdn.jsdelivr.net/npm/mc-datepicker/dist/mc-calendar.min.js"
->
-</script>
-<!--existing css link-->
-<link 
-  rel="stylesheet" 
-  type="text/css" 
-  href="{% static 'css/cats/cat-detail.css' %}"
-/>
-{% endblock %}
+For our `Feeding` model's form, we specify Django's built-in date picker as a widget for the date field. This creates a visually pleasing date selection process on the frontend and ensures that date data remains consistent on the backend.
+
+> In Django forms, the `widgets` attribute is used to customize how form fields are rendered in the HTML and to add specific HTML attributes to those fields.
+
+Update the `FeedingForm` in `forms.py` to include a new property called `widgets`:
+
+```python
+class FeedingForm(forms.ModelForm):
+    class Meta:
+        model = Feeding
+        fields = ['date', 'meal']
+        widgets = {
+            'date': forms.DateInput(
+                format=('%Y-%m-%d'),
+                attrs={'placeholder': 'Select a date',
+                       'type': 'date'
+                       }),
+        }
 ```
 
-Note the stylesheet to target some of the MCDatepicker elements as well. First create it. Run the following in the terminal:
+By specifying these attributes and using a `DateInput` widget, the date field in the form will render as an HTML date input. This allows users to select a date using a mini calendar-style date picker, which is much more user-friendly.
 
-```bash
-touch main_app/static/css/mcdp.css
-```
+Refresh the page to see your DateInput widget in action:
 
-Then add in the styling we need (this just resizes things around our root element size)
+![Date input widget](./assets/date-widget.png)
 
-```css
-.mc-display__day {
-  font-size:clamp(1.6rem, 8vw, 2rem);
-}
+## Create new `path` for feedings
 
-.mc-display__date {
-  font-size:clamp(8rem, 40vw, 11.2rem);
-}
+Its time to complete our form functionality by enabling the route we'll use as the form action for new `Feedings`.
 
-.mc-display__month {
-  font-size: clamp(1.9rem, 9vw, 2.4rem);
-}
+Every `Feeding` object needs a `cat_id` that holds the primary key of the cat object that it belongs to. Therefore, we need to ensure that the route `path` includes a _URL parameter_ for capturing the cat’s `id` like we’ve done in other routes.
 
-.mc-display__year {
-  font-size: clamp(3.8rem,18vw,4.8rem);
-}
-
-.mc-select__data--month, .mc-select__data--month span {
-  width: 40vw;
-  min-width: 8rem;
-  max-width: 10rem;
-}
-
-.mc-select__data--year, .mc-select__data--year span {
-  width: 22vw;
-  min-width: 4.8rem;
-  max-width: 5.6rem;
-}
-
-.mc-select__data {
-  font-size: clamp(1.6rem, 8vw, 2rem);
-}
-
-.mc-btn--danger,
-.mc-btn--success,
-.mc-date,
-.mc-table__weekday {
-  font-size: 1.6rem;
-}
-
-.mc-table__weekday {
-  padding: .5rem;
-}
-
-.mc-picker__footer {
-  padding: 1.6rem 0;
-}
-```
-
-### Using a Date-picker for *Feeding Date*
-
-We need another directory in our `main_app/static` directory to hold some JavaScript. Run the following in the terminal:
-
-```bash
-mkdir main_app/static/js
-```
-
-And now a file. Run the following in the terminal:
-
-```bash
-touch main_app/static/js/cat-detail.js
-```
-
-Go ahead and throw a quick `console.log()` in this file as a sanity check and make use of it on your cats detail page.
-
-```html
-<link 
-  rel="stylesheet" 
-  type="text/css" 
-  href="{% static 'css/cats/cat-detail.css' %}"
-/>
-{% comment %} Add this code below {% endcomment %}
-<script defer src="{% static 'js/cat-detail.js' %}"></script>
-{% comment %} Add this code above {% endcomment %}
-{% endblock %}
-```
-
-Okay now let’s make the `<input>` for *Feeding Date* a date-picker! MCDatepicker requires us to initialize certain inputs using a bit of JavaScript. We want this JS to run after the elements are in the DOM, so we’ll just defer the loading of the script.
-
-It takes three steps to get the input the way we want it:
-
-- Select the element in the DOM
-- Create the element using MCDatepicker library
-- When the user clicks on the input open the calendar so that the user can pick a date.
-
-That's right, we're doing a Unit 1 throwback! The good news is though is that we're only 12 lines away from a functioning date picker!
-
-In your `main_app/static/js/cat-detail`:
-
-```jsx
-const dateInput = document.getElementById('id_date')
-
-const picker = MCDatepicker.create({
-  el: '#id_date',
-  dateFormat: 'yyyy-mm-dd',
-  closeOnBlur: true,
-  selectedDate: new Date(),
-})
-
-dateInput.addEventListener("click", (evt) => {
-  picker.open()
-})
-```
-
-As you can see, the `ModelForm` automatically generated an `id` attribute for each `<input>`. Always be sure to use Devtools to figure out how to select elements for styling and functionality.
-
-There are plenty of additional options in addition to the four used above. Learn more [**here**](https://mcdatepicker.netlify.app/docs/configuration).
-
-Refresh and test it out by clicking inside of Feeding date input - you should see a sweet date-picker pop up like this:
-
-tktk - Hunter this is the image from the notion content
-![](./assets/calendar-wireframe.png)
-
-There's even a mobile view!
-
-tktk - Hunter this is the image from the notion content
-![](./assets/mobile-calendar-wireframe.png)
-
-Now let’s make this form work!
-
-## Add Another `path(...)` to `main_app/urls.py`
-
-Every `Feeding` object needs a `cat_id` that holds the primary key of the cat object that it belongs to.
-
-Therefore, we need to ensure that the route includes a *URL parameter* for capturing the cat’s `id` like we’ve done in other routes.
-
-Okay, let’s add a route to the `urlpatterns` list in **`urls.py`** like this:
+Add a route to the `urlpatterns` list in **`urls.py`** like this:
 
 ```python
 urlpatterns = [
@@ -493,57 +363,38 @@ urlpatterns = [
 ]
 ```
 
-The above route is basically saying that the `<form>`’s **action** attribute will need to look something like `/cats/2/add-feeding`. Let’s go there now…
+The above route specifies that the `<form>`’s **action** attribute will need to look something like `/cats/2/add-feeding`. Let's update the form now.
 
 ## Add the `action` Attribute to the `<form>`
 
-Now that we have a *named URL*, let’s add the `action` attribute to the `<form>` in `detail.html`:
+Now that we have a _named URL_, let’s add the `action` attribute to the `<form>` in `detail.html`:
 
 ```html
-    <h3>Add a Feeding</h3>
-    {% comment %} Add the action below! {% endcomment %}
-    <form
-      action="{% url 'add-feeding' cat.id %}" 
-      method="post" 
-      class="subsection-content"
-			autocomplete="off"
-    >
-      {% csrf_token %}
-      {{ feeding_form.as_p }}
-      <button type="submit" class="btn submit">Add Feeding</button>
-    </form>
+<h3>Add a Feeding</h3>
+<form
+  action="{% url 'add-feeding' cat.id %}"
+  method="post"
+  class="subsection-content"
+  autocomplete="off"
+>
+  {% csrf_token %} {{ feeding_form.as_p }}
+  <button type="submit" class="btn submit">Add Feeding</button>
+</form>
 ```
 
-Once again, we’re using the better practice of using the `url` template tag to write out the correct the URL for a route.
+> Note that arguments provided to template tags are always separated using a space, not a comma.
 
-If the URL requires values for named parameters such as `<int:cat_id>`, the `url` template tag accepts them after the name of the route.
+Once again, we’re using best practice of using the `url` template tag `{% url 'add-feeding' cat.id %}` to write out the correct the URL for a route.
 
-> Note that arguments provided to template tags are always separated using a space character, not a comma.
+Our form is now complete, but before we can test, we need to add the `views.add_feeding` function.
 
-We won’t be able to refresh and check it out until we add the `views.add_feeding` function…
+## Add the View function
 
-## Add the `views.add_feeding` View Function to `views.py`
+This view is designed to handle the submission of a feeding form associated with a specific cat.
 
-Let’s start by stubbing up an `add_feeding` view function in `main_app/views.py` so that the server will start back up and we can inspect our `<form>`:
+This form will capture the feeding data entered by the user, but will be missing one key piece of information that we will need to add manually before sending the data to the database- `cat_id`.
 
-```python
-...
-
-# add this new function below cats_detail
-def add_feeding(request, cat_id):
-  pass
-```
-
-Using `pass` is a way to define an “empty” Python function.
-
-Refreshing and inspecting the elements using DevTools shows that our `<form>` is looking good:
-
-tktk - Hunter this is the image from the notion content
-![](./assets/form-action.png)
-
-Now let’s turn our attention back to the `add_feeding` function.
-
-Here it is:
+Let’s create an `add_feeding` view function in `main_app/views.py` :
 
 ```python
 def add_feeding(request, cat_id):
@@ -559,28 +410,33 @@ def add_feeding(request, cat_id):
   return redirect('cat-detail', cat_id=cat_id)
 ```
 
-After ensuring that the form contains valid data, we save the form with the `commit=False` option, which returns an in-memory model object so that we can assign the `cat_id` before actually saving to the database.
+1. First we capture data from the user via the `FeedingForm(request.POST)` and prepare it for the database.
 
-Always be sure to `redirect` instead of `render` if data has been changed in the database.
+2. The method `form.is_valid()` checks if the submitted form data is valid according to the form's specifications, such as required fields being filled and data types matching the model's requirements.
 
-We also need to import `redirect` by adding after `render`:
+3. After ensuring that the form contains valid data, we save the form with the `commit=False` option, which returns an in-memory model object so that we can assign the `cat_id` before actually saving to the database.
+
+4. Finally we will `redirect` instead of `render` since data has been changed in the database.
+
+Lastly, remember to import `redirect` at the top of `views.py`:
 
 ```python
 from django.shortcuts import render, redirect
 ```
 
-Add a feeding and rejoice!
+With our view complete we can test our form.
 
-tktk - Hunter this is the image from the notion content
-![](./assets/feeding-added.png)
+![Saved Feedings](./assets/save-feedings.png)
 
-Well, almost…
+Nice Job!
 
-Two quick details. First, it would be nice to have the most recent dates displayed at the top.
+## Adjust the order of feedings
 
-Yup, *a Model is the single, definitive source of truth…*
+Now we have the ability to add feedings, great! But as our list of feedings grows we'll need to scroll to the bottom to see the latest information. This is not a great user experience. How can we fix this?
 
-The answer lies in adding a `class Meta` with the `ordering` *Model Meta option* within the `Feeding` Model. Let's update it:
+We can use a feature in Django that sorts the feedings automatically. This is done by setting an `ordering` option inside the `Feeding` model's `class Meta`.
+
+Let's add this to our `Feeding` model:
 
 ```python
 class Feeding(models.Model):
@@ -589,34 +445,45 @@ class Feeding(models.Model):
     # Nice method for obtaining the friendly value of a Field.choice
     return f"{self.get_meal_display()} on {self.date}"
 
-  # change the default sort
+  # Define the default order of feedings
   class Meta:
-    ordering = ['-date']
+    ordering = ['-date']  # This line makes the newest feedings appear first
 ```
 
-Second, let's show that a cat hasn't been fed when there are no feedings associated with it. It's easier than you think! Let's update the cat detail template:
+This `ordering` option in Django allows us to specify how lists of entries, like our feedings, should be sorted by default. The prefix '-' before 'date' means it sorts the dates in descending order, so the newest feedings appear first.
+
+### What if there are no feedings yet?
+
+We can also add some conditional logic in our markup that tells the user whether or not a cat has been fed.
+
+Replace the existing feedings table with the following:
 
 ```html
-    <h3>Past Feedings</h3>
-    {% if cat.feeding_set.all.count %}
-      <table>
-        <thead>
-          <tr><th>Date</th><th>Meal</th></tr>
-        </thead>
-        <tbody>
-          {% for feeding in cat.feeding_set.all %}
-            <tr>
-              <td>{{feeding.date}}</td>
-              <td>{{feeding.get_meal_display}}</td>
-            </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    {% else %}
-			<div class="subsection-content">
-        <p>{{cat.name}} has never been fed 😔</p>
-      </div>
-    {% endif %}
+<h3>Past Feedings</h3>
+{% if cat.feeding_set.all.count %}
+<table>
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Meal</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for feeding in cat.feeding_set.all %}
+    <tr>
+      <td>{{feeding.date}}</td>
+      <td>{{feeding.get_meal_display}}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<div class="subsection-content">
+  <p>⚠️ {{cat.name}} has not been fed!</p>
+</div>
+{% endif %}
 ```
+
+Now if a cat has a feeding count of `0` in the database, you'll see a warning message.
 
 Feed your cats!

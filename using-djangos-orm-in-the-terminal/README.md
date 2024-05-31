@@ -69,11 +69,11 @@ The `<QuerySet []>` returned from a query represents a database query that can b
 
 When the app needs the data, for example, to iterate over cats, the query will be executed, and the result will be a list-like object that represents a collection of model instances (rows) from the database.
 
-Besides `Cat.objects.all()`, there are many other common ORM operations you can perform. Let's explore! 
+Besides `Cat.objects.all()`, there are many other common ORM operations you can perform. Let's explore!
 
-## Give me a “C”
+## Give me a "C"
 
-Here’s how we can `CREATE` an in-memory model (an instance) and then save it to the database. 
+Here’s how we can `CREATE` an in-memory model (an instance) and then save it to the database.
 
 In the terminal:
 
@@ -97,7 +97,7 @@ c.id
 
 We’ve created a cat!
 
-## Give me a “R”
+## Give me a "R"
 
 If you call `Cat.objects.all()` again you’ll be able to `READ` all `Cat` objects that exist in the database now:
 
@@ -119,7 +119,7 @@ Create a new `Cat` object with attribute values of your choice. You can use the 
 
 Check that your cat was added by using `Cat.objects.all()`.
 
-## Give me a “U”
+## Give me a "U"
 
 To `UPDATE` a single attribute value, assign the new value and call `save()`. Start by getting the cat you want to update—in this case, the first one:
 
@@ -149,7 +149,7 @@ We’ve updated a cat!
 
 ## Give me a "D"
 
-Finally we can `DELETE` records easily using the ORM's build in `.delete()` method. 
+Finally we can `DELETE` records easily using the ORM's build in `.delete()` method.
 
 First we need a spare cat:
 
@@ -172,7 +172,7 @@ c.delete()
 
 ## Read one
 
-We've seen how to use `Cat.objects.all()` and `Cat.objects.filter()` to retrieve lists of objects. However, retrieving a ***single*** specific model object from the database, typically by its `id`, is a common operation.
+We've seen how to use `Cat.objects.all()` and `Cat.objects.filter()` to retrieve lists of objects. However, retrieving a **_single_** specific model object from the database, typically by its `id`, is a common operation.
 
 ### Using the `get()` method
 
@@ -186,9 +186,10 @@ You can specify multiple conditions by using multiple `field=value` pairs with t
 
 ### Handling errors with `get()`
 
-The `get()` method raises an error if no object is found. It's important to handle this error appropriately to prevent your application from crashing. This will come in handy when we start querying for cats in our Views. 
+The `get()` method raises an error if no object is found. It's important to handle this error appropriately to prevent your application from crashing. This will come in handy when we start querying for cats in our Views.
 
-*example:*
+_example:_
+
 ```python
 try:
     cat = Cat.objects.get(id=1)
@@ -243,7 +244,7 @@ Filters can even be chained!
 
 ## Ordering (sorting) querysets
 
-Django's **[order_by](https://docs.djangoproject.com/en/5.0/ref/models/querysets/#order-by)** method allows you to sort query results, similar to SQL's `ORDER BY` clause. 
+Django's **[order_by](https://docs.djangoproject.com/en/5.0/ref/models/querysets/#order-by)** method allows you to sort query results, similar to SQL's `ORDER BY` clause.
 
 ### Sorting in ascending order
 

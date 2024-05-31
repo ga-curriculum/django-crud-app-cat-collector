@@ -20,7 +20,7 @@ Thus, a Model has a one-to-one mapping with a table in the database and is what 
 
 When we retrieve data from the database (using a Model), we will have **model objects**, each of which represents a row in a database table. Model objects are also called _instances_ of the Model. We can work with these instances of the Model just like how we worked with Mongoose documents.
 
-> Note: Since a “model” can technically refer to the Model class or an instance of that class, we will try to use “Model” (capitalized) to refer to a Model class we use to perform CRUD with and “model” (lowercased) to refer to a model instance.
+> Note: Since a "model" can technically refer to the Model class or an instance of that class, we will try to use "Model" (capitalized) to refer to a Model class we use to perform CRUD with and "model" (lowercased) to refer to a model instance.
 
 Here's an ERD for the future state of Cat Collector:
 
@@ -121,7 +121,7 @@ Hit enter to exit this view, and run:
 \q
 ```
 
-to exit the shell. 
+to exit the shell.
 
 ### Configuring Django to Use PostgreSQL
 
@@ -195,13 +195,13 @@ After creating migration files, you typically don't need to modify them. However
 
 Simply creating migration files does not update the database’s schema.
 
-To synchronize the database with the code in the migration files, we “migrate” using this command in the terminal:
+To synchronize the database with the code in the migration files, we "migrate" using this command in the terminal:
 
 ```bash
 python3 manage.py migrate
 ```
 
-Lots of `OK` messages is what you are looking for! 
+Lots of `OK` messages is what you are looking for!
 
 > 💡 **Rule of Thumb for Migrations:** Whenever you modify a model, always remember to create and apply migrations. This ensures that your database schema is up-to-date with your model definitions.
 
@@ -227,7 +227,7 @@ You should see a table named `main_app_cat` listed!
 
 catcollector=# \dt
                      List of relations
- Schema |            Name            | Type  |    Owner    
+ Schema |            Name            | Type  |    Owner
 --------+----------------------------+-------+-------------
  public | auth_group                 | table | user
  public | auth_group_permissions     | table | user
@@ -239,10 +239,10 @@ catcollector=# \dt
  public | django_content_type        | table | user
  public | django_migrations          | table | user
  public | django_session             | table | user
- public | main_app_cat               | table | user    <- Our new table! 
+ public | main_app_cat               | table | user    <- Our new table!
 (11 rows)
 
-catcollector=# 
+catcollector=#
 
 ```
 

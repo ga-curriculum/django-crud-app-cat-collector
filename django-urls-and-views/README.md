@@ -30,7 +30,7 @@ To tailor our `catcollector` project for its specific purpose, we need to create
    Navigate to the `catcollector` directory in your terminal and run the following command:
 
 ```bash
-python manage.py startapp main_app
+python3 manage.py startapp main_app
 ```
 
 This command initializes a new Django app with the necessary files and directory structure. You’ll now find a `main_app` folder within the top-level project folder, set up as a Python module.​
@@ -61,7 +61,7 @@ After setting up our new app, `main_app`, we need to verify that everything is c
 Run this command in the terminal:
 
 ```bash
-python manage.py runserver
+python3 manage.py runserver
 ```
 
 ### Understanding the server output
@@ -75,7 +75,7 @@ Performing system checks...
 System check identified no issues (0 silenced).
 
 You have 18 unapplied migration(s). Your project may not work properly until you apply the migrations for app(s): admin, auth, contenttypes, sessions.
-Run 'python manage.py migrate' to apply them.
+Run 'python3 manage.py migrate' to apply them.
 May 13, 2024 - 22:47:08
 Django version 5.0.6, using settings 'catcollector.settings'
 Starting development server at http://127.0.0.1:8000/
@@ -111,7 +111,7 @@ Now let’s test our database connection by getting rid of the unapplied migrati
 stop your server, and run the following command in the terminal:
 
 ```bash
-python manage.py migrate
+python3 manage.py migrate
 ```
 
 You should see something similar to this:

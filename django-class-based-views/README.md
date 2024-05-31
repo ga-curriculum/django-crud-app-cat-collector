@@ -184,12 +184,9 @@ The `CreateView` expects a template named `<model_name>_form.html` by default, w
 We'll discuss the following code as we type it:
 
 ```html
-{% extends 'base.html' %} 
-{% load static %} 
-{% block head %}
+{% extends 'base.html' %} {% load static %} {% block head %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/form.css' %}" />
-{% endblock %} 
-{% block content %}
+{% endblock %} {% block content %}
 
 <div class="page-header">
   <h1>Add a Cat</h1>
@@ -209,7 +206,7 @@ We'll discuss the following code as we type it:
 
 1. Setting the action attribute to an empty string (`action=""`) means the form will submit to the same URL that served it. This is typical for `CreateView`, which handles both displaying the form (on GET requests) and processing the form submission (on POST requests).
 
-2. The `{% csrf_token %}` template tag is a security measure that makes it difficult to perform a [**cross-site-request-forgery**](https://en.wikipedia.org/wiki/Cross-site_request_forgery) by writing a CSRF (pronounced “see-surf”) token that is validated on the server.
+2. The `{% csrf_token %}` template tag is a security measure that makes it difficult to perform a [**cross-site-request-forgery**](https://en.wikipedia.org/wiki/Cross-site_request_forgery) by writing a CSRF (pronounced "see-surf") token that is validated on the server.
 
 3. The `form` variable represents a Django `ModelForm` instance that is automatically created by `CreateView`. This form is linked directly to your model and includes all the fields specified in the form's Meta class or passed explicitly to the view. `{{ form.as_table }}` renders the form fields within a table layout. This method is one of several Django provides for rendering forms (others include `as_p` for paragraph tags and `as_ul` for unordered lists).
 
@@ -271,7 +268,7 @@ Looks great!
 
 ![Create Page UI](./assets/create-page.png)
 
-Use the devtools to explore the DOM. You’ll see how Django’s ModelForm wrote the inputs in table rows and columns because we used `{{ form.as_table }}`. 
+Use the devtools to explore the DOM. You’ll see how Django’s ModelForm wrote the inputs in table rows and columns because we used `{{ form.as_table }}`.
 
 Other options include:
 
@@ -280,7 +277,6 @@ Other options include:
 - `{{ form.as_ul }}` - Wraps an `<li>` tag around the `<label>` & `<input>` tags
 
 > Note: To ease custom styling, you can add an id or class to your`<table>` and/or `<form>` tags. Also note how Django automatically assigns an id to each input.
-
 
 ## Redirecting
 
@@ -348,7 +344,7 @@ Let’s add two new routes for update and delete in `main_app/urls.py`:
   path('cats/<int:pk>/delete/', views.CatDelete.as_view(), name='cat-delete'),
 ```
 
->  By convention, CBVs that work with individual model instances will expect to find a named parameter of `pk` for "primary key". This is why we didn’t use `cat_id` as we did in the _detail_ entry.
+> By convention, CBVs that work with individual model instances will expect to find a named parameter of `pk` for "primary key". This is why we didn’t use `cat_id` as we did in the _detail_ entry.
 
 ## Update the UI
 
@@ -356,7 +352,7 @@ Now we need to add `EDIT` and `DELETE` links on a cat’s details page.
 
 Let’s update `templates/cats/detail.html` by adding a new `<div>` we'll label with the class `"cat-actions"`. This will contain our link buttons to `Edit` and `Delete` routes.
 
-Add the new *"cat-actions"* `<div>` inside the `detail.html` template:
+Add the new _"cat-actions"_ `<div>` inside the `detail.html` template:
 
 ```html
 <div class="cat-details">
@@ -367,12 +363,11 @@ Add the new *"cat-actions"* `<div>` inside the `detail.html` template:
   <h2>A {{ cat.breed }} kitten.</h2>
   {% endif %}
   <p>{{ cat.description }}</p>
-  
+
   <div class="cat-actions">
     <a href="{% url 'cat-update' cat.id %}" class="btn warn">Edit</a>
     <a href="{% url 'cat-delete' cat.id %}" class="btn danger">Delete</a>
   </div>
-
 </div>
 ```
 
@@ -404,14 +399,13 @@ class CatDelete(DeleteView):
 
 > Note that when we delete a cat, we’ll need to redirect to the cats _index_ page since that cat doesn’t exist anymore.
 
-Now we should be able to refresh the page and see our buttons rendered. 
+Now we should be able to refresh the page and see our buttons rendered.
 
 ![Edit and Delete Buttons UI](./assets/edit-delete-buttons.png)
 
-
 ## Adding the templates
 
-At this point, the UPDATE functionality is ready for testing, but to fully implement the DELETE functionality, we need to take a few more steps. For both UPDATE and DELETE actions, if we want to introduce customizations or confirmations, modifications to existing templates are necessary. 
+At this point, the UPDATE functionality is ready for testing, but to fully implement the DELETE functionality, we need to take a few more steps. For both UPDATE and DELETE actions, if we want to introduce customizations or confirmations, modifications to existing templates are necessary.
 
 Instead of creating a new template for the UPDATE action, we will edit the existing `cat_form.html` template to add custom UI elements. This ensures consistency across different actions like UPDATE and DELETE, where DELETE will require a separate confirmation template to safeguard against accidental deletions.
 
@@ -427,17 +421,17 @@ We’re going to customize `cat_form.html` to show the name of the Cat being edi
 
 - When using `CreateView`, these variables (object or cat) will be `None` because there's no existing instance to edit.
 
-
 Let’s leverage this new knowledge to modify `templates/main_app/cat_form.html` to show the cat’s name only when we are editing, not creating, a cat:
 
 ```html
 <div class="page-header">
   <!-- Check if a cat object exists to determine if we're editing -->
   {% if cat %}
-    <h1>Edit {{ cat.name }}</h1>
+  <h1>Edit {{ cat.name }}</h1>
   {% else %}
-    <h1>Add a Cat</h1>
+  <h1>Add a Cat</h1>
   {% endif %}
+</div>
 ```
 
 We could also do:
@@ -446,10 +440,11 @@ We could also do:
 <div class="page-header">
   <!-- Using the generic 'object' variable -->
   {% if object %}
-    <h1>Edit {{ object.name }}</h1>
+  <h1>Edit {{ object.name }}</h1>
   {% else %}
-    <h1>Add a Cat</h1>
+  <h1>Add a Cat</h1>
   {% endif %}
+</div>
 ```
 
 These two blocks are functionally equivalent and we could use either.
@@ -473,9 +468,7 @@ touch main_app/templates/main_app/cat_confirm_delete.html
 Next, define the contents of the template. This template will extend your base layout and include a confirmation form:
 
 ```html
-{% extends 'base.html' %}
-{% load static %}
-{% block content %}
+{% extends 'base.html' %} {% load static %} {% block content %}
 
 <div class="page-header">
   <h1>Delete Cat?</h1>

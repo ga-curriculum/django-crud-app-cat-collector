@@ -28,7 +28,7 @@ The specific web service we are going to use to host our uploaded images is the 
 
 Before we can use S3, or any Amazon Web Service, we’ll need an Amazon AWS account.
 
-> Even though AWS has a “free tier” and we will do nothing in SEI will cost money, AWS requires a credit card to open an account. If you don’t wish to provide a credit card, you will not be able to complete this activity and you won’t be able to upload images using Amazon Web Services.
+> Even though AWS has a "free tier" and we will do nothing in SEI will cost money, AWS requires a credit card to open an account. If you don’t wish to provide a credit card, you will not be able to complete this activity and you won’t be able to upload images using Amazon Web Services.
 
 Click the orange **Create an AWS Account** button, then click **Create a new AWS account** (or browse **[here](https://portal.aws.amazon.com/billing/signup#/start)**):
 
@@ -161,7 +161,7 @@ The bucket has been created!
 
 However, we need to make sure that web browsers will be able to download cat images when using catcollector.
 
-To do so, we need to specify a “bucket policy” that enables read-only access to a bucket’s objects.
+To do so, we need to specify a "bucket policy" that enables read-only access to a bucket’s objects.
 
 Click on the bucket name:
 
@@ -274,7 +274,7 @@ class Photo(models.Model):
 
 Nice and simple!
 
-> Reminder: If a Model “belongs to” another Model, it must have a foreign key. More than one “belongs to” relationship - means more than one foreign key.
+> Reminder: If a Model "belongs to" another Model, it must have a foreign key. More than one "belongs to" relationship - means more than one foreign key.
 
 <details>
 <summary>What needs to be done now?</summary>
