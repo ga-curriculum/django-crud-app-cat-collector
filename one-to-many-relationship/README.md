@@ -20,8 +20,8 @@ Using the ERD above as a guide, let’s add a new `Feeding` Model (below the cur
 # Add new Feeding model below Cat model
 
 class Feeding(models.Model):
-  date = models.DateField()
-  meal = models.CharField(max_length=1)
+    date = models.DateField()
+    meal = models.CharField(max_length=1)
 ```
 
 > Note that we’re going to use just a single-character to represent what meal the feeding is for: **_B_**reakfast, **_L_**unch or **_D_**inner.
@@ -35,9 +35,9 @@ The first step is to define a tuple of 2-tuples. Because we might need to access
 ```python
 # A tuple of 2-tuples added above our models
 MEALS = (
-  ('B', 'Breakfast'),
-  ('L', 'Lunch'),
-  ('D', 'Dinner')
+    ('B', 'Breakfast'),
+    ('L', 'Lunch'),
+    ('D', 'Dinner')
 )
 
 
@@ -52,14 +52,14 @@ Now let’s enhance the `meal` field as follows:
 
 ```python
 class Feeding(models.Model):
-  date = models.DateField()
-  meal = models.CharField(
-    max_length=1,
-    # add the 'choices' field option
-    choices=MEALS,
-    # set the default value for meal to be 'B'
-    default=MEALS[0][0]
-  )
+    date = models.DateField()
+    meal = models.CharField(
+      max_length=1,
+      # add the 'choices' field option
+      choices=MEALS,
+      # set the default value for meal to be 'B'
+      default=MEALS[0][0]
+    )
 ```
 
 ## Override the `__str__` Method
@@ -68,11 +68,11 @@ As is common in python classes, we can override the `__str__` method in Models s
 
 ```python
 class Feeding(models.Model):
-  ...
+    ...
 
-  def __str__(self):
-    # Nice method for obtaining the friendly value of a Field.choice
-    return f"{self.get_meal_display()} on {self.date}"
+    def __str__(self):
+      # Nice method for obtaining the friendly value of a Field.choice
+      return f"{self.get_meal_display()} on {self.date}"
 ```
 
 Check out the convenient `get_meal_display()` method Django _automagically_ creates to access the human-friendly value of a `Field.choice` like we have on `meal`.
@@ -85,17 +85,17 @@ Here’s how it’s done - Django style:
 
 ```python
 class Feeding(models.Model):
-  date = models.DateField()
-  meal = models.CharField(
-		max_length=1,
-		choices=MEALS,
-		default=MEALS[0][0]
-  )
-  # Create a cat_id column for each feeding in the database
-  cat = models.ForeignKey(Cat, on_delete=models.CASCADE)
+    date = models.DateField()
+    meal = models.CharField(
+      max_length=1,
+      choices=MEALS,
+      default=MEALS[0][0]
+    )
+    # Create a cat_id column for each feeding in the database
+    cat = models.ForeignKey(Cat, on_delete=models.CASCADE)
 
-  def __str__(self):
-    return f"{self.get_meal_display()} on {self.date}"
+    def __str__(self):
+      return f"{self.get_meal_display()} on {self.date}"
 ```
 
 As you can see, the `ForeignKey` field-type is used to create a one-to-many relationship.
@@ -154,9 +154,9 @@ In `main_app/models.py`, update the `Feeding` model to include a user-friendly l
 
 ```python
 class Feeding(models.Model):
-  # The first optional positional argument overrides the label
-  date = models.DateField('Feeding date')
-  ...
+    # The first optional positional argument overrides the label
+    date = models.DateField('Feeding date')
+    ...
 ```
 
 After making this change, refresh the admin portal page to see the updated label.
@@ -204,10 +204,10 @@ Here's the new content for `detail.html`. Copy and paste this markup, and then w
       </thead>
       <tbody>
         {% for feeding in cat.feeding_set.all %}
-        <tr>
-          <td>{{feeding.date}}</td>
-          <td>{{feeding.get_meal_display}}</td>
-        </tr>
+          <tr>
+            <td>{{feeding.date}}</td>
+            <td>{{feeding.get_meal_display}}</td>
+          </tr>
         {% endfor %}
       </tbody>
     </table>
@@ -299,7 +299,8 @@ This is how we can "render" the `ModelForm`’s inputs within `<form>` tags. Add
 <h3>Add a Feeding</h3>
 <!-- Add just above the feedings table -->
 <form method="post" class="subsection-content" autocomplete="off">
-  {% csrf_token %} {{ feeding_form.as_p }}
+  {% csrf_token %} 
+  {{ feeding_form.as_p }}
   <button type="submit" class="btn submit">Add Feeding</button>
 </form>
 ...
@@ -358,8 +359,8 @@ Add a route to the `urlpatterns` list in **`urls.py`** like this:
 
 ```python
 urlpatterns = [
-	...
-  path('cats/<int:cat_id>/add-feeding/', views.add_feeding, name='add-feeding'),
+	  ...
+    path('cats/<int:cat_id>/add-feeding/', views.add_feeding, name='add-feeding'),
 ]
 ```
 
@@ -377,7 +378,8 @@ Now that we have a _named URL_, let’s add the `action` attribute to the `<form
   class="subsection-content"
   autocomplete="off"
 >
-  {% csrf_token %} {{ feeding_form.as_p }}
+  {% csrf_token %} 
+  {{ feeding_form.as_p }}
   <button type="submit" class="btn submit">Add Feeding</button>
 </form>
 ```
@@ -398,16 +400,16 @@ Let’s create an `add_feeding` view function in `main_app/views.py` :
 
 ```python
 def add_feeding(request, cat_id):
-  # create a ModelForm instance using the data in request.POST
-  form = FeedingForm(request.POST)
-  # validate the form
-  if form.is_valid():
-    # don't save the form to the db until it
-    # has the cat_id assigned
-    new_feeding = form.save(commit=False)
-    new_feeding.cat_id = cat_id
-    new_feeding.save()
-  return redirect('cat-detail', cat_id=cat_id)
+    # create a ModelForm instance using the data in request.POST
+    form = FeedingForm(request.POST)
+    # validate the form
+    if form.is_valid():
+      # don't save the form to the db until it
+      # has the cat_id assigned
+      new_feeding = form.save(commit=False)
+      new_feeding.cat_id = cat_id
+      new_feeding.save()
+    return redirect('cat-detail', cat_id=cat_id)
 ```
 
 1. First we capture data from the user via the `FeedingForm(request.POST)` and prepare it for the database.
@@ -440,14 +442,14 @@ Let's add this to our `Feeding` model:
 
 ```python
 class Feeding(models.Model):
-  ...
-  def __str__(self):
-    # Nice method for obtaining the friendly value of a Field.choice
-    return f"{self.get_meal_display()} on {self.date}"
+    ...
+    def __str__(self):
+      # Nice method for obtaining the friendly value of a Field.choice
+      return f"{self.get_meal_display()} on {self.date}"
 
-  # Define the default order of feedings
-  class Meta:
-    ordering = ['-date']  # This line makes the newest feedings appear first
+    # Define the default order of feedings
+    class Meta:
+      ordering = ['-date']  # This line makes the newest feedings appear first
 ```
 
 This `ordering` option in Django allows us to specify how lists of entries, like our feedings, should be sorted by default. The prefix '-' before 'date' means it sorts the dates in descending order, so the newest feedings appear first.
@@ -461,26 +463,26 @@ Replace the existing feedings table with the following:
 ```html
 <h3>Past Feedings</h3>
 {% if cat.feeding_set.all.count %}
-<table>
-  <thead>
-    <tr>
-      <th>Date</th>
-      <th>Meal</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for feeding in cat.feeding_set.all %}
-    <tr>
-      <td>{{feeding.date}}</td>
-      <td>{{feeding.get_meal_display}}</td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
+  <table>
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Meal</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for feeding in cat.feeding_set.all %}
+      <tr>
+        <td>{{feeding.date}}</td>
+        <td>{{feeding.get_meal_display}}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
 {% else %}
-<div class="subsection-content">
-  <p>⚠️ {{cat.name}} has not been fed!</p>
-</div>
+  <div class="subsection-content">
+    <p>⚠️ {{cat.name}} has not been fed!</p>
+  </div>
 {% endif %}
 ```
 

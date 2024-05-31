@@ -66,17 +66,19 @@ Once you have confirmed your css loads properly, you can remove the background c
 
 ## Image files
 
-We’re going to be using some adorable cat pictures in this app. You can get all of the images we're going to use right [**here tktk change location**](https://drive.google.com/drive/folders/1hIP9SjZYAeSXoyvLieOSEcTIvWjtsIq7?usp=sharing).
+We’re going to be using some adorable cat pictures in this app. You can get all of the images we're going to use from [this repo](https://git.generalassemb.ly/modular-curriculum-all-courses/cat-collector-assets). You can clone this repo or download as a zip. 
 
-All these images need to go in a new directory inside `static` called `images`:
+All of these images need to go in a new directory inside `static` called `images`.
+
+Create this directory:
 
 ```bash
 mkdir main_app/static/images
 ```
 
-Copy these files over on your computer from the starter code folder to our Django project.
+***Copy or drag these files over from the starter code folder into your Django project at main_app/static/images***
 
-Your end file structure should look like this:
+Your end file structure must look like this:
 
 ```plaintext
 main_app
@@ -104,6 +106,8 @@ main_app
   - about.html
   - base.html
 ```
+
+> Once you have copied the images over to the correct place in the `catcollector` app, You can delete the `cat-collector-assets` folder. 
 
 With our image files in place we can add a valid `href` to the favicon in the `head` of our `base.html`:
 
@@ -406,7 +410,7 @@ nav li {
 }
 ```
 
-Once you have added your CSS, refresh the page to see your changes.If you do not immediately see your changes, try restarting your server.
+Once you have added your CSS, refresh the page to see your changes. If you do not immediately see your changes, try restarting your server.
 
 
 ![About page with CSS added](./assets/css-added.png)

@@ -43,12 +43,12 @@ Given that our application's focus is on `Cats`, we are more likely interested i
 
 ```python
 class Cat(models.Model):
-  name = models.CharField(max_length=100)
-  breed = models.CharField(max_length=100)
-  description = models.TextField(max_length=250)
-  age = models.IntegerField()
-  # Add the M:M relationship
-  toys = models.ManyToManyField(Toy)
+    name = models.CharField(max_length=100)
+    breed = models.CharField(max_length=100)
+    description = models.TextField(max_length=250)
+    age = models.IntegerField()
+    # Add the M:M relationship
+    toys = models.ManyToManyField(Toy)
 ```
 
 > Tip: If you don't have your `Toy` model above your `Cat` model in `models.py`, you'll need to move it there now. This will correct any `toy not defined` server errors.
@@ -132,14 +132,14 @@ Add the following `<section>` with the class "toys", below the existing `<sectio
   <h3>Available Toys</h3>
   <div class="subsection-content">
     {% for toy in toys %}
-    <div class="toy-container">
-      <div class="color-block" style="background-color: {{ toy.color }}"></div>
-      <p>{{ toy.color }} {{ toy.name }}</p>
-      <form action="" method="post">
-        {% csrf_token %}
-        <button type="submit" class="btn submit">Give Toy</button>
-      </form>
-    </div>
+      <div class="toy-container">
+        <div class="color-block" style="background-color: {{ toy.color }}"></div>
+        <p>{{ toy.color }} {{ toy.name }}</p>
+        <form action="" method="post">
+          {% csrf_token %}
+          <button type="submit" class="btn submit">Give Toy</button>
+        </form>
+      </div>
     {% endfor %}
   </div>
 </section>
@@ -203,9 +203,9 @@ _You can add this function anywhere in your views file:_
 
 ```python
 def associate_toy(request, cat_id, toy_id):
-  # Note that you can pass a toy's id instead of the whole object
-  Cat.objects.get(id=cat_id).toys.add(toy_id)
-  return redirect('cat-detail', cat_id=cat_id)
+    # Note that you can pass a toy's id instead of the whole object
+    Cat.objects.get(id=cat_id).toys.add(toy_id)
+    return redirect('cat-detail', cat_id=cat_id)
 ```
 
 Now that we have our view function in place, we can test making associations from the UI by verifying the association in the admin portal.
@@ -241,20 +241,24 @@ Displaying a cat’s toys is just a matter of updating `/cats/detail.html` to sh
   <!-- displaying a cat's toys -->
   <h3>{{ cat.name }}'s Toys</h3>
   <div class="subsection-content">
-    {% if cat.toys.count %} {% for toy in cat.toys.all %}
-    <div class="toy-container">
-      <div class="color-block" style="background-color: {{ toy.color }}"></div>
-      <a href="{% url 'toy-detail' toy.id %}">
-        <p>A {{ toy.color }} {{ toy.name }}</p>
-      </a>
-    </div>
-    {% endfor %} {% else %}
-    <p class="no-toys">{{cat.name}} doesn't have any toys!</p>
+    {% if cat.toys.count %} 
+      {% for toy in cat.toys.all %}
+        <div class="toy-container">
+          <div class="color-block" style="background-color: {{ toy.color }}"></div>
+          <a href="{% url 'toy-detail' toy.id %}">
+            <p>A {{ toy.color }} {{ toy.name }}</p>
+          </a>
+        </div>
+      {% endfor %} 
+    {% else %}
+      <p class="no-toys">{{cat.name}} doesn't have any toys!</p>
     {% endif %}
   </div>
 
   <h3>Available Toys</h3>
-  <div class="subsection-content">...</div>
+  <div class="subsection-content">
+    ...
+  </div>
 </section>
 ```
 
@@ -281,9 +285,9 @@ def cat_detail(request, cat_id):
 
     feeding_form = FeedingForm()
     return render(request, 'cats/detail.html', {
-      'cat': cat,
-      'feeding_form': feeding_form,
-      'toys': toys_cat_doesnt_have  # send those toys
+        'cat': cat,
+        'feeding_form': feeding_form,
+        'toys': toys_cat_doesnt_have  # send those toys
     })
 ```
 
@@ -300,19 +304,21 @@ Now we can update the "Available Toys" section in the UI to only show available 
 ```html
 <h3>Available Toys</h3>
 <div class="subsection-content">
-  {% if toys.count %} {% for toy in toys.all %}
-  <div class="toy-container">
-    <div class="color-block" style="background-color: {{ toy.color }}"></div>
-    <a href="{% url 'toy-detail' toy.id %}">
-      <p>A {{ toy.color }} {{ toy.name }}</p>
-    </a>
-    <form action="{% url 'associate-toy' cat.id toy.id %}" method="post">
-      {% csrf_token %}
-      <button type="submit" class="btn submit">Give toy</button>
-    </form>
-  </div>
-  {% endfor %} {% else %}
-  <p class="all-toys">{{cat.name}} already has all the available toys 🥳</p>
+  {% if toys.count %} 
+    {% for toy in toys.all %}
+      <div class="toy-container">
+        <div class="color-block" style="background-color: {{ toy.color }}"></div>
+        <a href="{% url 'toy-detail' toy.id %}">
+          <p>A {{ toy.color }} {{ toy.name }}</p>
+        </a>
+        <form action="{% url 'associate-toy' cat.id toy.id %}" method="post">
+          {% csrf_token %}
+          <button type="submit" class="btn submit">Give toy</button>
+        </form>
+      </div>
+    {% endfor %} 
+  {% else %}
+    <p class="all-toys">{{cat.name}} already has all the available toys 🥳</p>
   {% endif %}
 </div>
 ```

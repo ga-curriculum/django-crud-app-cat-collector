@@ -2,13 +2,13 @@
 
 **Learning objective:** By the end of this lesson, learners will be able to integrate Django's ORM capabilities into their web applications to perform CRUD operations, utilize Django's administrative dashboard to manage data, and understand how to dynamically generate detail views for objects within a web application.
 
-It's time to integrate Django's ORM capabilities into our Cat Collector app!
-
 ## Updating the `catcollector` views
+
+It's time to integrate Django's ORM capabilities into our Cat Collector app!
 
 First, update `main_app/views.py` by removing the `class Cat...` definition and the hardcoded `cats` list, as we'll now be retrieving real data from the database.
 
-## Fetching cat data with the ORM
+### Fetching cat data with the ORM
 
 Import the `Cat` model at the beginning of your views file and modify the `cat_index` function to fetch cat data using the ORM:
 
@@ -23,7 +23,7 @@ def cat_index(request):
 
 Refresh the page in your browser to see real cats from your Database
 
-# I am the admin!
+## I am the admin!
 
 Hold on to your cats, because there's something **_REALLY_** neat about Django—it comes with a built-in administrator dashboard! Remember seeing `django.contrib.auth` listed in your `INSTALLED_APPS`? Well, it's time to put it to work!
 
@@ -110,25 +110,25 @@ To enable users to access a cat's detailed view, we'll enhance the UI by making 
 
 <section class="card-container">
   {% for cat in cats %}
-  <div class="card">
-    <a href="/cats/{{ cat.id }}">
-      <div class="card-content">
-        <div class="card-img-container">
-          <img
-            src="{% static 'images/sk8r-boi-cat.svg' %}"
-            alt="A skater boy cat"
-          />
+    <div class="card">
+      <a href="/cats/{{ cat.id }}">
+        <div class="card-content">
+          <div class="card-img-container">
+            <img
+              src="{% static 'images/sk8r-boi-cat.svg' %}"
+              alt="A skater boy cat"
+            />
+          </div>
+          <h2 class="card-title">{{ cat.name }}</h2>
+          {% if cat.age > 0 %}
+          <p>A {{ cat.age }} year old {{ cat.breed }}</p>
+          {% else %}
+          <p>A {{ cat.breed }} kitten.</p>
+          {% endif %}
+          <p><small>{{ cat.description }}</small></p>
         </div>
-        <h2 class="card-title">{{ cat.name }}</h2>
-        {% if cat.age > 0 %}
-        <p>A {{ cat.age }} year old {{ cat.breed }}</p>
-        {% else %}
-        <p>A {{ cat.breed }} kitten.</p>
-        {% endif %}
-        <p><small>{{ cat.description }}</small></p>
-      </div>
-    </a>
-  </div>
+      </a>
+    </div>
   {% endfor %}
 </section>
 ```
@@ -182,13 +182,16 @@ touch main_app/templates/cats/detail.html
 Ensure this template extends your base layout and add the necessary styling:
 
 ```html
-{% extends 'base.html' %} {% load static %} {% block head %}
+{% extends 'base.html' %} 
+{% load static %} 
+{% block head %}
 <link
   rel="stylesheet"
   type="text/css"
   href="{% static 'css/cats/cat-detail.css' %}"
 />
-{% endblock %} {% block content %}
+{% endblock %} 
+{% block content %}
 <section class="cat-container">
   <div class="cat-img">
     <img src="{% static 'images/sk8r-boi-cat.svg' %}" alt="A skater boy cat" />
@@ -196,9 +199,9 @@ Ensure this template extends your base layout and add the necessary styling:
   <div class="cat-details">
     <h1>{{ cat.name }}</h1>
     {% if cat.age > 0 %}
-    <h2>A {{ cat.age }} year old {{ cat.breed }}</h2>
+      <h2>A {{ cat.age }} year old {{ cat.breed }}</h2>
     {% else %}
-    <h2>A {{ cat.breed }} kitten.</h2>
+      <h2>A {{ cat.breed }} kitten.</h2>
     {% endif %}
     <p>{{ cat.description }}</p>
   </div>

@@ -96,10 +96,14 @@ Base : `base.html`
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>{% block title %} {% endblock %}</title>
+    <title>
+      {% block title %} 
+      {% endblock %}
+    </title>
   </head>
   <body>
-    {% block body %} {% endblock %}
+    {% block body %} 
+    {% endblock %}
   </body>
 </html>
 ```
@@ -107,8 +111,11 @@ Base : `base.html`
 Child : `index.html`
 
 ```html
-{% extends "base.html" %} {% block title %} Main Page {% endblock %} {% block
-body %}
+{% extends "base.html" %} 
+{% block title %} 
+  Main Page 
+{% endblock %} 
+{% block body %}
 <h1>Content!</h1>
 {% endblock %}
 ```
@@ -150,7 +157,8 @@ The `base.html` file acts as the foundational layout for your Django application
        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
        <link rel="shortcut icon" type="image/png" href="" />
        <title>Cat Collector</title>
-       {% block head %} {% endblock %}
+       {% block head %} 
+       {% endblock %}
      </head>
      <body>
        <header>
@@ -165,7 +173,10 @@ The `base.html` file acts as the foundational layout for your Django application
            </ul>
          </nav>
        </header>
-       <main>{% block content %} {% endblock %}</main>
+       <main>
+        {% block content %} 
+        {% endblock %}
+        </main>
      </body>
    </html>
    ```
@@ -205,7 +216,8 @@ When a template extends `base.html`, it inherits its entire structure. The child
 Replace the entire contents of `about.html` with the following code:
 
 ```html
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %} 
+{% block content %}
 <h1>About the Cat Collector</h1>
 <hr />
 <p class="page-content">

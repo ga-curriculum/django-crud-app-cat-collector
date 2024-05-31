@@ -64,10 +64,10 @@ Now let’s add the field linking a `Cat` to a `User`:
 
 ```python
 class Cat(models.Model):
-  ...
-  toys = models.ManyToManyField(Toy)
-  # Add the foreign key linking to a user instance
-  user = models.ForeignKey(User, on_delete=models.CASCADE)
+    ...
+    toys = models.ManyToManyField(Toy)
+    # Add the foreign key linking to a user instance
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 ```
 
 ## Migrate the change
@@ -128,7 +128,7 @@ Lucky for us, the `django.contrib.auth` module contains predefined URLS that we 
 Let's do so now:
 
 ```python
-...
+  ...
   path('admin/', admin.site.urls),
   path('', include('main_app.urls')),
   # include the built-in auth urls for the built-in views
@@ -169,7 +169,7 @@ And use it in a class based view that **_replaces_** the current home view funct
 
 ```python
 class Home(LoginView):
-  template_name = 'home.html'
+    template_name = 'home.html'
 ```
 
 Don't forget to update `main_app/urls.py` to use the new CBV.
@@ -255,23 +255,22 @@ With this knowledge, let’s make the nav bar dynamic in `base.html`:
 <nav>
   <ul>
     {% if user.is_authenticated %}
-    <li><a href="{% url 'cat-index' %}">All Cats</a></li>
-    <li><a href="{% url 'toy-index' %}">All Toys</a></li>
-    <li><a href="{% url 'cat-create' %}">Add a Cat</a></li>
-    <li><a href="{% url 'toy-create' %}">Add a Toy</a></li>
-    <li><a href="{% url 'about' %}">About</a></li>
-    <li><a href="{% url 'logout' %}">Log out</a></li>
+      <li><a href="{% url 'cat-index' %}">All Cats</a></li>
+      <li><a href="{% url 'toy-index' %}">All Toys</a></li>
+      <li><a href="{% url 'cat-create' %}">Add a Cat</a></li>
+      <li><a href="{% url 'toy-create' %}">Add a Toy</a></li>
+      <li><a href="{% url 'about' %}">About</a></li>
     {% else %}
-    <li><a href="{% url 'about' %}">About</a></li>
-    <li><a href="{% url 'home' %}">Login</a></li>
+      <li><a href="{% url 'about' %}">About</a></li>
+      <li><a href="{% url 'home' %}">Login</a></li>
     {% endif %}
   </ul>
 </nav>
 ```
 
-Note how the **Log In** and **Log Out** links use the `url` template tag along with the built-in named URL patterns (listed above).
+Note how the **Log In** link uses the `url` template tag along with the built-in named URL patterns (listed above).
 
-However, we’re skipping the **Sign Up** link for now because Django does not include a default URL or view for signing up.
+However, we’re skipping the **Sign Up** and **Log Out** links for now, because Django requires a bit of extra configuration for these actions.
 
 Now we should see the following nav if not logged in:
 
@@ -287,24 +286,77 @@ We also want to prevent the login form from being shown when there is a user log
 
 ```html
 {% if not user.is_authenticated %}
-<section>
-  <form action="{% url 'home' %}" method="post" class="login">
-    <h1>Login</h1>
-    {% csrf_token %} {{ form.as_p }}
-    <input type="hidden" name="next" value="{{ next }}" />
-    <button type="submit" class="btn submit">Login</button>
-  </form>
-</section>
+  <section>
+    <form action="{% url 'home' %}" method="post" class="login">
+      <h1>Login</h1>
+      {% csrf_token %} {{ form.as_p }}
+      <input type="hidden" name="next" value="{{ next }}" />
+      <button type="submit" class="btn submit">Login</button>
+    </form>
+  </section>
 {% endif %}
 ```
 
-Logging out even works, however, currently it doesn’t redirect to our _Home_ page (root route).
-
 ## Logging out
 
-Thanks to the `django.contrib.admin` app’s built-in `LogOut` view, we don't need to add anything to implement logging out.
+Django's authentication framework provides built-in support for logging out, but [recent security practices](https://docs.djangoproject.com/en/5.0/releases/4.1/#log-out-via-get) require that `logout` actions be submitted via a `POST` request instead of a `GET` request. This means we can't use a simple link to log out; instead, we need a form.
 
-However, we’ll want to redirect to a URL different from the default, which we can do by adding another variable to **`settings.py`**:
+First, we need to integrate a `logout` form into your existing navbar. Here's how to place the form in the navbar using an `<li>` element:
+
+```html
+  <li><a href="{% url 'cat-index' %}">All Cats</a></li>
+  <li><a href="{% url 'toy-index' %}">All Toys</a></li>
+  <li><a href="{% url 'cat-create' %}">Add a Cat</a></li>
+  <li><a href="{% url 'toy-create' %}">Add a Toy</a></li>
+  <li><a href="{% url 'about' %}">About</a></li>
+  <li>
+    <form id="logout-form" method="post" action="{% url 'admin:logout' %}">
+      {% csrf_token %}
+      <button type="submit">Log out</button>
+    </form>
+  </li>
+{% else %}
+  <li><a href="{% url 'about' %}">About</a></li>
+  <li><a href="{% url 'home' %}">Login</a></li>
+```
+
+Check it out:
+
+![LogOut Button](./assets/logout-button.png)
+
+### Style the form button
+
+The new form button kinda ruins the aesthetic, but with a bit of styling, we can make these links appear uniform!
+
+Add the following at the bottom of `base.css`:
+
+```css
+#logout-form button {
+  text-decoration: none;
+  color: var(--text-color);
+  font-weight: 600;
+  font-size: 16px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  font-family: inherit;
+}
+
+#logout-form button:hover {
+  color: var(--link-hover-color);
+}
+```
+
+These styles remove default button styling and make the logout button look like a part of the navigation links.
+
+much better! 
+
+![Logout Styled in Nav](./assets/logout-in-nav.png)
+
+### Redirect after logging out
+
+Finally, specify a redirection path for after users log out. By default, Django redirects to `http://127.0.0.1:8000/admin/logout/` for the admin, but you can customize this for all users in `settings.py`:
 
 ```python
 STATIC_URL = 'static/'
@@ -314,8 +366,7 @@ LOGIN_REDIRECT_URL = 'cat-index'
 # Add this variable to specify where logging out redirects to
 LOGOUT_REDIRECT_URL = 'home'
 ```
-
-That was easy!
+Logout is complete!
 
 ## Update the `CatCreate` view to assign a new cat to the logged in user
 
@@ -325,16 +376,16 @@ To do this, we’re going to have to add some additional code to the `CatCreate`
 
 ```python
 class CatCreate(CreateView):
-  model = Cat
-  fields = ['name', 'breed', 'description', 'age']
+    model = Cat
+    fields = ['name', 'breed', 'description', 'age']
 
-  # This inherited method is called when a
-  # valid cat form is being submitted
-  def form_valid(self, form):
-    # Assign the logged in user (self.request.user)
-    form.instance.user = self.request.user  # form.instance is the cat
-    # Let the CreateView do its job as usual
-    return super().form_valid(form)
+    # This inherited method is called when a
+    # valid cat form is being submitted
+    def form_valid(self, form):
+      # Assign the logged in user (self.request.user)
+      form.instance.user = self.request.user  # form.instance is the cat
+      # Let the CreateView do its job as usual
+      return super().form_valid(form)
 ```
 
 We’re overriding the `CreateView`’s `form_valid` method to assign the logged in user, `self.request.user`. Yes, the built-in auth automatically assigns the user to the `request` object similarly our middleware in Express.
@@ -393,24 +444,24 @@ Now let’s create the `signup` view function:
 
 ```python
 def signup(request):
-  error_message = ''
-  if request.method == 'POST':
-    # This is how to create a 'user' form object
-    # that includes the data from the browser
-    form = UserCreationForm(request.POST)
-    if form.is_valid():
-      # This will add the user to the database
-      user = form.save()
-      # This is how we log a user in
-      login(request, user)
-      return redirect('cat-index')
-    else:
-      error_message = 'Invalid sign up - try again'
-  # A bad POST or a GET request, so render signup.html with an empty form
-  form = UserCreationForm()
-  context = {'form': form, 'error_message': error_message}
-  return render(request, 'signup.html', context)
-  # Same as: return render(request, 'signup.html', {'form': form, 'error_message': error_message})
+    error_message = ''
+    if request.method == 'POST':
+      # This is how to create a 'user' form object
+      # that includes the data from the browser
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            # This will add the user to the database
+            user = form.save()
+            # This is how we log a user in
+            login(request, user)
+            return redirect('cat-index')
+        else:
+          error_message = 'Invalid sign up - try again'
+    # A bad POST or a GET request, so render signup.html with an empty form
+    form = UserCreationForm()
+    context = {'form': form, 'error_message': error_message}
+    return render(request, 'signup.html', context)
+    # Same as: return render(request, 'signup.html', {'form': form, 'error_message': error_message})
 ```
 
 > When building future projects in Django you can always refer back to this function or Django's documentation on how to implement this functionality.
@@ -421,9 +472,9 @@ Now that we know the URL, we can add a **Sign Up** link to the nav in `base.html
 
 ```html
 {% else %}
-<li><a href="{% url 'about' %}">About</a></li>
-<li><a href="{% url 'home' %}">Login</a></li>
-<li><a href="{% url 'signup' %}">Sign Up</a></li>
+  <li><a href="{% url 'about' %}">About</a></li>
+  <li><a href="{% url 'home' %}">Login</a></li>
+  <li><a href="{% url 'signup' %}">Sign Up</a></li>
 {% endif %}
 ```
 
@@ -438,15 +489,18 @@ touch main_app/templates/signup.html
 Add the following to `signup.html`:
 
 ```html
-{% extends 'base.html' %} {% load static %} {% block head %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/form.css' %}" />
-{% endblock %} {% block content %}
+{% extends 'base.html' %} 
+{% load static %} 
+{% block head %}
+  <link rel="stylesheet" type="text/css" href="{% static 'css/form.css' %}" />
+{% endblock %} 
+{% block content %}
 <div class="page-header">
   <h1>Sign Up</h1>
   <img src="{% static 'images/nerd-cat.svg' %}" alt="A cat using a computer" />
 </div>
 {% if error_message %}
-<p class="red-text">{{ error_message }}</p>
+  <p class="red-text">{{ error_message }}</p>
 {% endif %}
 <form action="" method="post" class="form-container" autocomplete="off">
   {% csrf_token %}
@@ -485,19 +539,19 @@ If we take a look at the `cat_index` view, we’ll see why:
 
 ```python
 def cat_index(request):
-  # This reads ALL cats, not just the logged in user's cats
-  cats = Cat.objects.all()
-  return render(request, 'cats/index.html', { 'cats': cats })
+    # This reads ALL cats, not just the logged in user's cats
+    cats = Cat.objects.all()
+    return render(request, 'cats/index.html', { 'cats': cats })
 ```
 
 To display just the logged in user’s cats, we just need to change the query to this:
 
 ```python
 def cat_index(request):
-  cats = Cat.objects.filter(user=request.user)
-  # You could also retrieve the logged in user's cats like this
-  # cats = request.user.cat_set.all()
-  return render(request, 'cats/index.html', { 'cats': cats })
+    cats = Cat.objects.filter(user=request.user)
+    # You could also retrieve the logged in user's cats like this
+    # cats = request.user.cat_set.all()
+    return render(request, 'cats/index.html', { 'cats': cats })
 ```
 
 Last step, coming up!
@@ -528,7 +582,7 @@ Now we can simply "decorate" any view function that requires a user to be logged
 ```python
 @login_required
 def cat_index(request):
-  ...
+    ...
 ```
 
 Trying to browse to [http://127.0.0.1:8000/cats](http://127.0.0.1:8000/cats) while logged out - it throws an error!
@@ -572,7 +626,7 @@ Finally, we can protect class-based views like this:
 
 ```python
 class CatCreate(LoginRequiredMixin, CreateView):
-  ...
+    ...
 ```
 
 Not all OOP languages support the concept of multiple inheritance, but Python does.

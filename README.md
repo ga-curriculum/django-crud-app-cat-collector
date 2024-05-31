@@ -22,7 +22,7 @@
 | [Using Django's ORM in the App](./using-djangos-orm-in-the-app/README.md)              | Use Django's ORM and Admin dashboard to see cats as they are added to the database |
 | [Django Class-based Views](./django-class-based-views/README.md)                       | Create new pages using Django's built in Class-based Views                         |
 | [Django One-to-Many Models & ModelForms](./one-to-many-relationship/README.md)         | Create a one-to-many data relationship in Django : `Cats` -< `Feedings`            |
-| [Adding a Third Model](./details-rep/README.md)                                        | Create a `Toys` model with full CRUD capabilities through Class-Based Views        |
+| [Adding a Third Model](./adding-a-third-model/README.md)                                        | Create a `Toys` model with full CRUD capabilities through Class-Based Views        |
 | [Django Many-to-Many Relationships](./many-to-many-relationship/README.md)             | Add a many-to-many data relationship in Django : `Cats` >-< `Toys`                 |
 | [Django Authentication](./authentication/README.md)                                    | Add Authentication with Django's built in Authentication Dashboard                 |
 

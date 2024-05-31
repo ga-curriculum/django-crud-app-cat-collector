@@ -30,7 +30,7 @@ from django.urls import path
 from books.views import BookList
 
 urlpatterns = [
-  path('books/', BookList.as_view(), name='book-index'),
+    path('books/', BookList.as_view(), name='book-index'),
 ]
 ```
 
@@ -59,8 +59,8 @@ For example, to change the default template for a list view, set the `template_n
 
 ```python
 class BookList(ListView):
-  model = Book
-  template_name = 'books/index.html'
+    model = Book
+    template_name = 'books/index.html'
 ```
 
 ## Creating Data Using a CBV
@@ -86,12 +86,12 @@ Let’s add a new URL pattern to `main_app/urls.py` for this classed-based view:
 
 ```python
 urlpatterns = [
-  path('', views.home, name='home'),
-  path('about/', views.about, name='about'),
-  path('cats/', views.cat_index, name='cat-index'),
-  path('cats/<int:cat_id>/', views.cat_detail, name='cat-detail'),
-  # new route used to create a cat
-  path('cats/create/', views.CatCreate.as_view(), name='cat-create'),
+    path('', views.home, name='home'),
+    path('about/', views.about, name='about'),
+    path('cats/', views.cat_index, name='cat-index'),
+    path('cats/<int:cat_id>/', views.cat_detail, name='cat-detail'),
+    # new route used to create a cat
+    path('cats/create/', views.CatCreate.as_view(), name='cat-create'),
 ]
 ```
 
@@ -137,8 +137,8 @@ Now we can inherit from `CreateView` to create our own CBV used to create cats:
 # main-app/views.py
 
 class CatCreate(CreateView):
-  model = Cat
-  fields = '__all__'
+    model = Cat
+    fields = '__all__'
 ```
 
 The `fields` attribute is required and can be used to limit or change the ordering of the attributes from the `Cat` model are generated in the `ModelForm` passed to the template.
@@ -149,8 +149,8 @@ We’ve taken advantage of the special `'__all__'` value to specify that the for
 # main-app/views.py
 
 class CatCreate(CreateView):
-  model = Cat
-  fields = ['name', 'breed', 'description', 'age']
+    model = Cat
+    fields = ['name', 'breed', 'description', 'age']
 ```
 
 This is all the code necessary to display a template containing a form that’s automatically provided, and to create a Cat when the form is submitted (when the request is a `POST` rather than a `GET`).
@@ -184,9 +184,12 @@ The `CreateView` expects a template named `<model_name>_form.html` by default, w
 We'll discuss the following code as we type it:
 
 ```html
-{% extends 'base.html' %} {% load static %} {% block head %}
+{% extends 'base.html' %} 
+{% load static %} 
+{% block head %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/form.css' %}" />
-{% endblock %} {% block content %}
+{% endblock %} 
+{% block content %}
 
 <div class="page-header">
   <h1>Add a Cat</h1>
@@ -286,9 +289,9 @@ To resolve this, you need to specify a `success_url` attribute in your class-bas
 
 ```python
 class CatCreate(CreateView):
-  model = Cat
-  fields = '__all__'
-  success_url = '/cats/'
+    model = Cat
+    fields = '__all__'
+    success_url = '/cats/'
 ```
 
 ### Redirecting to a newly created cat object
@@ -358,9 +361,9 @@ Add the new _"cat-actions"_ `<div>` inside the `detail.html` template:
 <div class="cat-details">
   <h1>{{ cat.name }}</h1>
   {% if cat.age > 0 %}
-  <h2>A {{ cat.age }} year old {{ cat.breed }}</h2>
+    <h2>A {{ cat.age }} year old {{ cat.breed }}</h2>
   {% else %}
-  <h2>A {{ cat.breed }} kitten.</h2>
+    <h2>A {{ cat.breed }} kitten.</h2>
   {% endif %}
   <p>{{ cat.description }}</p>
 
@@ -388,13 +391,13 @@ Now we can utilize these minimal view classes:
 
 ```python
 class CatUpdate(UpdateView):
-  model = Cat
-  # Let's disallow the renaming of a cat by excluding the name field!
-  fields = ['breed', 'description', 'age']
+    model = Cat
+    # Let's disallow the renaming of a cat by excluding the name field!
+    fields = ['breed', 'description', 'age']
 
 class CatDelete(DeleteView):
-  model = Cat
-  success_url = '/cats/'
+    model = Cat
+    success_url = '/cats/'
 ```
 
 > Note that when we delete a cat, we’ll need to redirect to the cats _index_ page since that cat doesn’t exist anymore.
@@ -427,9 +430,9 @@ Let’s leverage this new knowledge to modify `templates/main_app/cat_form.html`
 <div class="page-header">
   <!-- Check if a cat object exists to determine if we're editing -->
   {% if cat %}
-  <h1>Edit {{ cat.name }}</h1>
+    <h1>Edit {{ cat.name }}</h1>
   {% else %}
-  <h1>Add a Cat</h1>
+    <h1>Add a Cat</h1>
   {% endif %}
 </div>
 ```
@@ -440,9 +443,9 @@ We could also do:
 <div class="page-header">
   <!-- Using the generic 'object' variable -->
   {% if object %}
-  <h1>Edit {{ object.name }}</h1>
+    <h1>Edit {{ object.name }}</h1>
   {% else %}
-  <h1>Add a Cat</h1>
+    <h1>Add a Cat</h1>
   {% endif %}
 </div>
 ```
@@ -468,7 +471,9 @@ touch main_app/templates/main_app/cat_confirm_delete.html
 Next, define the contents of the template. This template will extend your base layout and include a confirmation form:
 
 ```html
-{% extends 'base.html' %} {% load static %} {% block content %}
+{% extends 'base.html' %}  
+{% load static %} 
+{% block content %}
 
 <div class="page-header">
   <h1>Delete Cat?</h1>

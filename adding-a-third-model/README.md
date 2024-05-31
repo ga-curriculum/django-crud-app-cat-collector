@@ -1,4 +1,4 @@
-# ![Django CRUD App - Cat Collector - Adding a Second Model](./assets/hero.png)
+# ![Django CRUD App - Cat Collector - Adding a Third Model](./assets/hero.png)
 
 **Learning objective:** By the end of this lesson, learners will be able to implement a new model in Django, and perform CRUD operations using class-based views.
 
@@ -13,14 +13,14 @@ Add the following at the bottom of `models.py`:
 ```python
 # Add the Toy model
 class Toy(models.Model):
-  name = models.CharField(max_length=50)
-  color = models.CharField(max_length=20)
+    name = models.CharField(max_length=50)
+    color = models.CharField(max_length=20)
 
-  def __str__(self):
-    return self.name
+    def __str__(self):
+      return self.name
 
-  def get_absolute_url(self):
-    return reverse('toy-detail', kwargs={'pk': self.id})
+    def get_absolute_url(self):
+      return reverse('toy-detail', kwargs={'pk': self.id})
 ```
 
 This new model with have only two properties for toys `name` and `color`. 
@@ -56,7 +56,7 @@ Lets' create our first Class-Based View for adding new toys.
 Start by adding the URL path for `create` in `main_app/urls.py`.
 
 ```python
-  path('toys/create/', views.ToyCreate.as_view(), name='toy-create'),
+path('toys/create/', views.ToyCreate.as_view(), name='toy-create'),
 ```
 
 > This will cause an error with our server temporarily, because we have not created the view for this new path. 
@@ -69,8 +69,8 @@ from .models import Cat, Toy
 ...
 
 class ToyCreate(CreateView):
-  model = Toy
-  fields = '__all__'
+    model = Toy
+    fields = '__all__'
 ```
 
 And finally create a new template `toy_form.html` and add the model form:
@@ -85,24 +85,24 @@ To save time, we'll add some conditional logic to set this form up for edit func
 {% extends 'base.html' %} 
 {% load static %} 
 {% block head %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/form.css' %}" />
+  <link rel="stylesheet" type="text/css" href="{% static 'css/form.css' %}" />
 {% endblock %} 
 {% block content %}
-<div class="page-header">
-  {% if object %}
-  <h1>Edit {{object.name}}</h1>
-  {% else %}
-  <h1>Add a Toy</h1>
-  {% endif %}
-  <img src="{% static 'images/nerd-cat.svg' %}" alt="A cat using a computer" />
-</div>
-<form action="" method="post" class="form-container" autocomplete="off">
-  {% csrf_token %}
-  <table>
-    {{ form.as_table }}
-  </table>
-  <button type="submit" class="btn submit">Submit!</button>
-</form>
+  <div class="page-header">
+    {% if object %}
+      <h1>Edit {{object.name}}</h1>
+    {% else %}
+      <h1>Add a Toy</h1>
+    {% endif %}
+    <img src="{% static 'images/nerd-cat.svg' %}" alt="A cat using a computer" />
+  </div>
+  <form action="" method="post" class="form-container" autocomplete="off">
+    {% csrf_token %}
+    <table>
+      {{ form.as_table }}
+    </table>
+    <button type="submit" class="btn submit">Submit!</button>
+  </form>
 
 {% endblock %}
 ```
@@ -148,8 +148,8 @@ Here are some wireframes for what we will build in the next sections.
 Let's start by setting up the URLs needed for these views:
 
 ```python
-  path('toys/<int:pk>/', views.ToyDetail.as_view(), name='toy-detail'),
-  path('toys/', views.ToyList.as_view(), name='toy-index'),
+path('toys/<int:pk>/', views.ToyDetail.as_view(), name='toy-detail'),
+path('toys/', views.ToyList.as_view(), name='toy-index'),
 ```
 
 > This will cause an error with our server temporarily, because we have not created the views for these new paths.
@@ -163,10 +163,10 @@ from django.views.generic import ListView, DetailView # add these
 ...
 
 class ToyList(ListView):
-  model = Toy
+    model = Toy
 
 class ToyDetail(DetailView):
-  model = Toy
+    model = Toy
 ```
 
 Next, let's add a link to our "All Toys" index view in the nav bar so we can easily browse all toys:
@@ -215,15 +215,15 @@ Add the following markup in `toy_list.html`:
 
 <section class="card-container">
   {% for toy in toy_list %}
-  <div class="card" style="border-color: {{ toy.color }}">
-    <div class="card-bg" style="background-color: {{ toy.color }}"></div>
-    <a href="{% url 'toy-detail' toy.id %}">
-      <div class="card-content">
-        <h2>{{ toy.name }}</h2>
-        <p>A {{ toy.color }} toy</p>
-      </div>
-    </a>
-  </div>
+    <div class="card" style="border-color: {{ toy.color }}">
+      <div class="card-bg" style="background-color: {{ toy.color }}"></div>
+      <a href="{% url 'toy-detail' toy.id %}">
+        <div class="card-content">
+          <h2>{{ toy.name }}</h2>
+          <p>A {{ toy.color }} toy</p>
+        </div>
+      </a>
+    </div>
   {% endfor %}
 </section>
 
@@ -430,20 +430,20 @@ In `urls.py`:
 
 ```python
   ...
-  path('toys/<int:pk>/update/', views.ToyUpdate.as_view(), name='toy-update'),
-  path('toys/<int:pk>/delete/', views.ToyDelete.as_view(), name='toy-delete'),
+path('toys/<int:pk>/update/', views.ToyUpdate.as_view(), name='toy-update'),
+path('toys/<int:pk>/delete/', views.ToyDelete.as_view(), name='toy-delete'),
 ```
 
 Now we add the views in `views.py`:
 
 ```python
 class ToyUpdate(UpdateView):
-  model = Toy
-  fields = ['name', 'color']
+    model = Toy
+    fields = ['name', 'color']
 
 class ToyDelete(DeleteView):
-  model = Toy
-  success_url = '/toys/'
+    model = Toy
+    success_url = '/toys/'
 ```
 
 Update the Edit and Delete buttons on the `toy-detail.html` page with their new URLs:

@@ -148,23 +148,23 @@ Now, let's populate this new template with the necessary HTML and DTL tags. Copy
 
 <section class="card-container">
   {% for cat in cats %}
-  <div class="card">
-    <div class="card-content">
-      <div class="card-img-container">
-        <img
-          src="{% static 'images/sk8r-boi-cat.svg' %}"
-          alt="A skater boy cat"
-        />
+    <div class="card">
+      <div class="card-content">
+        <div class="card-img-container">
+          <img
+            src="{% static 'images/sk8r-boi-cat.svg' %}"
+            alt="A skater boy cat"
+          />
+        </div>
+        <h2 class="card-title">{{ cat.name }}</h2>
+        {% if cat.age > 0 %}
+        <p>A {{ cat.age }} year old {{ cat.breed }}</p>
+        {% else %}
+        <p>A {{ cat.breed }} kitten.</p>
+        {% endif %}
+        <p><small>{{ cat.description }}</small></p>
       </div>
-      <h2 class="card-title">{{ cat.name }}</h2>
-      {% if cat.age > 0 %}
-      <p>A {{ cat.age }} year old {{ cat.breed }}</p>
-      {% else %}
-      <p>A {{ cat.breed }} kitten.</p>
-      {% endif %}
-      <p><small>{{ cat.description }}</small></p>
     </div>
-  </div>
   {% endfor %}
 </section>
 
