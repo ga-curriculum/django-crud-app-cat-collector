@@ -6,7 +6,7 @@
 
 This lesson focuses on the **Model layer** which provides **Views** with access to the **database**
 
-![MVT Diagram tktk - Hunter this is the image from the notion content, should we update it?](./assets/mvt.png)
+![MVT Diagram](./assets/mvt.png)
 
 ## What’s a Model?
 
@@ -24,7 +24,7 @@ When we retrieve data from the database (using a Model), we will have **model ob
 
 Here's an ERD for the future state of Cat Collector:
 
-![tktk - Hunter this is the image from the notion content, should we update it?](./assets/final-erd.png)
+![Final ERD](./assets/cat-collector-erd.png)
 
 ## Models in Django
 
@@ -32,7 +32,7 @@ Each Model is defined as a Python class that inherits from `django.db.models.Mod
 
 Here’s the **Cat** entity from the ERD and the code to define the equivalent Model:
 
-![tktk - Hunter this is the image from the notion content, should we update it?](https://i.imgur.com/gwlOAXc.png)
+![Cat Model](https://i.imgur.com/gwlOAXc.png)
 
 ## Creating a Model
 

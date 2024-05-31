@@ -103,14 +103,9 @@ dateInput.addEventListener("click", () => {
 
 With these steps, you've not only improved the functionality of your application but also made the date selection process more intuitive and visually pleasing. Test the new date picker by interacting with the Feeding Date input on the cat detail page. You should see a modern, easy-to-use calendar pop up, making date selection smoother and more integrated with your site's design.
 
-Refresh and test it out by clicking inside of Feeding date input - you should see a sweet date-picker pop up like this:
+Refresh and test it out by clicking inside of Feeding date input - you should see an awesome date-picker pop up like this:
 
-tktk - Hunter this is the image from the notion content
-![calendar-wireframe](./assets/calendar-wireframe.png)
+![Custom Date Picker](./assets/calendar-wireframe.png)
 
-There's even a mobile view!
-
-tktk - Hunter this is the image from the notion content
-![mobile-calendar-wireframe](./assets/mobile-calendar-wireframe.png)
 
 

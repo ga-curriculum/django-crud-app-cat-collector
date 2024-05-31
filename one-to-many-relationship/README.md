@@ -8,7 +8,7 @@ In this lesson, we'll explore how to add another model in Django to demonstrate 
 
 We'll use an Entity-Relationship Diagram (ERD) to illustrate this relationship:
 
-![tktk - Hunter, can we get a new erd here](./assets/one-to-many-erd.png)
+![ERD](./assets/one-to-many-erd.png)
 
 In this relationship, each cat will have many feedings, and each feeding will belong to a specific cat.
 
@@ -313,8 +313,8 @@ The `{{ feeding_form.as_p }}` will generate the `<input>` tags wrapped in `<p>` 
 
 Let’s see what it looks like - not perfect but it’s a start:
 
-tktk - Hunter this is the image from the notion content
-![](./assets/detail-feeding-wireframe.png)
+
+![Feeding Form](./assets/feeding-form.png)
 
 Unfortunately, you may have noticed that the _Feeding Date_ field is just a basic text input. This is what Django uses by default for `DateField`s. Let's make it a date picker instead.
 

@@ -12,7 +12,7 @@ For this User story, we need to build an index page to render a list of all our 
 
 Here is a wireframe of the final design:
 
-![tktk - Hunter this is the image from the notion content, do we want to reuse it, or alter it?](./assets/render-template-data.png)
+![All Cats Wireframe](./assets/all-cats-wireframe.png)
 
 
 ### Step 1 - Identify the route

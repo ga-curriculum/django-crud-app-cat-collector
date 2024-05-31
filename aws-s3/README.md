@@ -1,8 +1,8 @@
-# ![Django CRUD App - Cat Collector - tktk Microlesson Name](./assets/hero.png)
+# ![Django CRUD App - Cat Collector - AWS S3](./assets/hero.png)
 
-**Learning objective:** By the end of this lesson, students will be able to tktk
+**Learning objective:** 
 
-tktk - Hunter, there are so many screenshots on this page so I'm not going to highlight them all. They are all from the notion content and are every couple of lines.
+This Lesson has been temporarily removed. It contains bad patterns and unsafe practices for using AWS. 
 
 # Intro
 

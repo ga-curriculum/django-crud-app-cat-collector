@@ -107,7 +107,6 @@ main_app
 
 With our image files in place we can add a valid `href` to the favicon in the `head` of our `base.html`:
 
-[tktk this does not work]
 ```html
 <link
   rel="shortcut icon"

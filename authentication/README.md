@@ -1,4 +1,4 @@
-# ![Django CRUD App - Cat Collector - tktk Microlesson Name](./assets/hero.png)
+# ![Django CRUD App - Cat Collector - Authentication](./assets/hero.png)
 
 **Learning objective:** By the end of this lesson, students will be able enable authentication and authorization in a Django app.
 

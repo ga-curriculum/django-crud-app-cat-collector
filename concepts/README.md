@@ -24,5 +24,4 @@ If you have experience with Express, you've learned that interacting with a web 
 
 In Django, the HTTP request/response cycle is managed by built-in components, which simplifies much of the setup process. This integration can greatly benefit newcomers to web development or anyone who wants to simplify their application’s infrastructure.
 
-tktk - Hunter this is the image from the notion content, should we update it?
 ![MVT Design Pattern](./assets/mvt.png)

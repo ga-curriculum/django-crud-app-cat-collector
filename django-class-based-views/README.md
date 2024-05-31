@@ -1,4 +1,4 @@
-# ![Django CRUD App - Cat Collector - tktk Microlesson Name](./assets/hero.png)
+# ![Django CRUD App - Cat Collector - Class Based Views](./assets/hero.png)
 
 **Learning objective:** By the end of this lesson, students will be able to create new pages using Django's built in Class-based Views.
 
@@ -161,7 +161,7 @@ On to the template!
 
 Consider the following wireframe:
 
-![tktk - Hunter this is the image from the notion content, should we update?](./assets/form-wireframe-1.png)
+![Add a Cat wireframe](./assets/form-wireframe-1.png)
 
 By convention, the `CatCreate` CBV will look to render a template named `templates/main_app/cat_form.html`.
 

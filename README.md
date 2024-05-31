@@ -1,4 +1,4 @@
-# ![Django CRUD App - Cat Collector](./assets/tktk-hero.png)
+# ![Django CRUD App - Cat Collector](./assets/hero.png)
 
 ## About
 

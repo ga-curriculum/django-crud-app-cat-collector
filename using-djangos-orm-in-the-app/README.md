@@ -77,7 +77,7 @@ In this lesson, we'll design the user interface flow for navigating to a details
 
 Here’s a preliminary wireframe of the details page we'll develop:
 
-![tktk Hunter we should update this](./assets/catco-wireframe-2.png)
+![Cat Detail Page](./assets/cat-detail-wireframe.png)
 
 ### Adding new pages to a Django app
 
