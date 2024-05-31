@@ -1,4 +1,4 @@
-# ![Django CRUD App - Cat Collector - Many To Many Relationship](./assets/hero.png)
+# ![Django CRUD App - Cat Collector - Django Many-to-Many Relationships](./assets/hero.png)
 
 **Learning objective:** By the end of this lesson, students will be able to create and manage a many-to-many relationship between Cats and Toys using Django's built-in features.
 

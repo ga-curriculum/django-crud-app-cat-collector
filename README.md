@@ -2,6 +2,8 @@
 
 ## About
 
+Welcome to Cat_Collector, your first venture into building a full CRUD application using Django! This project is an excellent example of what you'll be capable of creating for future full-stack Django projects. Cat_Collector is a playful application where you can manage a database of adorable cats and their toys. Throughout this project, you will learn how to implement full CRUD operations in a PostgreSQL Database as well as establish User Authentication and Authorization— foundational skills for any full stack engineer. This hands-on project will not only solidify your understanding of Django's powerful built in capabilities, but also prepare you for creating your own robust full-stack web applications. Get ready to build a GA classic, long live Cat_Collector!
+
 ## Prerequisites
 
 - Intro to Django
@@ -21,10 +23,10 @@
 | [Using Django’s ORM in the Terminal](./using-djangos-orm-in-the-terminal/README.md)    | Perform CRUD operations using Django's ORM within the Django shell environment     |
 | [Using Django's ORM in the App](./using-djangos-orm-in-the-app/README.md)              | Use Django's ORM and Admin dashboard to see cats as they are added to the database |
 | [Django Class-based Views](./django-class-based-views/README.md)                       | Create new pages using Django's built in Class-based Views                         |
-| [Django One-to-Many Relationships](./one-to-many-relationship/README.md)         | Create a one-to-many data relationship in Django : `Cats` -< `Feedings`            |
+| [Django One-to-Many Relationships](./django-one-to-many-relationships/README.md)         | Create a one-to-many data relationship in Django : `Cats` -< `Feedings`            |
 | [Adding a Third Model](./adding-a-third-model/README.md)                                        | Create a `Toys` model with full CRUD capabilities through Class-Based Views        |
-| [Django Many-to-Many Relationships](./many-to-many-relationship/README.md)             | Add a many-to-many data relationship in Django : `Cats` >-< `Toys`                 |
-| [Django Authentication](./authentication/README.md)                                    | Add Authentication with Django's built in Authentication Dashboard                 |
+| [Django Many-to-Many Relationships](./django-many-to-many-relationships/README.md)             | Add a many-to-many data relationship in Django : `Cats` >-< `Toys`                 |
+| [Django Authentication](./django-authentication/README.md)                                    | Add Authentication with Django's built in Authentication Dashboard                 |
 
 ## Level Up content
 
