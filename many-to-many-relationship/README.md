@@ -335,7 +335,7 @@ This process will be nearly identical to what we did when adding an association,
 path('cats/<int:cat_id>/remove-toy/<int:toy_id>/', views.remove_toy, name='remove-toy'),
 ```
 
-2. Create the view function. _Hint: Check out Django's [.remove()](https://docs.djangoproject.com/en/5.0/ref/models/relations/#django.db.models.fields.related.RelatedManager.remove) method._
+2. Create the view function. _Hint: Check out Django's **[.remove()](https://docs.djangoproject.com/en/5.0/ref/models/relations/#django.db.models.fields.related.RelatedManager.remove)** method._
 
 ```python
 def remove_toy(request, cat_id, toy_id):

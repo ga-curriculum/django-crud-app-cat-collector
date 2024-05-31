@@ -138,7 +138,7 @@ admin.site.register(Cat)
 admin.site.register(Feeding)
 ```
 
-Now, navigate to `http://127.0.0.1:8000/admin` and click on the **Feeding +Add** link.
+Now, navigate to [http://127.0.0.1:8000/admin](http://127.0.0.1:8000/admin) and click on the **Feeding +Add** link.
 
 ![Django Admin UI Add Feeding](./assets/django-admin-add.png)
 

@@ -94,7 +94,7 @@ The key line to focus on is:
 Starting development server at http://127.0.0.1:8000/
 ```
 
-This message indicates that the server is up and running. You can access the server by navigating to `http://127.0.0.1:8000` in your web browser.
+This message indicates that the server is up and running. You can access the server by navigating to [http://127.0.0.1:8000](http://127.0.0.1:8000) in your web browser.
 
 > Note that `127.0.0.1:8000` is another way to refer to `http://localhost:8000`—both addresses lead to the same place.
 
@@ -230,7 +230,7 @@ def home(request):
 
 ## Viewing your new home page
 
-Now, when you navigate to `http://127.0.0.1:8000/` in your browser, you will see a simple greeting message, "`<h1>Hello ᓚᘏᗢ</h1>`", instead of the default Django rocket page. This is your view function responding to the HTTP request.
+Now, when you navigate to [http://127.0.0.1:8000/](http://127.0.0.1:8000/) in your browser, you will see a simple greeting message, "`<h1>Hello ᓚᘏᗢ</h1>`", instead of the default Django rocket page. This is your view function responding to the HTTP request.
 
 > 💡 **Understanding HttpResponse**: The `HttpResponse` object we used is the simplest way to return content in Django. As we progress, we will explore more sophisticated methods such as rendering templates which allow for more dynamic and interactive web pages.
 
@@ -250,6 +250,6 @@ In this activity, you'll add an "About" page to your Django application by defin
 >
 > ![warning](./assets/url-warning.png)
 
-Test your work by browsing to `http://127.0.0.1:8000/about`
+Test your work by browsing to [http://127.0.0.1:8000/about](http://127.0.0.1:8000/about)
 
 ![the about page](./assets/about-page.png)

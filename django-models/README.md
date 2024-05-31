@@ -50,7 +50,7 @@ class Cat(models.Model):
     age = models.IntegerField()
 ```
 
-> When defining fields in a Django model, each field is represented by a specific Field class, such as `CharField` for character strings. You can explore all the available field types in the [Django documentation on model field types](https://docs.djangoproject.com/en/4.2/ref/models/fields/#model-field-types), which provides a variety of options to suit different data needs.
+> When defining fields in a Django model, each field is represented by a specific Field class, such as `CharField` for character strings. You can explore all the available field types in the **[Django documentation on model field types](https://docs.djangoproject.com/en/5.0/ref/models/fields/#model-field-types)**, which provides a variety of options to suit different data needs.
 
 These field types are important for several reasons:
 

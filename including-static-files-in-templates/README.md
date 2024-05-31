@@ -59,7 +59,7 @@ Finally, add a link to your style sheet in `base.html`. Place the `<link>` befor
 <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}" />
 ```
 
-Navigate to `http://127.0.0.1:8000/about/` and confirm that your background is red!
+Navigate to [http://127.0.0.1:8000/about/](http://127.0.0.1:8000/about/) and confirm that your background is red!
 Once you have confirmed your css loads properly, you can remove the background color.
 
 > Note: If the changes don't appear, such as a missing red background, you may need to restart the server. Remember, static files like CSS are not automatically reloaded when updated.
@@ -121,7 +121,7 @@ And also for the header logo:
 <img src="{% static 'images/header-logo.svg' %}" alt="The Cat Collector Logo" />
 ```
 
-> The `static` DTL template tag ensures that the correct URL is assigned to the `href`. You can read more about managing static files in the [Django docs](https://docs.djangoproject.com/en/5.0/howto/static-files/).
+> The `static` DTL template tag ensures that the correct URL is assigned to the `href`. You can read more about managing static files in the **[Django docs](https://docs.djangoproject.com/en/5.0/howto/static-files/)**.
 
 ### Add base styles
 

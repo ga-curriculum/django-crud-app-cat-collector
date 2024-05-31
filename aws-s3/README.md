@@ -530,7 +530,7 @@ admin.site.register(Toy)
 admin.site.register(Photo)
 ```
 
-Then browse to https://127.0.0.1:8000/admin and click through to view the added photo.
+Then browse to [http://127.0.0.1:8000/admin](http://127.0.0.1:8000/admin) and click through to view the added photo.
 
 You’ll see something like this:
 

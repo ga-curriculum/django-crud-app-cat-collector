@@ -506,7 +506,7 @@ Last step, coming up!
 
 Now that authentication has been implemented, the last step is to protect the routes that are dependent upon a user being logged in.
 
-Yes, the dynamic nav bar helps prevent access, but users can still type something like http://127.0.0.1:8000/cats in the address bar when nobody is logged in, which will raise an error.
+Yes, the dynamic nav bar helps prevent access, but users can still type something like `http://127.0.0.1:8000/cats` in the address bar when nobody is logged in, which will raise an error.
 
 Django provides an easy way to protect both function and class-based views.
 
