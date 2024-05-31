@@ -37,6 +37,8 @@ Activate the virtual environment:
 pipenv shell
 ```
 
+> With your virtual environment activated you should see a slight change in your terminal, with the virtual environment folder name listed to the left of your command line prompt.
+
 Start a new Django project within your virtual environment:
 
 ```bash
@@ -61,4 +63,6 @@ To deactivate the virtual environment when you're done, simply type:
 exit
 ```
 
-During this lesson we will be using premade assets for images. These images are located in the [`lesson-assets`](./assets/) folder. Download the contents `lesson-assets` folder, create an `img` directory into your project directory, then either drag and drop the images into `img` or move them using the `mv` command.
+## Image assets - tktk what to do about assets
+
+During this lesson we will be using some existing assets for images. These images are located in the [`lesson-assets`](./assets/) folder. Download the contents `lesson-assets` folder, create an `img` directory into your project directory, then either drag and drop the images into `img` or move them using the `mv` command.

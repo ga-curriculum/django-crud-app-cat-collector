@@ -1,23 +1,10 @@
-# ![Django CRUD App - Cat Collector - tktk Microlesson Name](./assets/hero.png)
+# ![Django CRUD App - Cat Collector - Authentication](./assets/hero.png)
 
-**Learning objective:** By the end of this lesson, students will be able to tktk
+**Learning objective:** By the end of this lesson, students will be able enable authentication and authorization in a Django app.
 
-# Set Up
-
-This lesson’s picks up from the [Django Many-to-Many Relationships](../many-to-many-relationship/README.md)  lesson.
-
-**Be sure to be inside of the catcollector directory** before you open VS Code with `code .`.
-
-**Be sure that your virtual server is running!**
-
-# Intro to Authentication in Django
+## Authentication in Django
 
 By default, Django creates projects with authentication and authorization capabilities pre-installed!
-
-Two review questions for you:
-
-- **What is authentication?**
-- **What is authorization?**
 
 Django’s built-in authentication functionality is provided by the `'django.contrib.auth'` app included within the `INSTALLED_APPS` list in `settings.py`:
 
@@ -47,23 +34,17 @@ At the core of Django’s authentication, is the provided `User` Model which by 
 - `first_name`
 - `last_name`
 
-Although these attributes are fine for the Cat Collector, some projects may need additional attributes such as `birthdate`, `favorite_color`, etc. The **Level Up** section will point you in the right direction should you need this functionality.
+Although these attributes are fine for the Cat Collector, some projects may need additional attributes such as `birth_date`, `favorite_color`, etc.
 
-# Creating the `User ---< Cat` Relationship
+## Creating the `User -< Cat` relationship
 
-## Cat Collector’s Functionality is Changing
+Currently, our application treats all cats as if they don't belong to any specific user— free-roaming cats! By the end of this lesson, we will have implemented user authentication, ensuring that each cat is linked to a specific user who "owns" them, the _Cat_Collector_.
 
-Currently, all furry critters in Cat Collector are wild - they don’t belong to a *Cat Collector* (the user).
+> Ideally, authentication should be set up early in the development process to simplify code management. However, for educational purposes, we're integrating it at the end of our project to highlight the changes it requires.
 
-The functionality of Cat Collector is about to change!
+## Update the `Cat` model
 
-By the end of this lesson, with authentication implemented, all cats will belong to a user.
-
-< Ordinarily, it’s important to implement an app’s authentication up front to avoid having to make the changes to the code we’re going to have to make in Cat Collector. For the sake of learning purposes, we're completing it last.
-
-## Update the `Cat` Model
-
-Adding the relationship of ***A User has many Cats; and a Cat belongs to a User*** is much the same as with creating any other one-to-many relationship.
+Adding the relationship of **_A User has many Cats; and a Cat belongs to a User_** is much the same as with creating any other one-to-many relationship.
 
 The `User` Model lives in the `django.contrib.auth` app, so the first thing we need to do is import it into `models.py`:
 
@@ -75,13 +56,9 @@ from datetime import date
 from django.contrib.auth.models import User
 ```
 
-One of the Models needs a *Foreign Key* - `User` or `Cat`…
-
-<details>
-<summary>Which one makes sense?</summary>
+One of the Models needs a _Foreign Key_ - `User` or `Cat`… Which one makes sense?
 
 **Since the `Cat` Model belongs to another entity, it’s the one to hold the Foreign Key.**
-</details>
 
 Now let’s add the field linking a `Cat` to a `User`:
 
@@ -93,11 +70,11 @@ class Cat(models.Model):
   user = models.ForeignKey(User, on_delete=models.CASCADE)
 ```
 
-## Migrate the Change
+## Migrate the change
 
-Now that we’ve made a change to a Model that impacts the database, we need to migrate that change to the database.
+Now that we’ve made a change to a Model that impacts the database, we need to migrate that change.
 
-However, there will now be a FK constraint on cats, which means that every cat record must hold the PK of a user record and because there are existing cats, Django is going to prompt us with two options…
+However, there will now be a `FK` constraint on cats, which means that every cat record must hold the PK of a user record and because there are existing cats, Django will prompt us with two options.
 
 In your terminal enter the following:
 
@@ -116,11 +93,11 @@ Please select a fix:
 Select an option:
 ```
 
-Option `1)` is our best option because it will allow us to enter the `id` of a user, which we created earlier this week (the superuser).
+Option `1)` is our best option because it will allow us to enter the `id` of a user, which we created in an earlier lesson (the superuser).
 
-Go ahead and press `1` and `[enter]`, which will then prompt us to enter the value:
+Press `1` and `[enter]`, which will then prompt us to enter that value:
 
-```
+```plaintext
 Please enter the default value now, as valid Python
 The datetime and django.utils.timezone modules are available,
 so you can do e.g. timezone.now
@@ -136,9 +113,9 @@ The migration file will then be created. Let’s migrate the changes. In your te
 python3 manage.py migrate
 ```
 
-Congrats, the one-to-many relationship between User and Cat has been created and all existing cats have been collected by the superuser!
+Congrats, the one-to-many relationship between `User` and `Cat` has been established and all existing cats have been collected by the superuser!
 
-# Adding URLs for Authentication
+## Adding URLs for authentication
 
 Excluding login, we’re going to use Django’s built-in authentication features and default settings.
 
@@ -146,7 +123,9 @@ Django provides several class-based views that we can use for handling logging i
 
 However, before we can use those views, we’ll need URLs to map to them.
 
-Lucky for us, the `django.contrib.auth` module contains predefined URLS that we can simply `include` like this in **`catcollector/urls.py`**. Let's do so now:
+Lucky for us, the `django.contrib.auth` module contains predefined URLS that we can simply `include` like this in **`catcollector/urls.py`**.
+
+Let's do so now:
 
 ```python
 ...
@@ -157,7 +136,7 @@ Lucky for us, the `django.contrib.auth` module contains predefined URLS that we 
 ]
 ```
 
-We won’t need to import `django.contrib.auth.urls` because it’s just a string.
+We don’t need to import `django.contrib.auth.urls` because it’s just a string.
 
 Including the built-in URLs has added the following URL patterns to the app:
 
@@ -172,11 +151,11 @@ accounts/reset/<uidb64>/<token>/ [name='password_reset_confirm']
 accounts/reset/done/ [name='password_reset_complete']
 ```
 
-I know, it looks like there’s a lot there, but don’t worry, we get to pick and choose which ones to implement!
+Thankfully, not all of these are required. We are able to choose which ones to implement.
 
-# Logging In
+## Logging in
 
-## Modifying the `home.html` Template
+### Modifying the `home.html` template
 
 We're going to convert the existing `home` view function to a CBV that inherits from the `LoginView` class.
 
@@ -186,7 +165,7 @@ First import this class into `main_app/views.py`:
 from django.contrib.auth.views import LoginView
 ```
 
-And make use of it in a class based view that ***replaces*** the current home view function.
+And use it in a class based view that **_replaces_** the current home view function.
 
 ```python
 class Home(LoginView):
@@ -199,18 +178,16 @@ Don't forget to update `main_app/urls.py` to use the new CBV.
 path('', views.Home.as_view(), name='home'),
 ```
 
-When `LoginView` renders the `home.html` template, it passes in the context a default `form` object we can display in `home.html`.** Add it after the existing section:
+When `LoginView` renders the `home.html` template, it passes in the context a default `form` object we can display in `home.html`.
+
+Add it after the existing section:
 
 ```html
-  />
-</section>
-
 <section>
   <form action="{% url 'home' %}" method="post" class="login">
     <h1>Login</h1>
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="hidden" name="next" value="{{ next }}">
+    {% csrf_token %} {{ form.as_p }}
+    <input type="hidden" name="next" value="{{ next }}" />
     <button type="submit" class="btn submit">Login</button>
   </form>
 </section>
@@ -218,26 +195,25 @@ When `LoginView` renders the `home.html` template, it passes in the context a de
 {% endblock %}
 ```
 
-The
+One interesting feature in the above code is the following input:
 
 ```html
-<input type="hidden" name="next" value="{{ next }}">
+<input type="hidden" name="next" value="{{ next }}" />
 ```
 
-is really cool. It is a feature of Django’s authentication that will automatically redirect a user that tries to access a protected route back to that route after they log in!
+This is a feature of Django’s authentication that will automatically redirect a user that tries to access a protected route back to that route after they log in!
 
 Here's our new home page!
 
-tktk - Hunter this is the image from the notion content
-![](./assets/home-login.png)
+![Home Login](./assets/home-login.png)
 
 You can log in now, but you’ll get an error because by default, the login view redirects to `/accounts/profile`, but we can change this…
 
-## Specifying the Default Redirect After Logging In
+## Specifying the default redirect after logging in
 
-In Cat Collector, when a user logs in, we want them to see their cat *index* page.
+In Cat Collector, when a user logs in, we want them to see their cat _index_ page.
 
-The easiest way to make this happen is to add a new variable at the bottom of `settings.py`:
+The most straight forward way to make this happen is to add a new variable at the bottom of `settings.py`:
 
 ```python
 STATIC_URL = 'static/'
@@ -248,9 +224,9 @@ LOGIN_REDIRECT_URL = 'cat-index'
 
 The `django.contrib.auth` app uses that value of the `LOGIN_REDIRECT_URL` variable, if it exists, to redirect to after the user logs in.
 
-Test it out - sweet!
+Test it out!
 
-# Updating the Nav Bar Dynamically
+## Updating the nav bar dynamically
 
 In most applications, many of the links displayed in a nav bar usually depend upon whether there is a logged in user or not.
 
@@ -273,39 +249,37 @@ Thanks again to the built-in auth, we automatically have a `user` variable avail
 
 To check if the user is logged in, we simply use `user.is_authenticated`, which returns `True` when logged in and `False` otherwise.
 
-With this knowledge in hand, let’s make the nav bar dynamic in `base.html`:
+With this knowledge, let’s make the nav bar dynamic in `base.html`:
 
 ```html
-      <nav>
-        <ul>
-          {% if user.is_authenticated %}
-            <li><a href="{% url 'cat-index' %}">All Cats</a></li>
-            <li><a href="{% url 'toy-index' %}">All Toys</a></li>
-            <li><a href="{% url 'cat-create' %}">Add a Cat</a></li>
-            <li><a href="{% url 'toy-create' %}">Add a Toy</a></li>
-            <li><a href="{% url 'about' %}">About</a></li>
-            <li><a href="{% url 'logout' %}">Log out</a></li>
-          {% else %}
-            <li><a href="{% url 'about' %}">About</a></li>
-            <li><a href="{% url 'home' %}">Login</a></li>
-          {% endif %}
-        </ul>
-      </nav>
+<nav>
+  <ul>
+    {% if user.is_authenticated %}
+    <li><a href="{% url 'cat-index' %}">All Cats</a></li>
+    <li><a href="{% url 'toy-index' %}">All Toys</a></li>
+    <li><a href="{% url 'cat-create' %}">Add a Cat</a></li>
+    <li><a href="{% url 'toy-create' %}">Add a Toy</a></li>
+    <li><a href="{% url 'about' %}">About</a></li>
+    <li><a href="{% url 'logout' %}">Log out</a></li>
+    {% else %}
+    <li><a href="{% url 'about' %}">About</a></li>
+    <li><a href="{% url 'home' %}">Login</a></li>
+    {% endif %}
+  </ul>
+</nav>
 ```
 
-Note how the **Log In** and **Log Out** links are using the `url` template tag along with the built-in named URL patterns (listed above).
+Note how the **Log In** and **Log Out** links use the `url` template tag along with the built-in named URL patterns (listed above).
 
 However, we’re skipping the **Sign Up** link for now because Django does not include a default URL or view for signing up.
 
 Now we should see the following nav if not logged in:
 
-tktk - Hunter this is the image from the notion content
-![](./assets/nav-not-logged-in.png)
+![Not Logged in](./assets/nav-not-logged-in.png)
 
 When you log in, you’ll see this nav:
 
-tktk - Hunter this is the image from the notion content
-![](./assets/nav-logged-in.png)
+![Logged in](./assets/nav-logged-in.png)
 
 Nice!
 
@@ -313,25 +287,24 @@ We also want to prevent the login form from being shown when there is a user log
 
 ```html
 {% if not user.is_authenticated %}
-  <section>
-    <form action="{% url 'home' %}" method="post" class="login">
-      <h1>Login</h1>
-      {% csrf_token %}
-      {{ form.as_p }}
-      <input type="hidden" name="next" value="{{ next }}">
-      <button type="submit" class="btn submit">Login</button>
-    </form>
-  </section>
+<section>
+  <form action="{% url 'home' %}" method="post" class="login">
+    <h1>Login</h1>
+    {% csrf_token %} {{ form.as_p }}
+    <input type="hidden" name="next" value="{{ next }}" />
+    <button type="submit" class="btn submit">Login</button>
+  </form>
+</section>
 {% endif %}
 ```
 
-Logging out even works, but it doesn’t redirect to our *Home* page (root route)…
+Logging out even works, however, currently it doesn’t redirect to our _Home_ page (root route).
 
-# Logging Out
+## Logging out
 
-Thanks again to the `django.contrib.admin` app’s built-in `LogOut` view, we didn’t have to do a thing to implement logging out!
+Thanks to the `django.contrib.admin` app’s built-in `LogOut` view, we don't need to add anything to implement logging out.
 
-However, we’ll want to redirect to a URL different from the default which we can make happen in the same way we just did when logging in - by adding another variable to **`settings.py`**:
+However, we’ll want to redirect to a URL different from the default, which we can do by adding another variable to **`settings.py`**:
 
 ```python
 STATIC_URL = 'static/'
@@ -344,9 +317,9 @@ LOGOUT_REDIRECT_URL = 'home'
 
 That was easy!
 
-# Update the `CatCreate` View to Assign a New Cat to the Logged in User
+## Update the `CatCreate` view to assign a new cat to the logged in user
 
-Since cats belong to a user, before a new cat can be added to the database, its user is going to have to be assigned to its `user` attribute that we added to the model earlier.
+Since cats belong to a user, before a new cat can be added to the database, its "owner" is going to have to be assigned to the `user` attribute we added to the model earlier.
 
 To do this, we’re going to have to add some additional code to the `CatCreate` view as follows:
 
@@ -354,7 +327,7 @@ To do this, we’re going to have to add some additional code to the `CatCreate`
 class CatCreate(CreateView):
   model = Cat
   fields = ['name', 'breed', 'description', 'age']
-  
+
   # This inherited method is called when a
   # valid cat form is being submitted
   def form_valid(self, form):
@@ -364,51 +337,48 @@ class CatCreate(CreateView):
     return super().form_valid(form)
 ```
 
-We’re overriding the `CreateView`’s `form_valid` method to assign the logged in user, `self.request.user`. Yes, the built-in auth automatically assigns the user to the `request` object similar to what Passport did in Express.
+We’re overriding the `CreateView`’s `form_valid` method to assign the logged in user, `self.request.user`. Yes, the built-in auth automatically assigns the user to the `request` object similarly our middleware in Express.
 
 In Python, methods inherited by the superclass can be invoked by prefacing the method name with `super()`. Accordingly, after updating the form to include the user, we’re calling `super().form_valid(form)` to let the `CreateView` do its usual job of creating the model in the database and redirecting.
 
-Okay, let’s check out the refactor by:
+Okay, let’s test the refactor by:
 
-- First, venture to the `/admin` route in a separate tab in your browser
+- Navigating to the `/admin` route in a separate tab in your browser
 - Click on **Cats**
 - Select a cat and verify the user is assigned to it
-- Leave the admin app open, and go add a new cat in Cat Collector
-- Back in the admin app, go to all cats then click on the one just added and verify that the user’s been assigned!
+- Leave the admin app open, and add a new cat from the "Add a Cat" page
+- Back in the admin app, view all cats, select the cat you just added, and verify that the user’s been assigned
 
-Moving right along…
+Nice work!
 
-# Sign Up New Users
+## Signing up new users
 
-Unfortunately, Django’s built-in auth does not provide a URL or view for signing up new users.
+Unfortunately, Django’s built-in auth does not provide a URL or view for signing up new users. We will add this custom functionality ourselves.
 
-## Add a URL
+### Add a URL
 
 First we’ll add the last URL pattern to this application, which will implement the sign up functionality in `main_app/urls.py`:
 
 ```python
-path('cats/<int:cat_id>/assoc-toy/<int:toy_id>/', views.assoc_toy, name='assoc-toy'),
-
-# New url pattern below
 path('accounts/signup/', views.signup, name='signup'),
 ```
 
 To stay consistent with Django’s auth-related URLs, we’ll preface the pattern with `accounts/`.
 
-There’s no generic view available to help us out, so we’re going to write the new view function named `signup` that the server is waiting for.
+There’s no generic view available for this function, so we’re going to write a new view function named `signup`.
 
-## Add the `signup` View Function
+## Add the `signup` view function
 
-The `signup` view function will be the first view we’ve coded that performs two different behaviors based upon whether it was called via a GET or POST request:
+The `signup` view function will be the first view we’ve coded that performs two different behaviors based upon whether it was called via a `GET` or `POST` request:
 
 - If it’s a **GET request**: The view function should render a template with a form for the user to enter their info.
 - If it’s a **POST request**: The user has submitted their info and the function should create the user and redirect.
 
-Although Django did not include a URL or view, it **does** include a `UserCreationForm` that we can use in a template to generate all of the inputs for a `User` model.
+Although Django does not include a default URL or view, it **does** include a `UserCreationForm` that we can use in a template to generate all of the form inputs for a `User` model.
 
 In addition, we’re also going to use the `login` function to automatically log in a user when they sign up - users hate signing up and then having to turn around and log in!
 
-Let’s import them near the top of **`views.py`**:
+Let’s import these methods near the top of **`views.py`**:
 
 ```python
 ...
@@ -419,7 +389,7 @@ from django.contrib.auth.forms import UserCreationForm
 ...
 ```
 
-Now let’s code the `signup` view function - we’ll review as we type it in:
+Now let’s create the `signup` view function:
 
 ```python
 def signup(request):
@@ -443,21 +413,21 @@ def signup(request):
   # Same as: return render(request, 'signup.html', {'form': form, 'error_message': error_message})
 ```
 
-There’s really no way to remember that code, so just refer to this lesson, the docs, or Google.
+> When building future projects in Django you can always refer back to this function or Django's documentation on how to implement this functionality.
 
-## Add the **Sign Up** Link to the Nav
+## Add the **Sign Up** link to the nav
 
 Now that we know the URL, we can add a **Sign Up** link to the nav in `base.html`:
 
 ```html
-          {% else %}
-            <li><a href="{% url 'about' %}">About</a></li>
-            <li><a href="{% url 'home' %}">Login</a></li>
-            <li><a href="{% url 'signup' %}">Sign Up</a></li>
-          {% endif %}
+{% else %}
+<li><a href="{% url 'about' %}">About</a></li>
+<li><a href="{% url 'home' %}">Login</a></li>
+<li><a href="{% url 'signup' %}">Sign Up</a></li>
+{% endif %}
 ```
 
-## Create the **`signup.html`** Template
+## Create the **`signup.html`** template
 
 Run the following in the terminal:
 
@@ -465,24 +435,18 @@ Run the following in the terminal:
 touch main_app/templates/signup.html
 ```
 
-Here's the code for `signup.html`:
+Add the following to `signup.html`:
 
 ```html
-{% extends 'base.html' %}
-{% load static %}
-
-{% block head %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/form.css' %}"/>
-{% endblock %}
-
-{% block content %}
-
+{% extends 'base.html' %} {% load static %} {% block head %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/form.css' %}" />
+{% endblock %} {% block content %}
 <div class="page-header">
   <h1>Sign Up</h1>
-  <img src="{% static 'images/nerd-cat.svg' %}" alt="A cat using a computer"/>
+  <img src="{% static 'images/nerd-cat.svg' %}" alt="A cat using a computer" />
 </div>
 {% if error_message %}
-  <p class="red-text">{{ error_message }}</p>
+<p class="red-text">{{ error_message }}</p>
 {% endif %}
 <form action="" method="post" class="form-container" autocomplete="off">
   {% csrf_token %}
@@ -495,12 +459,11 @@ Here's the code for `signup.html`:
 {% endblock %}
 ```
 
-With the above template, clicking the Sign Up in the nav should show a page like the following:
+With the above template, clicking the Sign Up in the nav should render the following UI:
 
-tktk - Hunter this is the image from the notion content
-![](./assets/signup.png)
+![Sign Up Page](./assets/signup.png)
 
-By using the the `UserCreationForm`, you get help messages that go with all of the validations.
+By using the the `UserCreationForm`, you get helpful messages with all of the validations.
 
 However, notice that the form does not include inputs for the user’s:
 
@@ -514,9 +477,9 @@ If you want to remove some of the password validations, you can comment them out
 
 You should now be able to sign up!
 
-# Displaying Only the User’s Cats
+## Displaying only the user’s cats
 
-If you sign up or log in with a different user, you’ll notice that all of the cats in the database are still showing up on the *index* page.
+If you sign up or log in with a different user, you’ll notice that all of the cats in the database are still showing up on the _index_ page.
 
 If we take a look at the `cat_index` view, we’ll see why:
 
@@ -539,17 +502,17 @@ def cat_index(request):
 
 Last step, coming up!
 
-# Implement Authorization
+## Implement Authorization
 
 Now that authentication has been implemented, the last step is to protect the routes that are dependent upon a user being logged in.
 
-Yes, the dynamic nav bar helps prevent access, but users can still type something like http://localhost:3000/cats in the address bar when nobody is logged in, which will raise an error.
+Yes, the dynamic nav bar helps prevent access, but users can still type something like http://127.0.0.1:8000/cats in the address bar when nobody is logged in, which will raise an error.
 
-Of course Django provides an easy way to protect both function and class-based views…
+Django provides an easy way to protect both function and class-based views.
 
-## Implement Authorization on View Functions
+## Implement Authorization on view functions
 
-To protect view functions, we use the `login_required` decorator.
+To protect view functions, we will use the `login_required` decorator.
 
 First we need to import it near the top of `views.py`:
 
@@ -560,7 +523,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 ```
 
-Now we can simply “decorate” any view function that requires a user to be logged in like this:
+Now we can simply "decorate" any view function that requires a user to be logged in like this:
 
 ```python
 @login_required
@@ -568,9 +531,9 @@ def cat_index(request):
   ...
 ```
 
-Trying to browse to http://localhost:3000/cats - it throws an error!
+Trying to browse to [http://127.0.0.1:8000/cats](http://127.0.0.1:8000/cats) while logged out - it throws an error!
 
-To complete this, we need to tell Django where we want these decorators and mixins to actually redirect to. We just need to add a `LOGIN_URL` to our `settings.py` file and have it redirect to the `'home'` URL:
+To complete this, we need to tell Django where we want these decorators and mixins to redirect to. We just need to add a `LOGIN_URL` to our `settings.py` file and have it redirect to the `'home'` URL:
 
 ```python
 STATIC_URL = '/static/'
@@ -583,17 +546,18 @@ LOGIN_REDIRECT_URL = 'cat-index'
 LOGOUT_REDIRECT_URL = 'home'
 ```
 
-You'll now be navigated to the login page if you try to navigate to that url without signing in.
+You'll now be navigated to the login page if you try to navigate to a protected URL without signing in.
 
 Be sure to add the `@login_required` to these remaining view functions:
 
 - `cat_detail`
 - `add_feeding`
-- `assoc_toy`
+- `associate_toy`
+- `remove_toy`
 
-## Implement Authorization on Class-based Views
+## Implement Authorization on class-based views
 
-Protecting class-based views is slightly different, it uses what’s called a mixin, which is another class to inherit from - in OOP, we call this *multiple inheritance*.
+Protecting class-based views is slightly different, it uses what’s called a `mixin`, which is another class to inherit from - in OOP, we call this _multiple inheritance_.
 
 As usual, we’ll need to import it:
 
@@ -617,21 +581,18 @@ Be sure to add `LoginRequiredMixin` to these remaining classes:
 
 - `CatUpdate`
 - `CatDelete`
+- `ToyCreate`
 - `ToyList`
 - `ToyDetail`
-- `ToyCreate`
 - `ToyUpdate`
 - `ToyDelete`
 
-## Wrap up Authorization
+## Summary
 
-Wow, that was a blast - congrats!
+Authentication is a crucial component of most applications, as it determines user access to various features.
 
-# Summary
+Understanding who is using your app is essential for delivering personalized and secure experiences. That's why it's best practice to implement authentication early in the development process. Typically, this should follow the initial user story for anonymous visitors:
 
-Authentication is incredibly important to virtually every application.
+_As a Visitor, when I browse to the application, I want [insert feature here]._
 
-Most features of an application are dependent upon knowing which user is accessing the feature.
-
-This is why it’s **so important** to implement authentication in your projects up front, immediately after the user story for when first browsing as an anonymous user to the root route:
-*As a Visitor, upon browsing to the application I want [insert feature here]*
+Congrats! You have completed `Cat_Collector`!

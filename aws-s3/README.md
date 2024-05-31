@@ -1,8 +1,8 @@
-# ![Django CRUD App - Cat Collector - tktk Microlesson Name](./assets/hero.png)
+# ![Django CRUD App - Cat Collector - AWS S3](./assets/hero.png)
 
-**Learning objective:** By the end of this lesson, students will be able to tktk
+**Learning objective:** 
 
-tktk - Hunter, there are so many screenshots on this page so I'm not going to highlight them all. They are all from the notion content and are every couple of lines.
+This Lesson has been temporarily removed. It contains bad patterns and unsafe practices for using AWS. 
 
 # Intro
 
@@ -14,7 +14,7 @@ This lesson will cover how to add this ability to your Django project should you
 
 ## Ready the Starter Code
 
-This lesson’s starter code picks up from the [Authentication](../authentication/README.md)  lesson.
+This lesson’s starter code picks up from the [Authentication](../authentication/README.md) lesson.
 
 # Set up Amazon S3
 
@@ -22,13 +22,13 @@ AWS (Amazon Web Services) is a cloud platform offering a slew of web services su
 
 You can see all of the services available by clicking here [**Amazon AWS**](https://aws.amazon.com/).
 
-The specific web service we are going to use to host our uploaded images is the *Simple Storage Service*, better known as **Amazon S3**.
+The specific web service we are going to use to host our uploaded images is the _Simple Storage Service_, better known as **Amazon S3**.
 
 ## Set up an Amazon AWS Account
 
 Before we can use S3, or any Amazon Web Service, we’ll need an Amazon AWS account.
 
-> Even though AWS has a “free tier” and we will do nothing in SEI will cost money, AWS requires a credit card to open an account. If you don’t wish to provide a credit card, you will not be able to complete this activity and you won’t be able to upload images using Amazon Web Services.
+> Even though AWS has a "free tier" and we will do nothing in SEI will cost money, AWS requires a credit card to open an account. If you don’t wish to provide a credit card, you will not be able to complete this activity and you won’t be able to upload images using Amazon Web Services.
 
 Click the orange **Create an AWS Account** button, then click **Create a new AWS account** (or browse **[here](https://portal.aws.amazon.com/billing/signup#/start)**):
 
@@ -85,7 +85,7 @@ Then search for `S3Full` and select the **AmazonS3FullAccess** checkbox and clic
 
 ![](./assets/aws-iam-create-group-2.png)
 
-You'll be taken back to the **Add user** step. On this page you ***must*** ensure that:
+You'll be taken back to the **Add user** step. On this page you **_must_** ensure that:
 
 - The group you just created is displayed
 - The group you just created has the `AmazonS3FullAccess` policy attached to it
@@ -125,7 +125,7 @@ Copy both access keys to a safe place - we’ll need them later in the lesson, a
 
 ![](./assets/aws-iam-create-access-key-4.png)
 
-Click the **Done** button (bottom-right), but don’t close the browser.  If you didn’t click the ‘Show’ option, it will give you a reminder to snag your key, as it will not be available again later!  
+Click the **Done** button (bottom-right), but don’t close the browser. If you didn’t click the ‘Show’ option, it will give you a reminder to snag your key, as it will not be available again later!
 
 On to creating an S3 bucket…
 
@@ -143,7 +143,7 @@ Let’s click the orange **Create bucket** button to get started:
 
 ![](./assets/aws-s3-create-bucket.png)
 
-You’ll have to enter a *globally unique* **Bucket name**, then select the **Region** nearest to your job market:
+You’ll have to enter a _globally unique_ **Bucket name**, then select the **Region** nearest to your job market:
 
 ![](./assets/aws-s3-create-bucket-2.png)
 
@@ -161,7 +161,7 @@ The bucket has been created!
 
 However, we need to make sure that web browsers will be able to download cat images when using catcollector.
 
-To do so, we need to specify a “bucket policy” that enables read-only access to a bucket’s objects.
+To do so, we need to specify a "bucket policy" that enables read-only access to a bucket’s objects.
 
 Click on the bucket name:
 
@@ -187,7 +187,7 @@ Start entering the data as follows:
 - Principal is: `*`
 - AWS Service is: Amazon S3
 - Actions: 1 Action is selected - the `GetObject` action
-- Amazon Resource Name (ARN) is: The **Bucket ARN** you copied from the last page (it should look like `arn:aws:s3:::<your-bucket-name-here>` (replacing `<your-bucket-name-here>` with the name of your bucket). You also need to append a `/*` to the end of the ARN so that the final ARN reads as: `arn:aws:s3:::<your-bucket-name-here>/*`. Using `my-very-happy-cat-collector` as and example the final ARN would look something like:  `arn:aws:s3:::my-very-happy-cat-collector/*`
+- Amazon Resource Name (ARN) is: The **Bucket ARN** you copied from the last page (it should look like `arn:aws:s3:::<your-bucket-name-here>` (replacing `<your-bucket-name-here>` with the name of your bucket). You also need to append a `/*` to the end of the ARN so that the final ARN reads as: `arn:aws:s3:::<your-bucket-name-here>/*`. Using `my-very-happy-cat-collector` as and example the final ARN would look something like: `arn:aws:s3:::my-very-happy-cat-collector/*`
 
 ![](./assets/aws-s3-bucket-policy-3.png)
 
@@ -257,7 +257,7 @@ We’re done with Boto3, on to the larger project…
 We’re going to add a `Photo` Model that will hold the URL of a cat image in S3.
 
 The relationship looks like this: `Cat ----- Photo`
-*A Cat has a Photo -and- A Photo belongs to a Cat*
+_A Cat has a Photo -and- A Photo belongs to a Cat_
 
 ## Define the `Photo` Model
 
@@ -274,7 +274,7 @@ class Photo(models.Model):
 
 Nice and simple!
 
-> Reminder: If a Model “belongs to” another Model, it must have a foreign key. More than one “belongs to” relationship - means more than one foreign key.
+> Reminder: If a Model "belongs to" another Model, it must have a foreign key. More than one "belongs to" relationship - means more than one foreign key.
 
 <details>
 <summary>What needs to be done now?</summary>
@@ -285,6 +285,7 @@ Open the terminal and enter:
 python3 manage.py makemigrations
 python3 manage.py migrate
 ```
+
 </details>
 
 # Add the `add_photo` URL
@@ -307,7 +308,7 @@ Pretty much like the `add-feeding` route!
 
 Notice once again, we’re going to capture the cat’s `id` using a URL parameter named `cat_id`.
 
-The server currently shows an error because we’ve referenced an `add_photo` *view function* that doesn’t exist. Let’s take care of that next…
+The server currently shows an error because we’ve referenced an `add_photo` _view function_ that doesn’t exist. Let’s take care of that next…
 
 # Code the `add_photo` View Function
 
@@ -315,6 +316,7 @@ The server currently shows an error because we’ve referenced an `add_photo` *v
 <summary>Where do we define the view functions?</summary>
 
 **`views.py`**
+
 </details>
 
 First, we need to import three more things:
@@ -334,7 +336,7 @@ import boto3
 
 ```
 
-Next, we’re going to define a couple of variables we’ll use in the *view function*…
+Next, we’re going to define a couple of variables we’ll use in the _view function_…
 
 ### Determine the correct AWS Service Endpoint
 
@@ -355,7 +357,7 @@ S3_BASE_URL = 'Your endpoint from above'
 BUCKET = 'your-bucket-name-here'
 ```
 
-**Make sure that you use YOUR S3 base URL and bucket name instead of** `'Your endpoint from above'` and ****`your-bucket-name-here`**.** 
+**Make sure that you use YOUR S3 base URL and bucket name instead of** `'Your endpoint from above'` and \***\*`your-bucket-name-here`**.\*\*
 
 Each file uploaded to S3 must have a unique URL.
 
@@ -404,7 +406,7 @@ On to the UI…
 
 # Update the `detail.html` Template
 
-We’re going to need to update the `**detail.html**` template to 
+We’re going to need to update the `**detail.html**` template to
 
 - Show a cat image if one has been uploaded.
 - Show a form used to upload photos.
@@ -417,18 +419,16 @@ Find the `cat-container`. We're going to check if there is a photo associated wi
 <section class="cat-container">
   <div class="cat-img">
     {% if cat.photo.url %}
-      <img 
-        src="{{cat.photo.url}}" 
-        alt="A photo of {{cat.name}}"
-        class="usr-img"
-      >
+    <img
+      src="{{cat.photo.url}}"
+      alt="A photo of {{cat.name}}"
+      class="usr-img"
+    />
     {% else %}
-      <img 
-        src="{% static 'images/sk8r-boi-cat.svg' %}" 
-        alt="A skater boy cat"
-      >
+    <img src="{% static 'images/sk8r-boi-cat.svg' %}" alt="A skater boy cat" />
     {% endif %}
   </div>
+</section>
 ```
 
 ## Form for Uploading Photos
@@ -443,7 +443,7 @@ In this same section, right after the `cat-actions` `<div>` we need to add our n
     {% comment %} New markup below {% endcomment %}
     <h3>Change {{ cat.name }}'s photo</h3>
     <p id="file-name"></p>
-    <form 
+    <form
       action="{% url 'add-photo' cat.id %}"
       enctype="multipart/form-data"
       method="POST"
@@ -467,17 +467,17 @@ Other than `{% csrf_token %}`, it’s pretty much a generic form that is typical
 This form needs a touch of JS to actually show the name of the file we're uploading. Thankfully we already have this file created, we're just adding to it. Here are the additions:
 
 ```jsx
-const fileInput = document.getElementById('file-input')
-const fileName = document.getElementById('file-name')
+const fileInput = document.getElementById('file-input');
+const fileName = document.getElementById('file-name');
 
-fileInput.addEventListener('change', evt => {
-  const fileToUpload = evt.target.files[0].name
-  if(fileToUpload) {
-    fileName.innerText = fileToUpload
+fileInput.addEventListener('change', (evt) => {
+  const fileToUpload = evt.target.files[0].name;
+  if (fileToUpload) {
+    fileName.innerText = fileToUpload;
   } else {
-    fileName.innerText = ""
+    fileName.innerText = '';
   }
-})
+});
 ```
 
 Another refresh:
@@ -499,20 +499,13 @@ Success!
 Just a quick change here to display the user's uploaded image if it exists. The new code belongs in the `div` with the `card-img-container` class:
 
 ```html
-          <div class="card-img-container">
-            {% if cat.photo.url %}
-              <img 
-                src="{{cat.photo.url}}" 
-                alt="A photo of {{cat.name}}"
-                class="usr-img"
-              >
-            {% else %}
-              <img 
-                src="{% static 'images/sk8r-boi-cat.svg' %}" 
-                alt="A skater boy cat"
-              >
-            {% endif %}
-          </div>
+<div class="card-img-container">
+  {% if cat.photo.url %}
+  <img src="{{cat.photo.url}}" alt="A photo of {{cat.name}}" class="usr-img" />
+  {% else %}
+  <img src="{% static 'images/sk8r-boi-cat.svg' %}" alt="A skater boy cat" />
+  {% endif %}
+</div>
 ```
 
 And there we go!
@@ -537,7 +530,7 @@ admin.site.register(Toy)
 admin.site.register(Photo)
 ```
 
-Then browse to https://localhost:3000/admin and click through to view the added photo.
+Then browse to https://127.0.0.1:8000/admin and click through to view the added photo.
 
 You’ll see something like this:
 
