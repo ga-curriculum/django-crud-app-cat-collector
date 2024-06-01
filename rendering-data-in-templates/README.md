@@ -1,3 +1,4 @@
+<!-- {% raw %} -->
 # ![Django CRUD App - Cat Collector - Rendering Data in Templates](./assets/hero.png)
 
 **Learning objective:** By the end of this lesson, students will be able to render dynamic data within a Django template. 
@@ -394,4 +395,4 @@ You've successfully created a basic yet functional Django application that displ
 At this point, you're probably familiar with the essentials of Django's URL configuration and the general structure of a Django app. While we've covered the fundamentals of views and Django Template Language, there's more to explore.
 
 We’re going to get our first look at Models in the next lesson where we’ll use one to replace the current `Cat` class so that we can save cats in the database!
-
+<!-- {% endraw %} -->

@@ -1,3 +1,4 @@
+<!-- {% raw %} -->
 # ![Django CRUD App - Cat Collector - Including Static Files in Templates](./assets/hero.png)
 
 **Learning objective:** By the end of this lesson, students will be able to link static files like CSS, JavaScript, and images in Django templates using the `{% static %}` template tag.
@@ -414,3 +415,4 @@ Once you have added your CSS, refresh the page to see your changes. If you do no
 
 
 ![About page with CSS added](./assets/css-added.png)
+<!-- {% endraw %} -->

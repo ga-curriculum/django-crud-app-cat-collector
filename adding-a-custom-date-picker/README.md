@@ -1,3 +1,4 @@
+<!-- {% raw %} -->
 # ![Django CRUD App - Cat Collector - Adding a Custom Date Picker](./assets/hero.png)
 
 **Learning objective:** By the end of this lesson, learners will be able to integrate a custom date picker into a Django form using MCDatepicker.
@@ -8,7 +9,6 @@ We're enhancing the user experience on the cat details page by incorporating the
 
 In `detail.html`:
 
-<!-- {% raw %} -->
 ```html
 {% block head %}
 <!-- New MCDatepicker CSS -->
@@ -30,7 +30,7 @@ In `detail.html`:
 />
 {% endblock %}
 ```
-<!-- {% endraw %} -->
+
 
 Next, create a new CSS file specifically for styling the MCDatepicker elements:
 
@@ -80,11 +80,11 @@ touch main_app/static/js/cat-detail.js
 
 Inside this new script file, initialize the MCDatepicker on the feeding date input field. Make sure the script loads after the DOM is ready by using the `defer` attribute:
 
-<!-- {% raw %} -->
+
 ```html
 <script defer src="{% static 'js/cat-detail.js' %}"></script>
 ```
-<!-- {% endraw %} -->
+
 
 Implement the MCDatepicker setup in the `cat-detail.js`:
 
@@ -111,5 +111,4 @@ Refresh and test it out by clicking inside of Feeding date input - you should se
 
 ![Custom Date Picker](./assets/calendar-wireframe.png)
 
-
-
+<!-- {% endraw %} -->

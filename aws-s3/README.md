@@ -1,3 +1,4 @@
+<!-- {% raw %} -->
 # ![Django CRUD App - Cat Collector - AWS S3](./assets/hero.png)
 
 **Learning objective:** 
@@ -539,3 +540,4 @@ You’ll see something like this:
 Note how the photo’s url is formed.
 
 Congrats on uploading files to Amazon S3!
+<!-- {% endraw %} -->

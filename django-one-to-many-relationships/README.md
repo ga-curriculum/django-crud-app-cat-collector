@@ -1,3 +1,4 @@
+<!-- {% raw %} -->
 # ![Django CRUD App - Cat Collector - Django One-to-Many Relationships](./assets/hero.png)
 
 **Learning objective:** By the end of this lesson, learners will be able to implement and manage one-to-many relationships in Django by adding a Feeding model related to the Cat model.
@@ -489,3 +490,4 @@ Replace the existing feedings table with the following:
 Now if a cat has a feeding count of `0` in the database, you'll see a warning message.
 
 Feed your cats!
+<!-- {% endraw %} -->

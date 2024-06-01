@@ -1,3 +1,4 @@
+<!-- {% raw %} -->
 # ![Django CRUD App - Cat Collector - Django Many-to-Many Relationships](./assets/hero.png)
 
 **Learning objective:** By the end of this lesson, students will be able to create and manage a many-to-many relationship between Cats and Toys using Django's built-in features.
@@ -360,3 +361,4 @@ def remove_toy(request, cat_id, toy_id):
   <button type="submit" class="btn btn-danger">Remove Toy</button>
 </form>
 ```
+<!-- {% endraw %} -->

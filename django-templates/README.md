@@ -1,3 +1,4 @@
+<!-- {% raw %} -->
 # ![Django CRUD App - Cat Collector - Django Templates](./assets/hero.png)
 
 **Learning objective:** By the end of this lesson, students will be able to use Django's Template Language (DTL) to create, manage, and apply dynamic HTML templates.
@@ -228,3 +229,4 @@ Replace the entire contents of `about.html` with the following code:
 ```
 
 If you refresh your browser you will see the new content displayed within the `content` block of `base.html`.
+<!-- {% endraw %} -->

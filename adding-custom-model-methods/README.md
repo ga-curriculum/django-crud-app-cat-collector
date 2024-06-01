@@ -1,3 +1,4 @@
+<!-- {% raw %} -->
 # ![Django CRUD App - Cat Collector - Adding Custom Model Methods](./assets/hero.png)
 
 **Learning objective:** By the end of this lesson, learners will be able to implement custom methods within Django models to manage and display business logic, specifically to check and display a cat's daily feeding status.
@@ -66,3 +67,4 @@ Lastly, we update the `detail.html` template to display the feeding status:
 This template now dynamically displays a message based on whether the cat has been fully fed for the day.
 
 Congrats on using a custom Model method to implement business logic!
+<!-- {% endraw %} -->

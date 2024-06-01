@@ -1,3 +1,4 @@
+<!-- {% raw %} -->
 # ![Django CRUD App - Cat Collector - Class Based Views](./assets/hero.png)
 
 **Learning objective:** By the end of this lesson, students will be able to create new pages using Django's built in Class-based Views.
@@ -498,3 +499,4 @@ Let’s check our progress by refreshing the browser and hitting the delete butt
 ![Delete Confirm Page](./assets/delete-confirm.png)
 
 **🎉 Congrats, you have implemented full CRUD for cats!**
+<!-- {% endraw %} -->

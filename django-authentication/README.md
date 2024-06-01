@@ -1,3 +1,4 @@
+<!-- {% raw %} -->
 # ![Django CRUD App - Cat Collector - Django Authentication](./assets/hero.png)
 
 **Learning objective:** By the end of this lesson, students will be able enable authentication and authorization in a Django app.
@@ -650,3 +651,4 @@ Understanding who is using your app is essential for delivering personalized and
 _As a Visitor, when I browse to the application, I want [insert feature here]._
 
 Congrats! You have completed `Cat_Collector`!
+<!-- {% endraw %} -->
