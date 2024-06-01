@@ -14,7 +14,7 @@ Welcome to Cat_Collector, your first venture into building a full CRUD applicati
 | [Concepts](../concepts/README.md)                                                       | Understand the structure and philosophy behind Django's design                     |
 | [Django URLs and Views](../django-urls-and-views/README.md)                             | Define and implement URL routing in Django                                         |
 | [Django Templates](../django-templates/README.md)                                       | Use Django's Template Language (DTL) to create dynamic HTML templates              |
-| [Including Static Files in Templates](../including-static-files-in-templates/README.md) | Link static files like CSS, JS, and images using the `{% static %}` template tag   |
+| [Including Static Files in Templates](../including-static-files-in-templates/README.md) | Link static files like CSS, JS, and images using the  `static`  template tag   |
 | [Rendering Data in Templates](../rendering-data-in-templates/README.md)                 | Render dynamic data within a Django template.                                      |
 | [Django Models](../django-models/README.md)                                             | Define Models to represent database entities                                       |
 | [Using Django’s ORM in the Terminal](../using-djangos-orm-in-the-terminal/README.md)    | Perform CRUD operations using Django's ORM within the Django shell environment     |
