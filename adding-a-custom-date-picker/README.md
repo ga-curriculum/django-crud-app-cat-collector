@@ -80,9 +80,11 @@ touch main_app/static/js/cat-detail.js
 
 Inside this new script file, initialize the MCDatepicker on the feeding date input field. Make sure the script loads after the DOM is ready by using the `defer` attribute:
 
+{% raw %}
 ```html
 <script defer src="{% static 'js/cat-detail.js' %}"></script>
 ```
+{% endraw %}
 
 Implement the MCDatepicker setup in the `cat-detail.js`:
 
