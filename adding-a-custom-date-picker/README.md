@@ -8,7 +8,7 @@ We're enhancing the user experience on the cat details page by incorporating the
 
 In `detail.html`:
 
-{% raw %}
+<!-- {% raw %} -->
 ```html
 {% block head %}
 <!-- New MCDatepicker CSS -->
@@ -30,7 +30,7 @@ In `detail.html`:
 />
 {% endblock %}
 ```
-{% endraw %}
+<!-- {% endraw %} -->
 
 Next, create a new CSS file specifically for styling the MCDatepicker elements:
 
@@ -80,11 +80,11 @@ touch main_app/static/js/cat-detail.js
 
 Inside this new script file, initialize the MCDatepicker on the feeding date input field. Make sure the script loads after the DOM is ready by using the `defer` attribute:
 
-{% raw %}
+<!-- {% raw %} -->
 ```html
 <script defer src="{% static 'js/cat-detail.js' %}"></script>
 ```
-{% endraw %}
+<!-- {% endraw %} -->
 
 Implement the MCDatepicker setup in the `cat-detail.js`:
 
