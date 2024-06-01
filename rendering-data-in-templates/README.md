@@ -25,8 +25,6 @@ For this **index** page user story, what would the RESTful route be? `/cats`
 For navigation, it makes sense to add an "All Cats" link to the nav bar in `base.html`:
 
 ```html
-<!-- base.html -->
-
 <li><a href="/cats">All Cats</a></li>
 <li><a href="/about">About</a></li>
 ```

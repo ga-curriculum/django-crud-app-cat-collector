@@ -158,10 +158,10 @@ Let's set up the URLconf for main app together:
    Then, add a new line in the `urlpatterns` list to include `main_app`'s URLs:
 
    ```python
-   urlpatterns = [
-   path('admin/', admin.site.urls),
-   path('', include('main_app.urls')), # Mounts main_app's routes at the root URL
-   ]
+    urlpatterns = [
+        path('admin/', admin.site.urls),
+        path('', include('main_app.urls')), # Mounts main_app's routes at the root URL
+    ]
    ```
 
    Including `main_app/urls.py` allows you to manage all routes related to this app separately, keeping your code organized.
@@ -175,7 +175,7 @@ Let's set up the URLconf for main app together:
    from . import views # Import views to connect routes to view functions
 
    urlpatterns = [
-   # Routes will be added here
+       # Routes will be added here
    ]
    ```
 
@@ -189,7 +189,7 @@ In `main_app/urls.py`:
 
 ```python
 urlpatterns = [
-  path('', views.home, name='home'),
+    path('', views.home, name='home'),
 ]
 ```
 

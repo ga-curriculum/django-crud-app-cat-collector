@@ -1,5 +1,5 @@
 <!-- {% raw %} -->
-# ![Django CRUD App - Cat Collector - CRUD in Django Views](./assets/hero.png)
+# ![Django CRUD App - Cat Collector - Using Django's ORM in the App](./assets/hero.png)
 
 **Learning objective:** By the end of this lesson, learners will be able to integrate Django's ORM capabilities into their web applications to perform CRUD operations, utilize Django's administrative dashboard to manage data, and understand how to dynamically generate detail views for objects within a web application.
 
@@ -107,8 +107,6 @@ The `int:` converter ensures that the URL will only match if the segment is an i
 To enable users to access a cat's detailed view, we'll enhance the UI by making each cat's card clickable. This involves wrapping the card's contents within an `<a>` tag that directs to the detail view of the cat:
 
 ```html
-<!-- cats/index.html -->
-
 <section class="card-container">
   {% for cat in cats %}
     <div class="card">

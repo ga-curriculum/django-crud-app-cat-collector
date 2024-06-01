@@ -40,8 +40,6 @@ body {
 Now we need to update `base.html` by adding the `load` template tag at the top:
 
 ```html
-<!-- templates/base.html  -->
-
 {% load static %}
 
 <!DOCTYPE html>
@@ -55,8 +53,6 @@ Now we need to update `base.html` by adding the `load` template tag at the top:
 Finally, add a link to your style sheet in `base.html`. Place the `<link>` before the `{% block head %}` line:
 
 ```html
-<!-- templates/base.html  -->
-
 <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}" />
 ```
 
