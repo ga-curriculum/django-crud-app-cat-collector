@@ -8,6 +8,7 @@ We're enhancing the user experience on the cat details page by incorporating the
 
 In `detail.html`:
 
+{% raw %}
 ```html
 {% block head %}
 <!-- New MCDatepicker CSS -->
@@ -29,6 +30,7 @@ In `detail.html`:
 />
 {% endblock %}
 ```
+{% endraw %}
 
 Next, create a new CSS file specifically for styling the MCDatepicker elements:
 
