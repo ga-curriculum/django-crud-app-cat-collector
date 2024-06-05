@@ -1,3 +1,4 @@
+<!-- {% raw %} -->
 # ![Django CRUD App - Cat Collector - Adding a Third Model](./assets/hero.png)
 
 **Learning objective:** By the end of this lesson, learners will be able to implement a new model in Django, and perform CRUD operations using class-based views.
@@ -485,3 +486,5 @@ Test your new delete confirmation page.
 ![Delete Confirmation Page](./assets/toy-delete.png)
 
 Great job!
+
+<!-- {% endraw %} -->
