@@ -23,11 +23,7 @@ In `detail.html`:
 >
 </script>
 <!-- Existing CSS -->
-<link 
-  rel="stylesheet" 
-  type="text/css" 
-  href="{% static 'css/cats/cat-detail.css' %}"
-/>
+<link rel="stylesheet" href="{% static 'css/cats/cat-detail.css' %}" />
 {% endblock %}
 ```
 

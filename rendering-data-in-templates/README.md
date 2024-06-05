@@ -129,11 +129,7 @@ Now, let's populate this new template with the necessary HTML and DTL tags. Copy
 {% extends 'base.html' %} 
 {% load static %} 
 {% block head %}
-<link
-  rel="stylesheet"
-  type="text/css"
-  href="{% static 'css/cats/cat-index.css' %}"
-/>
+<link rel="stylesheet" href="{% static 'css/cats/cat-index.css' %}"/>
 {% endblock %} 
 {% block content %}
 
@@ -275,7 +271,7 @@ In this exercise, you'll create a new template for the home page of our applicat
   {% extends 'base.html' %}
   {% load static %}
   {% block head %}
-  <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/home.css' %}" />
   {% endblock %}
   {% block content %}
 

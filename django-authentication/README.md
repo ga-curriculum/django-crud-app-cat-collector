@@ -493,7 +493,7 @@ Add the following to `signup.html`:
 {% extends 'base.html' %} 
 {% load static %} 
 {% block head %}
-  <link rel="stylesheet" type="text/css" href="{% static 'css/form.css' %}" />
+<link rel="stylesheet" href="{% static 'css/form.css' %}" />
 {% endblock %} 
 {% block content %}
 <div class="page-header">

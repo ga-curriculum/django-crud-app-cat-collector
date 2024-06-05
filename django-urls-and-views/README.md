@@ -39,14 +39,14 @@ Let’s include or "register" it as part of the `catcollector` project by adding
 
 ```python
 INSTALLED_APPS = [
-  # add main_app here
-	'main_app',
-	'django.contrib.admin',
-	'django.contrib.auth',
-	'django.contrib.contenttypes',
-	'django.contrib.sessions',
-	'django.contrib.messages',
-	'django.contrib.staticfiles',
+    # add main_app here
+    'main_app',
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
 ]
 ```
 
@@ -132,7 +132,7 @@ For example, to handle the home page functionality, we'll use the root URL `http
 
 ## Understanding Django URL configuration
 
-In Django, routes are defined in _URL configuration_ modules, typically named `urls.py`.
+In Django, routes are defined in *URL configuration* modules, typically named `urls.py`.
 
 While you could add all your routes to the project's main `urls.py` (located in `catcollector/urls.py`), it's a best practice for each app to manage its own routes and then include those in the project's URLconf. This makes your app modular and easier to maintain.
 

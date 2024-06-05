@@ -48,12 +48,10 @@ Now we need to update `base.html` by adding the `load` template tag at the top:
 > If you forget to include this line, Django will present you with errors like this in the browser:
 > ![Static file error](./assets/static-error.png)
 
-
-
 Finally, add a link to your style sheet in `base.html`. Place the `<link>` before the `{% block head %}` line:
 
 ```html
-<link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}" />
+<link rel="stylesheet" href="{% static 'css/base.css' %}" />
 ```
 
 Navigate to [http://127.0.0.1:8000/about/](http://127.0.0.1:8000/about/) and confirm that your background is red!

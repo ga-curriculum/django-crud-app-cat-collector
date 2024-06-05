@@ -86,7 +86,7 @@ To save time, we'll add some conditional logic to set this form up for edit func
 {% extends 'base.html' %} 
 {% load static %} 
 {% block head %}
-  <link rel="stylesheet" type="text/css" href="{% static 'css/form.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/form.css' %}" />
 {% endblock %} 
 {% block content %}
   <div class="page-header">
@@ -198,11 +198,7 @@ Add the following markup in `toy_list.html`:
 {% extends 'base.html' %} 
 {% load static %} 
 {% block head %}
-<link
-  rel="stylesheet"
-  type="text/css"
-  href="{% static 'css/toys/toy-index.css' %}"
-/>
+<link rel="stylesheet" href="{% static 'css/toys/toy-index.css' %}" />
 {% endblock %} 
 {% block content %}
 
@@ -325,11 +321,7 @@ Now let's add the markdown for the `toy_detail.html` page:
 {% extends 'base.html' %} 
 {% load static %} 
 {% block head %}
-<link
-  rel="stylesheet"
-  type="text/css"
-  href="{% static 'css/toys/toy-detail.css' %}"
-/>
+<link rel="stylesheet" href="{% static 'css/toys/toy-detail.css' %}" />
 {% endblock %} 
 {% block content %}
 

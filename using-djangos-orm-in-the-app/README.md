@@ -184,11 +184,7 @@ Ensure this template extends your base layout and add the necessary styling:
 {% extends 'base.html' %} 
 {% load static %} 
 {% block head %}
-<link
-  rel="stylesheet"
-  type="text/css"
-  href="{% static 'css/cats/cat-detail.css' %}"
-/>
+<link rel="stylesheet" href="{% static 'css/cats/cat-detail.css' %}" />
 {% endblock %} 
 {% block content %}
 <section class="cat-container">
