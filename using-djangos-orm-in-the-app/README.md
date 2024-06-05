@@ -471,13 +471,13 @@ Django uses that `name` argument to dynamically generate a URL based on the name
 In `cats/index.html`, we can replace this code:
 
 ```html
-<a href="/cats/{{cat.id}}"></a>
+<a href="/cats/{{cat.id}}">
 ```
 
 With this code:
 
 ```html
-<a href="{% url 'cat-detail' cat.id %}"></a>
+<a href="{% url 'cat-detail' cat.id %}">
 ```
 
 Now, URLs can be changed in one place `urls.py`, and all corresponding links in templates will automatically update.
