@@ -68,7 +68,7 @@ python3 manage.py runserver
 
 Upon running the server, you might notice several messages in your terminal that could initially appear as errors:
 
-```plain text
+```plaintext
 Watching for file changes with StatReloader
 Performing system checks...
 

@@ -62,10 +62,3 @@ To deactivate the virtual environment when you're done, simply type:
 ```bash
 exit
 ```
-
-## Image assets
-
-During this lesson we will be using some existing assets for images. These images are located in a [`cat-collector-assets` repo](https://git.generalassemb.ly/modular-curriculum-all-courses/cat-collector-assets). 
-
-1. Clone the `cat-collector-assets` repo to your computer.
-2. Later, ***when prompted***, you will need to drag and drop the images from the `cat-collector-assets` repo into `catcollector` or move them using the `mv` command.
