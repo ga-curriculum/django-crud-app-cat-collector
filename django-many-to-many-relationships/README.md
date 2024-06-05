@@ -258,7 +258,7 @@ Displaying a cat’s toys is just a matter of updating `/cats/detail.html` to sh
 
   <h3>Available Toys</h3>
   <div class="subsection-content">
-    ...
+    <!-- Available toys here -->
   </div>
 </section>
 ```
@@ -338,27 +338,27 @@ This process will be nearly identical to what we did when adding an association,
 
 1. Define the URL.
 
-```python
-path('cats/<int:cat_id>/remove-toy/<int:toy_id>/', views.remove_toy, name='remove-toy'),
-```
+   ```python
+   path('cats/<int:cat_id>/remove-toy/<int:toy_id>/', views.remove_toy, name='remove-toy'),
+   ```
 
 2. Create the view function. _Hint: Check out Django's **[.remove()](https://docs.djangoproject.com/en/5.0/ref/models/relations/#django.db.models.fields.related.RelatedManager.remove)** method._
 
-```python
-def remove_toy(request, cat_id, toy_id):
-    # Look up the cat
-    # Look up the toy
-    # Remove the toy from the cat
-    return redirect('cat-detail', cat_id=cat.id)
-```
+   ```python
+   def remove_toy(request, cat_id, toy_id):
+       # Look up the cat
+       # Look up the toy
+       # Remove the toy from the cat
+       return redirect('cat-detail', cat_id=cat.id)
+   ```
 
 3. Update the template. Where should this form be added?
 
-```html
-...
-<form action="{% url 'remove-toy' cat.id toy.id %}" method="post">
-  {% csrf_token %}
-  <button type="submit" class="btn btn-danger">Remove Toy</button>
-</form>
-```
+   ```html
+   <form action="{% url 'remove-toy' cat.id toy.id %}" method="post">
+     {% csrf_token %}
+     <button type="submit" class="btn btn-danger">Remove Toy</button>
+   </form>
+   ```
+
 <!-- {% endraw %} -->

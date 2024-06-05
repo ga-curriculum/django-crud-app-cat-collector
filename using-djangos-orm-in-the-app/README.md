@@ -445,9 +445,10 @@ Hard-coding URLs in your templates is not recommended, as URLs can change during
 For example, in `cats/index.html`, we find:
 
 ```html
-...
-<div class="card"><a href="/cats/{{ cat.id }}"> ...</a> <- hard-coded url!</div>
+<div class="card"><a href="/cats/{{ cat.id }}"></a></div>
 ```
+
+This is a hard-coded URL!
 
 While this approach works, it's brittle. If the URL pattern changes in `urls.py`, you would need to manually update every instance of this link in your templates.
 

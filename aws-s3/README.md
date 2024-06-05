@@ -297,11 +297,11 @@ In **`urls.py`**:
 
 ```python
 urlpatterns = [
-	...
-  path('cats/<int:pk>/delete/', views.CatDelete.as_view(), name='cats_delete'),
-  path('cats/<int:cat_id>/add-feeding/', views.add_feeding, name='add-feeding'),
-  # new path below
-  path('cats/<int:cat_id>/add-photo/', views.add_photo, name='add-photo'),
+    # Other paths above
+    path('cats/<int:pk>/delete/', views.CatDelete.as_view(), name='cats_delete'),
+    path('cats/<int:cat_id>/add-feeding/', views.add_feeding, name='add-feeding'),
+    # new path below
+    path('cats/<int:cat_id>/add-photo/', views.add_photo, name='add-photo'),
 ]
 ```
 

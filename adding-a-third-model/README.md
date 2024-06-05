@@ -67,7 +67,7 @@ Add the CBV to create a `Toy` in `main_app/views.py`. Make sure you import the `
 ```python
 from .models import Cat, Toy
 
-...
+# Other view functions above
 
 class ToyCreate(CreateView):
     model = Toy
@@ -161,7 +161,7 @@ Now, let's create the views that will render the list of toys and the details of
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView # add these 
 
-...
+# Other view functions above
 
 class ToyList(ListView):
     model = Toy

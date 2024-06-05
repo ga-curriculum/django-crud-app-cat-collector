@@ -272,7 +272,7 @@ from .models import Cat
 # Import the FeedingForm
 from .forms import FeedingForm
 
-...
+# Other view functions above
 
 # update this view function
 def cat_detail(request, cat_id):
@@ -303,7 +303,6 @@ This is how we can "render" the `ModelForm`’s inputs within `<form>` tags. Add
   {{ feeding_form.as_p }}
   <button type="submit" class="btn submit">Add Feeding</button>
 </form>
-...
 ```
 
 As before, we need to include the `{% csrf_token %}` for security purposes.

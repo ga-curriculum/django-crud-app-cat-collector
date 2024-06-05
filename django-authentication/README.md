@@ -65,7 +65,7 @@ Now let’s add the field linking a `Cat` to a `User`:
 
 ```python
 class Cat(models.Model):
-    ...
+    # Other Cat class items above
     toys = models.ManyToManyField(Toy)
     # Add the foreign key linking to a user instance
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -85,7 +85,7 @@ python3 manage.py makemigrations
 
 Which then presents us with this message:
 
-```
+```plaintext
 You are trying to add a non-nullable field 'user' to cat without a default;
 we can't do that (the database needs something to populate existing rows).
 Please select a fix:
@@ -129,12 +129,11 @@ Lucky for us, the `django.contrib.auth` module contains predefined URLS that we 
 Let's do so now:
 
 ```python
-  ...
-  path('admin/', admin.site.urls),
-  path('', include('main_app.urls')),
-  # include the built-in auth urls for the built-in views
-  path('accounts/', include('django.contrib.auth.urls')),
-]
+    # Other paths above
+    path('admin/', admin.site.urls),
+    path('', include('main_app.urls')),
+    # include the built-in auth urls for the built-in views
+    path('accounts/', include('django.contrib.auth.urls')),
 ```
 
 We don’t need to import `django.contrib.auth.urls` because it’s just a string.
@@ -349,9 +348,7 @@ Add the following at the bottom of `base.css`:
 }
 ```
 
-These styles remove default button styling and make the logout button look like a part of the navigation links.
-
-much better! 
+These styles remove default button styling and make the logout button look like a part of the navigation links. Much better!
 
 ![Logout Styled in Nav](./assets/logout-in-nav.png)
 
@@ -367,6 +364,7 @@ LOGIN_REDIRECT_URL = 'cat-index'
 # Add this variable to specify where logging out redirects to
 LOGOUT_REDIRECT_URL = 'home'
 ```
+
 Logout is complete!
 
 ## Update the `CatCreate` view to assign a new cat to the logged in user
@@ -383,10 +381,10 @@ class CatCreate(CreateView):
     # This inherited method is called when a
     # valid cat form is being submitted
     def form_valid(self, form):
-      # Assign the logged in user (self.request.user)
-      form.instance.user = self.request.user  # form.instance is the cat
-      # Let the CreateView do its job as usual
-      return super().form_valid(form)
+        # Assign the logged in user (self.request.user)
+        form.instance.user = self.request.user  # form.instance is the cat
+        # Let the CreateView do its job as usual
+        return super().form_valid(form)
 ```
 
 We’re overriding the `CreateView`’s `form_valid` method to assign the logged in user, `self.request.user`. Yes, the built-in auth automatically assigns the user to the `request` object similarly our middleware in Express.
@@ -433,12 +431,12 @@ In addition, we’re also going to use the `login` function to automatically log
 Let’s import these methods near the top of **`views.py`**:
 
 ```python
-...
+# Other imports above
 from django.views.generic import ListView, DetailView
 # Add the two imports below
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
-...
+# Other code below
 ```
 
 Now let’s create the `signup` view function:
@@ -447,8 +445,8 @@ Now let’s create the `signup` view function:
 def signup(request):
     error_message = ''
     if request.method == 'POST':
-      # This is how to create a 'user' form object
-      # that includes the data from the browser
+        # This is how to create a 'user' form object
+        # that includes the data from the browser
         form = UserCreationForm(request.POST)
         if form.is_valid():
             # This will add the user to the database
@@ -457,12 +455,17 @@ def signup(request):
             login(request, user)
             return redirect('cat-index')
         else:
-          error_message = 'Invalid sign up - try again'
+            error_message = 'Invalid sign up - try again'
     # A bad POST or a GET request, so render signup.html with an empty form
     form = UserCreationForm()
     context = {'form': form, 'error_message': error_message}
     return render(request, 'signup.html', context)
-    # Same as: return render(request, 'signup.html', {'form': form, 'error_message': error_message})
+    # Same as: 
+    # return render(
+    #     request, 
+    #     'signup.html',
+    #     {'form': form, 'error_message': error_message}
+    # )
 ```
 
 > When building future projects in Django you can always refer back to this function or Django's documentation on how to implement this functionality.
@@ -572,7 +575,7 @@ To protect view functions, we will use the `login_required` decorator.
 First we need to import it near the top of `views.py`:
 
 ```python
-...
+# Other imports above
 from django.contrib.auth.forms import UserCreationForm
 # Import the login_required decorator
 from django.contrib.auth.decorators import login_required
@@ -583,7 +586,7 @@ Now we can simply "decorate" any view function that requires a user to be logged
 ```python
 @login_required
 def cat_index(request):
-    ...
+    # cat_index function code here
 ```
 
 Trying to browse to [http://127.0.0.1:8000/cats](http://127.0.0.1:8000/cats) while logged out - it throws an error!
@@ -617,7 +620,7 @@ Protecting class-based views is slightly different, it uses what’s called a `m
 As usual, we’ll need to import it:
 
 ```python
-...
+# Other imports above
 from django.contrib.auth.decorators import login_required
 # Import the mixin for class-based views
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -627,7 +630,7 @@ Finally, we can protect class-based views like this:
 
 ```python
 class CatCreate(LoginRequiredMixin, CreateView):
-    ...
+    # CatCreate class code here
 ```
 
 Not all OOP languages support the concept of multiple inheritance, but Python does.
