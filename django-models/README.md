@@ -157,8 +157,6 @@ To switch to PostgreSQL:
 
 This configuration tells Django to use a PostgreSQL database named `catcollector` for storing all data. Make sure that you have created this database in your PostgreSQL server before running your Django application.
 
-> **Note for Windows Users:** If you're using Windows, you may need to specify additional details in your Django database settings. Along with the `ENGINE` and `NAME`, you should also include `USER` and `PASSWORD` fields. Typically, the `USER` should be set to `postgres`, and the `PASSWORD` should be the one you created for your PostgreSQL user account during setup. These credentials are used to access your PostgreSQL database.
-
 ## Making and Running Migrations
 
 ### What are Migrations?
