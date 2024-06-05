@@ -18,7 +18,6 @@ git clone https://github.com/<your-username>/django-crud-app-cat-collector.git
 
 Next, `cd` into your new cloned directory, `django-crud-app-cat-collector`:
 
-
 ```bash
 cd django-crud-app-cat-collector
 ```
@@ -42,8 +41,10 @@ pipenv shell
 Start a new Django project within your virtual environment:
 
 ```bash
-django-admin startproject catcollector
+django-admin startproject catcollector .
 ```
+
+The `.` here starts this project inside of our current directory, instead of creating a new one.
 
 Once the project is created, `cd` into the new `catcollector` directory:
 
