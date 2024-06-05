@@ -33,10 +33,11 @@ from django.urls import reverse
 from datetime import date  # Import date at the top of the models file
 
 class Cat(models.Model):
-  ...
-  # add this new method
-  def fed_for_today(self):
-    return self.feeding_set.filter(date=date.today()).count() >= len(MEALS)
+    # Other class items here
+
+    # add this new method
+    def fed_for_today(self):
+        return self.feeding_set.filter(date=date.today()).count() >= len(MEALS)
 ```
 
 This method uses `filter()` to gather today's feedings into a `<QuerySet>`, then uses `count()` to determine if the count meets or exceeds the number of meals. This method is more efficient than fetching all objects just to count them, as it avoids unnecessary data transfer from the database.
