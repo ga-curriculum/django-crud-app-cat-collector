@@ -342,10 +342,10 @@ Let's implement the following user stories using class-based view:
 Let’s add two new routes for update and delete in `main_app/urls.py`:
 
 ```python
-  path('cats/create/', views.CatCreate.as_view(), name='cat-create'),
-  # Add the new routes below
-  path('cats/<int:pk>/update/', views.CatUpdate.as_view(), name='cat-update'),
-  path('cats/<int:pk>/delete/', views.CatDelete.as_view(), name='cat-delete'),
+    path('cats/create/', views.CatCreate.as_view(), name='cat-create'),
+    # Add the new routes below
+    path('cats/<int:pk>/update/', views.CatUpdate.as_view(), name='cat-update'),
+    path('cats/<int:pk>/delete/', views.CatDelete.as_view(), name='cat-delete'),
 ```
 
 > By convention, CBVs that work with individual model instances will expect to find a named parameter of `pk` for "primary key". This is why we didn’t use `cat_id` as we did in the _detail_ entry.
