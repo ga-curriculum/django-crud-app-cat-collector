@@ -18,8 +18,8 @@ from django.shortcuts import render
 from .models import Cat
 
 def cat_index(request):
-  cats = Cat.objects.all()  # look familiar?
-  return render(request, 'cats/index.html', {'cats': cats})
+    cats = Cat.objects.all()  # look familiar?
+    return render(request, 'cats/index.html', {'cats': cats})
 ```
 
 Refresh the page in your browser to see real cats from your Database
@@ -142,11 +142,11 @@ Next, define a route that matches the URL pattern and links to the appropriate v
 
 ```python
 urlpatterns = [
-  path('', views.home, name='home'),
-  path('about/', views.about, name='about'),
-  path('cats/', views.cat_index, name='cat-index'),
-  # new route below
-  path('cats/<int:cat_id>/', views.cat_detail, name='cat-detail'),
+    path('', views.home, name='home'),
+    path('about/', views.about, name='about'),
+    path('cats/', views.cat_index, name='cat-index'),
+    # new route below
+    path('cats/<int:cat_id>/', views.cat_detail, name='cat-detail'),
 ]
 ```
 
@@ -158,8 +158,8 @@ Within `views.py`, define the `cat_detail` function to retrieve and display the 
 # views.py
 
 def cat_detail(request, cat_id):
-  cat = Cat.objects.get(id=cat_id)
-  return render(request, 'cats/detail.html', {'cat': cat})
+    cat = Cat.objects.get(id=cat_id)
+    return render(request, 'cats/detail.html', {'cat': cat})
 ```
 
 The `cat_detail` function is using the `get` method to obtain the cat object by its `id`.
@@ -457,10 +457,10 @@ Let’s take another look at the `urlpatterns` in `urls.py`:
 
 ```python
 urlpatterns = [
-  path('', views.home, name='home'),
-  path('about/', views.about, name='about'),
-  path('cats/', views.cat_index, name='cat-index'),
-  path('cats/<int:cat_id>/', views.cat_detail, name='cat-detail'),
+    path('', views.home, name='home'),
+    path('about/', views.about, name='about'),
+    path('cats/', views.cat_index, name='cat-index'),
+    path('cats/<int:cat_id>/', views.cat_detail, name='cat-detail'),
 ]
 ```
 
