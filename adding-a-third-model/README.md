@@ -1,4 +1,3 @@
-<!-- {% raw %} -->
 # ![Django CRUD App - Cat Collector - Adding a Third Model](./assets/hero.png)
 
 **Learning objective:** By the end of this lesson, learners will be able to implement a new model in Django, and perform CRUD operations using class-based views.
@@ -7,7 +6,7 @@ Now it's time to introduce the third and final model for this application: Toys!
 
 ## Toy model
 
-Let's start by adding the `Toy` model to our project. 
+Let's start by adding the `Toy` model to our project.
 
 Add the following at the bottom of `models.py`:
 
@@ -18,19 +17,19 @@ class Toy(models.Model):
     color = models.CharField(max_length=20)
 
     def __str__(self):
-      return self.name
+        return self.name
 
     def get_absolute_url(self):
-      return reverse('toy-detail', kwargs={'pk': self.id})
+        return reverse('toy-detail', kwargs={'pk': self.id})
 ```
 
-This new model with have only two properties for toys `name` and `color`. 
+This new model with have only two properties for toys `name` and `color`.
 
 We'll also include `get_absolute_url(self)`. This method uses Django's reverse function to generate a URL for the specific instance of the Toy model. This URL is meant to point to a detailed view of the toy, identified by its primary key (pk). This is useful in redirecting users to the toy's detail page after operations such as creating or updating a toy.
 
 ## Register the new toy model
 
-A new model means a new entry in `admin.py`. Add the toy model below `Cat` and `Feeding`. 
+A new model means a new entry in `admin.py`. Add the toy model below `Cat` and `Feeding`.
 
 ```python
 from django.contrib import admin
@@ -50,9 +49,9 @@ python3 manage.py makemigrations
 python3 manage.py migrate
 ```
 
-# Adding Toys
+## Adding Toys
 
-Lets' create our first Class-Based View for adding new toys. 
+Lets' create our first Class-Based View for adding new toys.
 
 Start by adding the URL path for `create` in `main_app/urls.py`.
 
@@ -60,7 +59,7 @@ Start by adding the URL path for `create` in `main_app/urls.py`.
 path('toys/create/', views.ToyCreate.as_view(), name='toy-create'),
 ```
 
-> This will cause an error with our server temporarily, because we have not created the view for this new path. 
+> This will cause an error with our server temporarily, because we have not created the view for this new path.
 
 Add the CBV to create a `Toy` in `main_app/views.py`. Make sure you import the `Toy` model at the top!
 
@@ -108,7 +107,7 @@ To save time, we'll add some conditional logic to set this form up for edit func
 {% endblock %}
 ```
 
-Finally let's update the `base.html` with a new link so that we can get to our new page. 
+Finally let's update the `base.html` with a new link so that we can get to our new page.
 
 ```html
 <ul>
@@ -120,7 +119,7 @@ Finally let's update the `base.html` with a new link so that we can get to our n
 </ul>
 ```
 
-Test it out! 
+Test it out!
 
 ![New Toy Page](./assets/toy-new.png)
 
@@ -136,9 +135,9 @@ The next step is to create a place in our UI to view toys and give the server a 
 
 We have prepared two wireframes for the toy sections of our application: one for the index page, which lists all toys, and another for the detailed view page of each toy.
 
-Here are some wireframes for what we will build in the next sections. 
+Here are some wireframes for what we will build in the next sections.
 
-### Toy Index Page 
+### Toy Index Page
 
 ![Toy Index Page Wireframe](./assets/toy-index-wireframe.png)
 
@@ -188,6 +187,7 @@ Lastly, we need templates for these views. Create the template files by running 
 ```bash
 touch main_app/templates/main_app/toy_list.html main_app/templates/main_app/toy_detail.html
 ```
+
 Next we'll add some markup to our `toy_list` template
 
 ## All `Toys` index page
@@ -227,7 +227,7 @@ Add the following markup in `toy_list.html`:
 {% endblock %}
 ```
 
-This markup includes a cute page header with some cat toy images, as well as a programmatically rendered list of toys from our database. 
+This markup includes a cute page header with some cat toy images, as well as a programmatically rendered list of toys from our database.
 
 Test the link in the nav to see the new page.
 
@@ -309,7 +309,7 @@ add the following styles in `toy-index.css`:
 }
 ```
 
-Refresh to see the final index page! 
+Refresh to see the final index page!
 
 ![Toy Index Page](./assets/toy-index.png)
 
@@ -338,7 +338,7 @@ Now let's add the markdown for the `toy_detail.html` page:
 {% endblock %}
 ```
 
-This markdown contains specific details about one toy, as well as buttons to edit and delete a toy. We'll connect update and delete functionality to those later. 
+This markdown contains specific details about one toy, as well as buttons to edit and delete a toy. We'll connect update and delete functionality to those later.
 
 > Notice also how we use properties of the toy model to set styles in our CSS. Neat.
 
@@ -407,7 +407,7 @@ main {
 }
 ```
 
-Refresh to see your styled details page. 
+Refresh to see your styled details page.
 
 ![toy detail](./assets/toy-detail.png)
 
@@ -417,14 +417,14 @@ Nice work!
 
 We're almost finished with our CBV's, we just need to add the final update and delete functionality for individual toys.
 
-First we'll create the paths: 
+First we'll create the paths:
 
 In `urls.py`:
 
 ```python
-  ...
-path('toys/<int:pk>/update/', views.ToyUpdate.as_view(), name='toy-update'),
-path('toys/<int:pk>/delete/', views.ToyDelete.as_view(), name='toy-delete'),
+    #Existing urls above
+    path('toys/<int:pk>/update/', views.ToyUpdate.as_view(), name='toy-update'),
+    path('toys/<int:pk>/delete/', views.ToyDelete.as_view(), name='toy-delete'),
 ```
 
 Now we add the views in `views.py`:
@@ -441,7 +441,6 @@ class ToyDelete(DeleteView):
 
 Update the Edit and Delete buttons on the `toy-detail.html` page with their new URLs:
 
-
 ```html
 <a href="{% url 'toy-update' toy.id %}" class="btn warn">Edit</a>
 <a href="{% url 'toy-delete' toy.id %}" class="btn danger">Delete</a>
@@ -451,7 +450,7 @@ Update is now complete. You can test this functionality now. Our delete function
 
 ### Create delete confirmation page
 
-Let's make a template that will confirm the delete. 
+Let's make a template that will confirm the delete.
 
 Run the following in the terminal:
 
@@ -486,5 +485,3 @@ Test your new delete confirmation page.
 ![Delete Confirmation Page](./assets/toy-delete.png)
 
 Great job!
-
-<!-- {% endraw %} -->
