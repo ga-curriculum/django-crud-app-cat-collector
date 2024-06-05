@@ -54,10 +54,13 @@ Finally, add a link to your style sheet in `base.html`. Place the `<link>` befor
 <link rel="stylesheet" href="{% static 'css/base.css' %}" />
 ```
 
+Because we just added a static directory Django isn't tracking it so we need to restart our server so it starts tracking it. Restart the server now.
+
 Navigate to [http://127.0.0.1:8000/about/](http://127.0.0.1:8000/about/) and confirm that your background is red!
+
 Once you have confirmed your css loads properly, you can remove the background color.
 
-> Note: If the changes don't appear, such as a missing red background, you may need to restart the server. Remember, static files like CSS are not automatically reloaded when updated.
+> ⚠️ Note: Anytime you add or alter a file to your static directory the additions or changes may not immediately appear on a page refesh. In this case, you may need do a hard refresh of your page with `Command` + `Shift` + `R` on macOS or `Ctrl` + `Shift` + `R` on Windows or Linux.
 
 ## Image files
 
@@ -405,8 +408,9 @@ nav li {
 }
 ```
 
-Once you have added your CSS, refresh the page to see your changes. If you do not immediately see your changes, try restarting your server.
+Refresh the page to see your changes.
 
+> ⚠️ Note: If the changes don't appear, you may need to do a hard refresh of your page with `Command` + `Shift` + `R` on macOS or `Ctrl` + `Shift` + `R` on Windows or Linux.
 
 ![About page with CSS added](./assets/css-added.png)
 <!-- {% endraw %} -->
