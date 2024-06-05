@@ -25,7 +25,7 @@ class Feeding(models.Model):
     meal = models.CharField(max_length=1)
 ```
 
-> Note that we’re going to use just a single-character to represent what meal the feeding is for: **_B_**reakfast, **_L_**unch or **_D_**inner.
+> Note that we’re going to use just a single-character to represent what meal the feeding is for: ***B***reakfast, ***L***unch or ***D***inner.
 
 ## Field.choices
 
@@ -55,11 +55,11 @@ Now let’s enhance the `meal` field as follows:
 class Feeding(models.Model):
     date = models.DateField()
     meal = models.CharField(
-      max_length=1,
-      # add the 'choices' field option
-      choices=MEALS,
-      # set the default value for meal to be 'B'
-      default=MEALS[0][0]
+        max_length=1,
+        # add the 'choices' field option
+        choices=MEALS,
+        # set the default value for meal to be 'B'
+        default=MEALS[0][0]
     )
 ```
 
@@ -69,14 +69,14 @@ As is common in python classes, we can override the `__str__` method in Models s
 
 ```python
 class Feeding(models.Model):
-    ...
+    # Other Feeding class fields here
 
     def __str__(self):
-      # Nice method for obtaining the friendly value of a Field.choice
-      return f"{self.get_meal_display()} on {self.date}"
+        # Nice method for obtaining the friendly value of a Field.choice
+        return f"{self.get_meal_display()} on {self.date}"
 ```
 
-Check out the convenient `get_meal_display()` method Django _automagically_ creates to access the human-friendly value of a `Field.choice` like we have on `meal`.
+Check out the convenient `get_meal_display()` method Django *automagically* creates to access the human-friendly value of a `Field.choice` like we have on `meal`.
 
 ## Add the Foreign Key
 
@@ -88,22 +88,21 @@ Here’s how it’s done - Django style:
 class Feeding(models.Model):
     date = models.DateField()
     meal = models.CharField(
-      max_length=1,
-      choices=MEALS,
-      default=MEALS[0][0]
+        max_length=1,
+        choices=MEALS,
+        default=MEALS[0][0]
     )
     # Create a cat_id column for each feeding in the database
     cat = models.ForeignKey(Cat, on_delete=models.CASCADE)
 
     def __str__(self):
-      return f"{self.get_meal_display()} on {self.date}"
+        return f"{self.get_meal_display()} on {self.date}"
 ```
 
 As you can see, the `ForeignKey` field-type is used to create a one-to-many relationship.
 
 - The first argument provides the parent Model, `Cat`.
-
-- In a one-to-many relationship, the `on_delete=models.CASCADE` is required. It ensures that if a `Cat` record is deleted, all of the child `Feedings` will be deleted automatically as well - thus avoiding _orphan_ records for feedings that are no longer tied to an existing Cat.
+- In a one-to-many relationship, the `on_delete=models.CASCADE` is required. It ensures that if a `Cat` record is deleted, all of the child `Feedings` will be deleted automatically as well - thus avoiding *orphan* records for feedings that are no longer tied to an existing Cat.
 
 > 🧠 In the database, the column in the feedings table for the FK will actually be called `cat_id` because Django by default appends `_id` to the name of the attribute used in the Model.
 
@@ -149,7 +148,7 @@ Notice the select drop-downs for assigning both the Meal and the Cat!
 
 Let’s say though, that you would like a less vague label than **Date**.
 
-If you want to use a more descriptive label than **Date**, you can customize field labels directly in the model. Since **_Django models are the single source of truth about your data_**, this is where you should add customizations.
+If you want to use a more descriptive label than **Date**, you can customize field labels directly in the model. Since ***Django models are the single source of truth about your data***, this is where you should add customizations.
 
 In `main_app/models.py`, update the `Feeding` model to include a user-friendly label for the `date` field:
 
@@ -157,7 +156,7 @@ In `main_app/models.py`, update the `Feeding` model to include a user-friendly l
 class Feeding(models.Model):
     # The first optional positional argument overrides the label
     date = models.DateField('Feeding date')
-    ...
+    # Other fields below
 ```
 
 After making this change, refresh the admin portal page to see the updated label.
@@ -281,8 +280,8 @@ def cat_detail(request, cat_id):
     # instantiate FeedingForm to be rendered in the template
     feeding_form = FeedingForm()
     return render(request, 'cats/detail.html', {
-      # include the cat and feeding_form in the context
-      'cat': cat, 'feeding_form': feeding_form
+        # include the cat and feeding_form in the context
+        'cat': cat, 'feeding_form': feeding_form
     })
 ```
 
@@ -315,10 +314,9 @@ The `{{ feeding_form.as_p }}` will generate the `<input>` tags wrapped in `<p>` 
 
 Let’s see what it looks like - not perfect but it’s a start:
 
-
 ![Feeding Form](./assets/feeding-form.png)
 
-Unfortunately, you may have noticed that the _Feeding Date_ field is just a basic text input. This is what Django uses by default for `DateField`s. Let's make it a date picker instead.
+Unfortunately, you may have noticed that the *Feeding Date* field is just a basic text input. This is what Django uses by default for `DateField`s. Let's make it a date picker instead.
 
 ## Use Django's `DateInput`
 
@@ -338,9 +336,11 @@ class FeedingForm(forms.ModelForm):
         widgets = {
             'date': forms.DateInput(
                 format=('%Y-%m-%d'),
-                attrs={'placeholder': 'Select a date',
-                       'type': 'date'
-                       }),
+                attrs={
+                    'placeholder': 'Select a date',
+                    'type': 'date'
+                }
+            ),
         }
 ```
 
@@ -354,14 +354,18 @@ Refresh the page to see your DateInput widget in action:
 
 Its time to complete our form functionality by enabling the route we'll use as the form action for new `Feedings`.
 
-Every `Feeding` object needs a `cat_id` that holds the primary key of the cat object that it belongs to. Therefore, we need to ensure that the route `path` includes a _URL parameter_ for capturing the cat’s `id` like we’ve done in other routes.
+Every `Feeding` object needs a `cat_id` that holds the primary key of the cat object that it belongs to. Therefore, we need to ensure that the route `path` includes a *URL parameter* for capturing the cat’s `id` like we’ve done in other routes.
 
 Add a route to the `urlpatterns` list in **`urls.py`** like this:
 
 ```python
 urlpatterns = [
-	  ...
-    path('cats/<int:cat_id>/add-feeding/', views.add_feeding, name='add-feeding'),
+    # Existing URL patterns above
+    path(
+        'cats/<int:cat_id>/add-feeding/', 
+        views.add_feeding, 
+        name='add-feeding'
+    ),
 ]
 ```
 
@@ -369,7 +373,7 @@ The above route specifies that the `<form>`’s **action** attribute will need t
 
 ## Add the `action` Attribute to the `<form>`
 
-Now that we have a _named URL_, let’s add the `action` attribute to the `<form>` in `detail.html`:
+Now that we have a *named URL*, let’s add the `action` attribute to the `<form>` in `detail.html`:
 
 ```html
 <h3>Add a Feeding</h3>
@@ -405,20 +409,17 @@ def add_feeding(request, cat_id):
     form = FeedingForm(request.POST)
     # validate the form
     if form.is_valid():
-      # don't save the form to the db until it
-      # has the cat_id assigned
-      new_feeding = form.save(commit=False)
-      new_feeding.cat_id = cat_id
-      new_feeding.save()
+        # don't save the form to the db until it
+        # has the cat_id assigned
+        new_feeding = form.save(commit=False)
+        new_feeding.cat_id = cat_id
+        new_feeding.save()
     return redirect('cat-detail', cat_id=cat_id)
 ```
 
 1. First we capture data from the user via the `FeedingForm(request.POST)` and prepare it for the database.
-
 2. The method `form.is_valid()` checks if the submitted form data is valid according to the form's specifications, such as required fields being filled and data types matching the model's requirements.
-
 3. After ensuring that the form contains valid data, we save the form with the `commit=False` option, which returns an in-memory model object so that we can assign the `cat_id` before actually saving to the database.
-
 4. Finally we will `redirect` instead of `render` since data has been changed in the database.
 
 Lastly, remember to import `redirect` at the top of `views.py`:
@@ -443,14 +444,15 @@ Let's add this to our `Feeding` model:
 
 ```python
 class Feeding(models.Model):
-    ...
+    # Other Feeding model items above
+
     def __str__(self):
-      # Nice method for obtaining the friendly value of a Field.choice
-      return f"{self.get_meal_display()} on {self.date}"
+        # Nice method for obtaining the friendly value of a Field.choice
+        return f"{self.get_meal_display()} on {self.date}"
 
     # Define the default order of feedings
     class Meta:
-      ordering = ['-date']  # This line makes the newest feedings appear first
+        ordering = ['-date']  # This line makes the newest feedings appear first
 ```
 
 This `ordering` option in Django allows us to specify how lists of entries, like our feedings, should be sorted by default. The prefix '-' before 'date' means it sorts the dates in descending order, so the newest feedings appear first.
