@@ -1,4 +1,4 @@
-# ![Django CRUD App - Cat Collector - References](./assets/hero.png)
+# ![Django CRUD App - Cat Collector - References](../assets/hero.png)
 
 ## Lesson references
 
