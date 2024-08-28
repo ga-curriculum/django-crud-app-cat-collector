@@ -2,10 +2,10 @@
 
 ## Setup
 
-Open your Terminal application and navigate to your `~/code/ga/lessons` directory:
+Open your Terminal application and navigate to your `~/code/ga/lectures` directory:
 
 ```bash
-cd ~/code/ga/lessons
+cd ~/code/ga/lectures
 ```
 
 Create a new repository on [GitHub](https://github.com/) named `django-crud-app-cat-collector`.
@@ -14,7 +14,7 @@ Create a new repository on [GitHub](https://github.com/) named `django-crud-app-
 git clone https://github.com/<your-username>/django-crud-app-cat-collector.git
 ```
 
-> 🚨 Do not copy the above command. It will not work. Your GitHub username will replace <github-username> (including the < and >) in the URL above.
+> 🚨 Do not copy the above command. It will not work. Your GitHub username will replace `<github-username>` (including the `<` and `>`) in the URL above.
 
 Next, `cd` into your new cloned directory, `django-crud-app-cat-collector`:
 
