@@ -13,7 +13,7 @@ Django’s built-in authentication functionality is provided by the `'django.con
 INSTALLED_APPS = [
     'main_app',
     'django.contrib.admin',
-    'django.contrib.auth',    # Thank You Django!
+    'django.contrib.auth',         # Thank You Django!
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -310,7 +310,7 @@ First, we need to integrate a `logout` form into your existing navbar. Here's ho
   <li><a href="{% url 'toy-create' %}">Add a Toy</a></li>
   <li><a href="{% url 'about' %}">About</a></li>
   <li>
-    <form id="logout-form" method="post" action="{% url 'admin:logout' %}">
+    <form id="logout-form" method="post" action="{% url 'logout' %}">
       {% csrf_token %}
       <button type="submit">Log out</button>
     </form>

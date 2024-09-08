@@ -18,7 +18,7 @@ A Django Model represents a single entity from the ERD.
 
 Thus, a Model has a one-to-one mapping with a table in the database and is what allows us to perform create, read, update and delete data operations on that table.
 
-When we retrieve data from the database (using a Model), we will have **model objects**, each of which represents a row in a database table. Model objects are also called _instances_ of the Model. We can work with these instances of the Model just like how we worked with Mongoose documents.
+When we retrieve data from the database (using a Model), we will have **model objects**, each of which represents a row in a database table. Model objects are also called *instances* of the Model. We can work with these instances of the Model just like how we worked with Mongoose documents.
 
 > Note: Since a "model" can technically refer to the Model class or an instance of that class, we will try to use "Model" (capitalized) to refer to a Model class we use to perform CRUD with and "model" (lowercased) to refer to a model instance.
 
