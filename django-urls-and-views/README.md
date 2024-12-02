@@ -25,9 +25,7 @@ These apps add functionalities like the user interface for the admin section, us
 
 To tailor our `catcollector` project for its specific purpose, we need to create our own app that handles our specific needs—collecting cats. It's a good practice to give your app a descriptive, yet general name. In this case, we’ll simply name our app `main_app`.
 
-1. **Create the App**:
-
-   Navigate to the `catcollector` directory in your terminal and run the following command:
+Create the App with the following command:
 
 ```bash
 python3 manage.py startapp main_app

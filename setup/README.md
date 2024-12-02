@@ -46,12 +46,6 @@ django-admin startproject catcollector .
 
 The `.` here starts this project inside of our current directory, instead of creating a new one.
 
-Once the project is created, `cd` into the new `catcollector` directory:
-
-```bash
-cd catcollector
-```
-
 Open the project's folder in your code editor:
 
 ```bash
