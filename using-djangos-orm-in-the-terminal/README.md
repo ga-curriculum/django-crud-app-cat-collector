@@ -172,7 +172,7 @@ c.delete()
 
 ## Read one
 
-We've seen how to use `Cat.objects.all()` and `Cat.objects.filter()` to retrieve lists of objects. However, retrieving a **_single_** specific model object from the database, typically by its `id`, is a common operation.
+We've seen how to use `Cat.objects.all()` to retrieve lists of objects. However, retrieving a **_single_** specific model object from the database, typically by its `id`, is a common operation.
 
 ### Using the `get()` method
 
