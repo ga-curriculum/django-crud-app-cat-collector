@@ -19,7 +19,7 @@ This lesson will cover how to add this ability to your Django project should you
 
 ## Ready the Starter Code
 
-This lesson’s starter code picks up from the [Authentication](../authentication/README.md) lesson.
+This lesson’s starter code picks up from the [Authentication](../django-authentication/README.md) lesson.
 
 # Set up Amazon S3
 
