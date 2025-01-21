@@ -20,16 +20,6 @@
       "logoUrl": "",
       "microlessons": [
         {
-          "friendlyName": "AWS S3",
-          "dirName": "aws-s3",
-          "type": "Content",
-          "skill": "",
-          "learningObjective": "",
-          "videoUrl": "",
-          "videoLengthInMinutes": 0,
-          "estimatedDeliveryTimeInMinutes": 0
-        },
-        {
           "friendlyName": "Setup",
           "dirName": "setup",
           "type": "Content",

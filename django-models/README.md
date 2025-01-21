@@ -35,7 +35,7 @@ Each Model is defined as a Python class that inherits from `django.db.models.Mod
 
 Here’s the **Cat** entity from the ERD and the code to define the equivalent Model:
 
-![Cat Model](https://i.imgur.com/gwlOAXc.png)
+![Cat Model](./assets/cat-model.png)
 
 ## Creating a Model
 

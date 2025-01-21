@@ -101,7 +101,7 @@ This message indicates that the server is up and running. You can access the ser
 
 Navigate to this URL and you should see the Django welcome page, which features a stylized rocket, confirming that the server is running correctly.
 
-![Django homepage rocket](https://i.imgur.com/RozMgJ0.png)
+![Django homepage rocket](./assets/django-first-launch.png)
 
 By visiting this page, you are ensuring that your Django setup is correctly configured and that your new `main_app` is properly integrated into the project.
 
