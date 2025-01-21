@@ -1,4 +1,7 @@
-# ![Django CRUD App - Cat Collector - Setup](./assets/hero.png)
+<h1>
+  <span class="headline">Cat Collector</span>
+  <span class="subhead">Setup</span>
+</h1>
 
 ## Setup
 

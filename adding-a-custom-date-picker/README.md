@@ -1,5 +1,9 @@
+<h1>
+  <span class="headline">Cat Collector</span>
+  <span class="subhead">Adding a Custom Date Picker</span>
+</h1>
+
 <!-- {% raw %} -->
-# ![Django CRUD App - Cat Collector - Adding a Custom Date Picker](./assets/hero.png)
 
 **Learning objective:** By the end of this lesson, learners will be able to integrate a custom date picker into a Django form using MCDatepicker.
 

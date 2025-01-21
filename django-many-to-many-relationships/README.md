@@ -1,5 +1,9 @@
+<h1>
+  <span class="headline">Cat Collector</span>
+  <span class="subhead">Django Many-to-Many Relationships</span>
+</h1>
+
 <!-- {% raw %} -->
-# ![Django CRUD App - Cat Collector - Django Many-to-Many Relationships](./assets/hero.png)
 
 **Learning objective:** By the end of this lesson, students will be able to create and manage a many-to-many relationship between Cats and Toys using Django's built-in features.
 
@@ -342,7 +346,7 @@ This process will be nearly identical to what we did when adding an association,
    path('cats/<int:cat_id>/remove-toy/<int:toy_id>/', views.remove_toy, name='remove-toy'),
    ```
 
-2. Create the view function. _Hint: Check out Django's **[.remove()](https://docs.djangoproject.com/en/5.0/ref/models/relations/#django.db.models.fields.related.RelatedManager.remove)** method._
+2. Create the view function. _Hint: Check out Django's **[.remove()](https://docs.djangoproject.com/en/5.1/ref/models/relations/#django.db.models.fields.related.RelatedManager.remove)** method._
 
    ```python
    def remove_toy(request, cat_id, toy_id):

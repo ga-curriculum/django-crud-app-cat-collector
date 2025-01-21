@@ -1,0 +1,116 @@
+import "https://pages.git.generalassemb.ly/modular-curriculum-all-courses/universal-resources-internal/static/v2/pkl/template.pkl" as Template
+
+// Add microlessons here, in the order they should be delivered
+
+setup = new Template.Microlesson {
+  friendlyName = "Setup"
+  dirName = "setup"
+  type = "Content"
+  videoUrl = ""
+}
+
+concepts = new Template.Microlesson {
+  friendlyName = "Concepts"
+  dirName = "concepts"
+  type = "Content"
+  videoUrl = ""
+}
+
+djangoUrlsAndViews = new Template.Microlesson {
+  friendlyName = "Django URLs and Views"
+  dirName = "django-urls-and-views"
+  type = "Content"
+  videoUrl = ""
+}
+
+djangoTemplates = new Template.Microlesson {
+  friendlyName = "Django Templates"
+  dirName = "django-templates"
+  type = "Content"
+  videoUrl = ""
+}
+
+includingStaticFilesInTemplates = new Template.Microlesson {
+  friendlyName = "Including Static Files in Templates"
+  dirName = "including-static-files-in-templates"
+  type = "Content"
+  videoUrl = ""
+}
+
+renderingDataInTemplates = new Template.Microlesson {
+  friendlyName = "Rendering Data in Templates"
+  dirName = "rendering-data-in-templates"
+  type = "Content"
+  videoUrl = ""
+}
+
+djangoModels = new Template.Microlesson {
+  friendlyName = "Django Models"
+  dirName = "django-models"
+  type = "Content"
+  videoUrl = ""
+}
+
+usingDjangosOrmInTheTerminal = new Template.Microlesson {
+  friendlyName = "Using Django's ORM in the Terminal"
+  dirName = "using-djangos-orm-in-the-terminal"
+  type = "Content"
+  videoUrl = ""
+}
+
+usingDjangosOrmInTheApp = new Template.Microlesson {
+  friendlyName = "Using Django's ORM in the App"
+  dirName = "using-djangos-orm-in-the-app"
+  type = "Content"
+  videoUrl = ""
+}
+
+djangoClassBasedViews = new Template.Microlesson {
+  friendlyName = "Django Class-Based Views"
+  dirName = "django-class-based-views"
+  type = "Content"
+  videoUrl = ""
+}
+
+djangoOneToManyRelationships = new Template.Microlesson {
+  friendlyName = "Django One-to-Many Relationships"
+  dirName = "django-one-to-many-relationships"
+  type = "Content"
+  videoUrl = ""
+}
+
+addingAThirdModel = new Template.Microlesson {
+  friendlyName = "Adding a Third Model"
+  dirName = "adding-a-third-model"
+  type = "Content"
+  videoUrl = ""
+}
+
+djangoManyToManyRelationships = new Template.Microlesson {
+  friendlyName = "Django Many-to-Many Relationships"
+  dirName = "django-many-to-many-relationships"
+  type = "Content"
+  videoUrl = ""
+}
+
+djangoAuthentication = new Template.Microlesson {
+  friendlyName = "Django Authentication"
+  dirName = "django-authentication"
+  type = "Content"
+  videoUrl = ""
+}
+
+addingACustomDatePicker = new Template.Microlesson {
+  friendlyName = "Adding a Custom Date Picker"
+  dirName = "adding-a-custom-date-picker"
+  type = "Content"
+  videoUrl = ""
+}
+
+addingCustomModelMethods = new Template.Microlesson {
+  friendlyName = "Adding Custom Model Methods"
+  dirName = "adding-custom-model-methods"
+  type = "Content"
+  videoUrl = ""
+}
+

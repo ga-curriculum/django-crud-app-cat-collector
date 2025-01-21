@@ -1,5 +1,9 @@
+<h1>
+  <span class="headline">Cat Collector</span>
+  <span class="subhead">Django One-to-Many Relationships</span>
+</h1>
+
 <!-- {% raw %} -->
-# ![Django CRUD App - Cat Collector - Django One-to-Many Relationships](./assets/hero.png)
 
 **Learning objective:** By the end of this lesson, learners will be able to implement and manage one-to-many relationships in Django by adding a Feeding model related to the Cat model.
 
@@ -29,7 +33,7 @@ class Feeding(models.Model):
 
 ## Field.choices
 
-Django has a feature, **[Field.choices](https://docs.djangoproject.com/en/5.0/ref/models/fields/#choices)**, that will make the single-characters more user-friendly by automatically generating a select dropdown in the form using descriptions that we define.
+Django has a feature, **[Field.choices](https://docs.djangoproject.com/en/5.1/ref/models/fields/#choices)**, that will make the single-characters more user-friendly by automatically generating a select dropdown in the form using descriptions that we define.
 
 The first step is to define a tuple of 2-tuples. Because we might need to access this tuple within the `Cat` class also, let’s define it above both of the Model classes:
 
@@ -259,7 +263,7 @@ Note that our custom form inherits from `ModelForm`.
 
 > Many of the attributes in the `Meta` class are in common with CBVs because the CBV was using them behind the scenes to create a ModelForm as previously mentioned.
 
-For more options, check out the **[Django ModelForms documentation](https://docs.djangoproject.com/en/5.0/topics/forms/modelforms/#modelform)**.
+For more options, check out the **[Django ModelForms documentation](https://docs.djangoproject.com/en/5.1/topics/forms/modelforms/#modelform)**.
 
 ## Passing an instance of `FeedingForm`
 

@@ -1,5 +1,9 @@
+<h1>
+  <span class="headline">Cat Collector</span>
+  <span class="subhead">Including Static Files in Templates</span>
+</h1>
+
 <!-- {% raw %} -->
-# ![Django CRUD App - Cat Collector - Including Static Files in Templates](./assets/hero.png)
 
 **Learning objective:** By the end of this lesson, students will be able to link static files like CSS, JavaScript, and images in Django templates using the `{% static %}` template tag.
 
@@ -46,6 +50,7 @@ Now we need to update `base.html` by adding the `load` template tag at the top:
 ```
 
 > If you forget to include this line, Django will present you with errors like this in the browser:
+>
 > ![Static file error](./assets/static-error.png)
 
 Finally, add a link to your style sheet in `base.html`. Place the `<link>` before the `{% block head %}` line:
@@ -64,17 +69,18 @@ Once you have confirmed your css loads properly, you can remove the background c
 
 ## Image files
 
-We’re going to be using some adorable cat pictures in this app. You can get all of the images we're going to use from [this repo](https://git.generalassemb.ly/modular-curriculum-all-courses/cat-collector-assets). You can clone this repo or download as a zip. 
+We're going to be using some adorable cat pictures in this app. You can get all of the images we're going to use from [this repo](https://git.generalassemb.ly/modular-curriculum-all-courses/cat-collector-assets). The following steps will guide you through adding these images to your project by cloning them to your device.
 
 All of these images need to go in a new directory inside `static` called `images`.
 
-Create this directory:
+To add these to your project, first **make sure you are in your project's root directory**.
+
+> 🚨 Check your terminal and ensure you are in your project's root directory before running the following command!
 
 ```bash
-mkdir main_app/static/images
+git clone https://git.generalassemb.ly/modular-curriculum-all-courses/cat-collector-assets.git ./main_app/static/images
+rm -rf ./main_app/static/images/.git
 ```
-
-***Copy or drag these files over from the starter code folder into your Django project at main_app/static/images***
 
 Your end file structure must look like this:
 
@@ -105,8 +111,6 @@ main_app
   - base.html
 ```
 
-> Once you have copied the images over to the correct place in the `catcollector` app, You can delete the `cat-collector-assets` folder. 
-
 With our image files in place we can add a valid `href` to the favicon in the `head` of our `base.html`:
 
 ```html
@@ -123,7 +127,7 @@ And also for the header logo:
 <img src="{% static 'images/header-logo.svg' %}" alt="The Cat Collector Logo" />
 ```
 
-> The `static` DTL template tag ensures that the correct URL is assigned to the `href`. You can read more about managing static files in the **[Django docs](https://docs.djangoproject.com/en/5.0/howto/static-files/)**.
+> The `static` DTL template tag ensures that the correct URL is assigned to the `href`. You can read more about managing static files in the **[Django docs](https://docs.djangoproject.com/en/5.1/howto/static-files/)**.
 
 ### Add base styles
 

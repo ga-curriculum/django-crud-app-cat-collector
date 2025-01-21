@@ -1,5 +1,9 @@
+<h1>
+  <span class="headline">Cat Collector</span>
+  <span class="subhead">Django Templates</span>
+</h1>
+
 <!-- {% raw %} -->
-# ![Django CRUD App - Cat Collector - Django Templates](./assets/hero.png)
 
 **Learning objective:** By the end of this lesson, students will be able to use Django's Template Language (DTL) to create, manage, and apply dynamic HTML templates.
 
@@ -74,7 +78,7 @@ def about(request):
     return render(request, 'about.html')
 ```
 
-The `render()` shortcut in Django is similar to Express’ `res.render()`, except for the positional `request` arg. Also, the `.html` extension is required. For more on `render()`, check out more in the **[Django docs](https://docs.djangoproject.com/en/5.0/topics/http/shortcuts/#render)**.
+The `render()` shortcut in Django is similar to Express’ `res.render()`, except for the positional `request` arg. Also, the `.html` extension is required. For more on `render()`, check out more in the **[Django docs](https://docs.djangoproject.com/en/5.1/topics/http/shortcuts/#render)**.
 
 Browse to [http://127.0.0.1:8000/about](http://127.0.0.1:8000/about) to see the newly rendered `about.html` template!
 
@@ -87,7 +91,7 @@ Template inheritance is a powerful feature in Django, allowing you to extend bas
 - **Extending Templates**: A child template extends a base template using the `{% extends %}` tag. This setup enables a child template to inherit all the html content from a base template.
 - **Overriding Blocks**: Within these templates, you can define blocks with `{% block %}` tags. A child template can override these blocks with its own content, replacing the original content from the base template.
 
-This method is similar to using partials in other templating languages like EJS for Express, but offers more flexibility and integration with Django's overall framework. For more details, refer to the official **[Django documentation on template inheritance](https://docs.djangoproject.com/en/5.0/ref/templates/language/#template-inheritance)**.
+This method is similar to using partials in other templating languages like EJS for Express, but offers more flexibility and integration with Django's overall framework. For more details, refer to the official **[Django documentation on template inheritance](https://docs.djangoproject.com/en/5.1/ref/templates/language/#template-inheritance)**.
 
 Let's take a look at an example:
 
@@ -208,7 +212,7 @@ This block is where the main content of each child template is defined.
 
 ### Using template tags
 
-Django’s template system utilizes **template tags**, enclosed within `{% %}` delimiters, to inject logic and control flow into templates. The `block` and `endblock` tags define areas in a template that can be overridden by child templates. Learn more about **[template tags in Django's documentation](https://docs.djangoproject.com/en/5.0/ref/templates/builtins/#ref-templates-builtins-tags)**.
+Django’s template system utilizes **template tags**, enclosed within `{% %}` delimiters, to inject logic and control flow into templates. The `block` and `endblock` tags define areas in a template that can be overridden by child templates. Learn more about **[template tags in Django's documentation](https://docs.djangoproject.com/en/5.1/ref/templates/builtins/#ref-templates-builtins-tags)**.
 
 ### Template inheritance
 

@@ -1,4 +1,7 @@
-# ![Django CRUD App - Cat Collector - Django Models](./assets/hero.png)
+<h1>
+  <span class="headline">Cat Collector</span>
+  <span class="subhead">Django Models</span>
+</h1>
 
 **Learning objective:** By the end of this lesson, learners will be able to understand the role of the Model layer in the Django architecture, define Models to represent database entities, and perform basic CRUD operations using these Models.
 
@@ -50,7 +53,7 @@ class Cat(models.Model):
     age = models.IntegerField()
 ```
 
-> When defining fields in a Django model, each field is represented by a specific Field class, such as `CharField` for character strings. You can explore all the available field types in the **[Django documentation on model field types](https://docs.djangoproject.com/en/5.0/ref/models/fields/#model-field-types)**, which provides a variety of options to suit different data needs.
+> When defining fields in a Django model, each field is represented by a specific Field class, such as `CharField` for character strings. You can explore all the available field types in the **[Django documentation on model field types](https://docs.djangoproject.com/en/5.1/ref/models/fields/#model-field-types)**, which provides a variety of options to suit different data needs.
 
 These field types are important for several reasons:
 
@@ -161,7 +164,7 @@ This configuration tells Django to use a PostgreSQL database named `catcollector
 
 ### What are Migrations?
 
-**[Migrations](https://docs.djangoproject.com/en/5.0/topics/migrations/)** are a way to keep the database schema in sync with your Django models. They track changes to your models and apply these changes to your database schema over time, which is essential as the needs of your application evolve.
+**[Migrations](https://docs.djangoproject.com/en/5.1/topics/migrations/)** are a way to keep the database schema in sync with your Django models. They track changes to your models and apply these changes to your database schema over time, which is essential as the needs of your application evolve.
 
 While migrations are powerful for evolving your database schema, they can be potentially destructive—especially in a production environment—because they can lead to data loss. It's important to handle them with care.
 

@@ -1,11 +1,15 @@
+<h1>
+  <span class="headline">Cat Collector</span>
+  <span class="subhead">Django Class-Based Views</span>
+</h1>
+
 <!-- {% raw %} -->
-# ![Django CRUD App - Cat Collector - Class Based Views](./assets/hero.png)
 
 **Learning objective:** By the end of this lesson, students will be able to create new pages using Django's built in Class-based Views.
 
-## What are Class-based views?
+## What are class-based views?
 
-**[Class-based Views (CBVs) in Django](https://docs.djangoproject.com/en/5.0/topics/class-based-views/intro/#introduction-to-class-based-views)** provide a structured approach to creating views by using _classes_ rather than _functions_. These classes are built into Django's views module, enabling you to organize your views and reuse code by _extending_ Django's predefined base classes. Let's step away from cat collector for a moment and think about an application performing CRUD on a `Book` resource.
+**[Class-based Views (CBVs) in Django](https://docs.djangoproject.com/en/5.1/topics/class-based-views/intro/#introduction-to-class-based-views)** provide a structured approach to creating views by using _classes_ rather than _functions_. These classes are built into Django's views module, enabling you to organize your views and reuse code by _extending_ Django's predefined base classes. Let's step away from cat collector for a moment and think about an application performing CRUD on a `Book` resource.
 
 For example, let’s say we wanted to implement _index_ (view all) functionality using class-based views. First, we would import and extend the built in `ListView` class:
 
@@ -52,7 +56,7 @@ In this lesson, we will be utilizing the `CreateView`, `UpdateView` and `DeleteV
 
 ## Why use Class-based Views?
 
-Django developed class-based views to minimize the redundancy of common view patterns found in web applications, effectively DRYing up our code base. You can read more about the rationale from **[Django’s documentation on class-based views](https://docs.djangoproject.com/en/5.0/topics/class-based-views/intro/#introduction-to-class-based-views)**. Much of the code we write in CRUD applications repeats certain patterns again and again. As you saw in the above example, we can leverage CBVs to avoid having to write the same repeating code.
+Django developed class-based views to minimize the redundancy of common view patterns found in web applications, effectively DRYing up our code base. You can read more about the rationale from **[Django’s documentation on class-based views](https://docs.djangoproject.com/en/5.1/topics/class-based-views/intro/#introduction-to-class-based-views)**. Much of the code we write in CRUD applications repeats certain patterns again and again. As you saw in the above example, we can leverage CBVs to avoid having to write the same repeating code.
 
 CBVs can save time, making us more productive developers. CBVs are also highly configurable by adding class attributes or overriding methods and using decorators.
 
@@ -180,7 +184,7 @@ Now create the template file in the terminal:
 touch main_app/templates/main_app/cat_form.html
 ```
 
-The `CreateView` expects a template named `<model_name>_form.html` by default, where `<model_name>` is the lowercase name of the model. This convention is suggested in the **[Django documentation](https://docs.djangoproject.com/en/5.0/topics/class-based-views/generic-editing/#model-forms)** to standardize form templates. You can customize this by explicitly setting template_name in your view class.
+The `CreateView` expects a template named `<model_name>_form.html` by default, where `<model_name>` is the lowercase name of the model. This convention is suggested in the **[Django documentation](https://docs.djangoproject.com/en/5.1/topics/class-based-views/generic-editing/#model-forms)** to standardize form templates. You can customize this by explicitly setting template_name in your view class.
 
 We'll discuss the following code as we type it:
 
@@ -320,7 +324,7 @@ class Cat(models.Model):
         return reverse('cat-detail', kwargs={'cat_id': self.id})
 ```
 
-The **[reverse](https://docs.djangoproject.com/en/5.0/ref/urlresolvers/#reverse)** method above will return the correct path for the `cat-detail` named route. However, since that route requires a `cat_id` route parameter, its value must provided as an argument.
+The **[reverse](https://docs.djangoproject.com/en/5.1/ref/urlresolvers/#reverse)** method above will return the correct path for the `cat-detail` named route. However, since that route requires a `cat_id` route parameter, its value must provided as an argument.
 
 Don't forget to import `reverse` in `models.py`:
 
@@ -461,7 +465,7 @@ Refresh the browser to see your changes. Looks great!
 
 When you want to delete data, it's best practice to ask for confirmation to prevent accidental deletions. Django simplifies this process in its class-based `DeleteView` by looking for a specific confirmation template.
 
-First, create the necessary confirmation template. By default, **[Django expects this template to be named following a particular convention](https://docs.djangoproject.com/en/5.0/topics/class-based-views/generic-editing/#model-forms)**. For a model named Cat, the template should be named cat_confirm_delete.html.
+First, create the necessary confirmation template. By default, **[Django expects this template to be named following a particular convention](https://docs.djangoproject.com/en/5.1/topics/class-based-views/generic-editing/#model-forms)**. For a model named Cat, the template should be named cat_confirm_delete.html.
 
 Run the following in the terminal:
 

@@ -1,5 +1,9 @@
+<h1>
+  <span class="headline">Cat Collector</span>
+  <span class="subhead">Adding Custom Model Methods</span>
+</h1>
+
 <!-- {% raw %} -->
-# ![Django CRUD App - Cat Collector - Adding Custom Model Methods](./assets/hero.png)
 
 **Learning objective:** By the end of this lesson, learners will be able to implement custom methods within Django models to manage and display business logic, specifically to check and display a cat's daily feeding status.
 

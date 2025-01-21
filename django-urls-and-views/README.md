@@ -1,4 +1,7 @@
-# ![Django CRUD App - Cat Collector - Django URLs and Views](./assets/hero.png)
+<h1>
+  <span class="headline">Cat Collector</span>
+  <span class="subhead">Django URLs and Views</span>
+</h1>
 
 **Learning objective:** By the end of this lesson, students will be able to define and implement URL routing in Django.
 
@@ -74,8 +77,8 @@ System check identified no issues (0 silenced).
 
 You have 18 unapplied migration(s). Your project may not work properly until you apply the migrations for app(s): admin, auth, contenttypes, sessions.
 Run 'python3 manage.py migrate' to apply them.
-May 13, 2024 - 22:47:08
-Django version 5.0.6, using settings 'catcollector.settings'
+Jan 1, 2025 - 22:47:08
+Django version 5.1.5, using settings 'catcollector.settings'
 Starting development server at http://127.0.0.1:8000/
 Quit the server with CONTROL-C.
 ```

@@ -1,5 +1,9 @@
+<h1>
+  <span class="headline">Cat Collector</span>
+  <span class="subhead">Rendering Data in Templates</span>
+</h1>
+
 <!-- {% raw %} -->
-# ![Django CRUD App - Cat Collector - Rendering Data in Templates](./assets/hero.png)
 
 **Learning objective:** By the end of this lesson, students will be able to render dynamic data within a Django template. 
 
@@ -180,7 +184,7 @@ Django uses specific template tags to control flow within templates:
 
 Notice the use of double curly braces `{{ }}` to output variables' values directly in the HTML, which is a feature of Django’s template system. When accessing methods on objects, they are called automatically without needing parentheses, simplifying the syntax.
 
-For more on how DTL works and its syntax, refer to the **[official Django documentation on template language](https://docs.djangoproject.com/en/5.0/ref/templates/language/)**.
+For more on how DTL works and its syntax, refer to the **[official Django documentation on template language](https://docs.djangoproject.com/en/5.1/ref/templates/language/)**.
 
 Refresh the page and see your index page come alive! 
 

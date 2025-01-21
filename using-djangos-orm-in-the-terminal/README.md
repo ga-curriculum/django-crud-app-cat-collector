@@ -1,4 +1,7 @@
-# ![Django CRUD App - Cat Collector - Using Django’s ORM in the Terminal](./assets/hero.png)
+<h1>
+  <span class="headline">Cat Collector</span>
+  <span class="subhead">Using Django's ORM in the Terminal</span>
+</h1>
 
 **Learning objective:** By the end of this lesson, learners will be able to perform CRUD operations using Django's ORM within the Django shell environment, and apply these techniques to manage data effectively in their Django applications.
 
@@ -22,7 +25,7 @@ Django's ORM automatically provides a variety of methods for each Model, making 
 - Ordering
 - Even accessing the data from related Models!
 
-Django refers to the ORM functions available as its **[Database API](https://docs.djangoproject.com/en/5.0/topics/db/queries/)**. Additional information can also be found in **[Django's Model documentation](https://docs.djangoproject.com/en/5.0/ref/models/)**.
+Django refers to the ORM functions available as its **[Database API](https://docs.djangoproject.com/en/5.1/topics/db/queries/)**. Additional information can also be found in **[Django's Model documentation](https://docs.djangoproject.com/en/5.1/ref/models/)**.
 
 ## Performing CRUD in a Python interactive shell
 
@@ -202,7 +205,7 @@ This error handling strategy ensures that your application manages the scenario 
 
 ## Filtering (querying) for records
 
-We can use **[objects.filter()](https://docs.djangoproject.com/en/5.0/ref/models/querysets/#filter)** to query a Model’s table for data that matches specific criteria, similar to the `find` method in Mongoose.
+We can use **[objects.filter()](https://docs.djangoproject.com/en/5.1/ref/models/querysets/#filter)** to query a Model’s table for data that matches specific criteria, similar to the `find` method in Mongoose.
 
 For example, this query returns all cats with the name "Rubber Biscuit":
 
@@ -212,7 +215,7 @@ Cat.objects.filter(name='Rubber Biscuit')
 
 Using `objects.filter()` and `objects.exclude()` is like writing a `WHERE` clause in SQL.
 
-The Django ORM provides several helpful **[Field lookups](https://docs.djangoproject.com/en/5.0/topics/db/queries/#field-lookups)**.
+The Django ORM provides several helpful **[Field lookups](https://docs.djangoproject.com/en/5.1/topics/db/queries/#field-lookups)**.
 
 For example, to query for all cats whose names _contain_ a specific string:
 
@@ -244,7 +247,7 @@ Filters can even be chained!
 
 ## Ordering (sorting) querysets
 
-Django's **[order_by](https://docs.djangoproject.com/en/5.0/ref/models/querysets/#order-by)** method allows you to sort query results, similar to SQL's `ORDER BY` clause.
+Django's **[order_by](https://docs.djangoproject.com/en/5.1/ref/models/querysets/#order-by)** method allows you to sort query results, similar to SQL's `ORDER BY` clause.
 
 ### Sorting in ascending order
 

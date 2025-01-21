@@ -1,4 +1,7 @@
-# ![Django CRUD App - Cat Collector - Concepts](./assets/hero.png)
+<h1>
+  <span class="headline">Cat Collector</span>
+  <span class="subhead">Concepts</span>
+</h1>
 
 **Learning objective:** By the end of this lesson, students will understand the structure and philosophy behind Django's design, noting its built-in functionalities and strict conventions.
 

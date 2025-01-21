@@ -1,5 +1,9 @@
+<h1>
+  <span class="headline">Cat Collector</span>
+  <span class="subhead">Django Authentication</span>
+</h1>
+
 <!-- {% raw %} -->
-# ![Django CRUD App - Cat Collector - Django Authentication](./assets/hero.png)
 
 **Learning objective:** By the end of this lesson, students will be able enable authentication and authorization in a Django app.
 
@@ -39,7 +43,7 @@ Although these attributes are fine for the Cat Collector, some projects may need
 
 ## Creating the `User -< Cat` relationship
 
-Currently, our application treats all cats as if they don't belong to any specific user— free-roaming cats! By the end of this lesson, we will have implemented user authentication, ensuring that each cat is linked to a specific user who "owns" them, the _Cat_Collector_.
+Currently, our application treats all cats as if they don't belong to any specific user— free-roaming cats! By the end of this lesson, we will have implemented user authentication, ensuring that each cat is linked to a specific user who "owns" them, the _cat collector_.
 
 > Ideally, authentication should be set up early in the development process to simplify code management. However, for educational purposes, we're integrating it at the end of our project to highlight the changes it requires.
 
@@ -299,7 +303,7 @@ We also want to prevent the login form from being shown when there is a user log
 
 ## Logging out
 
-Django's authentication framework provides built-in support for logging out, but [recent security practices](https://docs.djangoproject.com/en/5.0/releases/4.1/#log-out-via-get) require that `logout` actions be submitted via a `POST` request instead of a `GET` request. This means we can't use a simple link to log out; instead, we need a form.
+Django's authentication framework provides built-in support for logging out, but [recent security practices](https://docs.djangoproject.com/en/5.1/releases/4.1/#log-out-via-get) require that `logout` actions be submitted via a `POST` request instead of a `GET` request. This means we can't use a simple link to log out; instead, we need a form.
 
 First, we need to integrate a `logout` form into your existing navbar. Here's how to place the form in the navbar using an `<li>` element:
 
@@ -653,5 +657,5 @@ Understanding who is using your app is essential for delivering personalized and
 
 _As a Visitor, when I browse to the application, I want [insert feature here]._
 
-Congrats! You have completed `Cat_Collector`!
+Congrats! You have completed _Cat Collector_!
 <!-- {% endraw %} -->
