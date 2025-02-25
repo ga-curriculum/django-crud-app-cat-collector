@@ -299,9 +299,11 @@ class CatCreate(CreateView):
     success_url = '/cats/'
 ```
 
+However, this approach always redirects users to the general `/cats/` page after a cat is created. Instead, it is often more useful to redirect to the specific page of the cat that was just created.
+
 ### Redirecting to a newly created cat object
 
-After creating a new cat, instead of redirecting to a general page, it's often more useful to redirect to the specific page of the cat that was just created. Django facilitates this with the `get_absolute_url` method, which can be added directly to the model.
+Rather than redirecting to a static page, Django allows us to dynamically redirect to the newly created object using the `get_absolute_url` method on the model.
 
 Let's update the `Cat` model to include this method:
 
@@ -324,7 +326,7 @@ class Cat(models.Model):
         return reverse('cat-detail', kwargs={'cat_id': self.id})
 ```
 
-The **[reverse](https://docs.djangoproject.com/en/5.1/ref/urlresolvers/#reverse)** method above will return the correct path for the `cat-detail` named route. However, since that route requires a `cat_id` route parameter, its value must provided as an argument.
+ The **[reverse](https://docs.djangoproject.com/en/5.1/ref/urlresolvers/#reverse)** method above will return the correct path for the `cat-detail` named route. However, since that route requires a `cat_id` route parameter, its value must be provided as an argument.
 
 Don't forget to import `reverse` in `models.py`:
 
@@ -333,6 +335,17 @@ from django.db import models
 # Import the reverse function
 from django.urls import reverse
 ```
+
+Since `CreateView` automatically calls `get_absolute_url` on the model instance if `success_url` is **not explicitly set**, we must **remove** the previously added `success_url` from the `CatCreate` view:
+
+```python
+class CatCreate(CreateView):
+    model = Cat
+    fields = '__all__'
+    # Remove success_url so Django uses get_absolute_url from Cat
+```
+
+By removing `success_url`, Django will now use the `get_absolute_url` method defined in the `Cat` model, ensuring the user is redirected to the newly created cat’s detail page.
 
 ## Updating & deleting cats with class-based views
 
