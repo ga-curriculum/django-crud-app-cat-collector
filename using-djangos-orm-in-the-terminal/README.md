@@ -198,7 +198,7 @@ try:
     cat = Cat.objects.get(id=1)
 except Cat.DoesNotExist:
     # Handle the case where the object does not exist
-    print("This cat does not exist!)
+    print("This cat does not exist!")
 ```
 
 This error handling strategy ensures that your application manages the scenario gracefully when an object isn't found in the database. This syntax might feel familiar, as it's quite similar to using `try-catch` blocks in JavaScript to handle exceptions.
