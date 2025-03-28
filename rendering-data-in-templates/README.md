@@ -5,7 +5,7 @@
 
 <!-- {% raw %} -->
 
-**Learning objective:** By the end of this lesson, students will be able to render dynamic data within a Django template. 
+**Learning objective:** By the end of this lesson, students will be able to render dynamic data within a Django template.
 
 ## Render Data in a Template
 
@@ -18,7 +18,6 @@ For this User story, we need to build an index page to render a list of all our 
 Here is a wireframe of the final design:
 
 ![All Cats Wireframe](./assets/all-cats-wireframe.png)
-
 
 ### Step 1 - Identify the route
 
@@ -104,7 +103,6 @@ Two interesting things above:
 
 This setup not only structures our application neatly but also mimics familiar patterns from other frameworks like Express, making it easier to manage and understand.
 
-
 ### Step 5 - Respond to the client’s HTTP request
 
 Now that we have the code to respond with the `render` method in our view, let's set up the template we'll use for rendering.
@@ -130,40 +128,52 @@ touch main_app/templates/cats/index.html
 Now, let's populate this new template with the necessary HTML and DTL tags. Copy and paste the following content into the `cats/index.html` file:
 
 ```html
-{% extends 'base.html' %} 
-{% load static %} 
-{% block head %}
-<link rel="stylesheet" href="{% static 'css/cats/cat-index.css' %}"/>
-{% endblock %} 
-{% block content %}
+{% extends 'base.html' %} {% load static %} {% block head %}
+<link
+  rel="stylesheet"
+  href="{% static 'css/cats/cat-index.css' %}"
+/>
+{% endblock %} {% block content %}
 
 <section class="page-header">
   <h1>Cat List</h1>
-  <img src="{% static 'images/cool-cat.svg' %}" alt="A cool cat" />
-  <img src="{% static 'images/happy-cat.svg' %}" alt="A happy cat" />
-  <img src="{% static 'images/teacup-cat.svg' %}" alt="A cat in a teacup" />
-  <img src="{% static 'images/cat-in-box.svg' %}" alt="A cat in a box" />
+  <img
+    src="{% static 'images/cool-cat.svg' %}"
+    alt="A cool cat"
+  />
+  <img
+    src="{% static 'images/happy-cat.svg' %}"
+    alt="A happy cat"
+  />
+  <img
+    src="{% static 'images/teacup-cat.svg' %}"
+    alt="A cat in a teacup"
+  />
+  <img
+    src="{% static 'images/cat-in-box.svg' %}"
+    alt="A cat in a box"
+  />
 </section>
 
 <section class="card-container">
   {% for cat in cats %}
-    <div class="card">
-      <div class="card-content">
-        <div class="card-img-container">
-          <img
-            src="{% static 'images/sk8r-boi-cat.svg' %}"
-            alt="A skater boy cat"
-          />
-        </div>
-        <h2 class="card-title">{{ cat.name }}</h2>
-        {% if cat.age > 0 %}
-        <p>A {{ cat.age }} year old {{ cat.breed }}</p>
-        {% else %}
-        <p>A {{ cat.breed }} kitten.</p>
-        {% endif %}
-        <p><small>{{ cat.description }}</small></p>
+  <div class="card">
+    <div class="card-content">
+      <div class="card-img-container">
+        <img
+          src="{% static 'images/sk8r-boi-cat.svg' %}"
+          alt="A skater boy cat"
+        />
       </div>
+      <h2 class="card-title">{{ cat.name }}</h2>
+      {% if cat.age > 0 %}
+      <p>A {{ cat.age }} year old {{ cat.breed }}</p>
+      {% else %}
+      <p>A {{ cat.breed }} kitten.</p>
+      {% endif %}
+      <p><small>{{ cat.description }}</small></p>
     </div>
+  </div>
   {% endfor %}
 </section>
 
@@ -186,12 +196,11 @@ Notice the use of double curly braces `{{ }}` to output variables' values direct
 
 For more on how DTL works and its syntax, refer to the **[official Django documentation on template language](https://docs.djangoproject.com/en/5.1/ref/templates/language/)**.
 
-Refresh the page and see your index page come alive! 
-
+Refresh the page and see your index page come alive!
 
 ## Adding CSS for `cat_index`
 
-Our html is in place but our images are controlling our page. Let's add soe custome css to control the elements on our page a bit. 
+Our HTML is in place, but right now the images are controlling the layout of the page. Let's add some custom CSS to better control the appearance and spacing of the elements.
 
 In the terminal create the files:
 
@@ -243,7 +252,7 @@ And add some CSS in that file:
 }
 ```
 
-Refresh to see your new index page! 
+Refresh to see your new index page!
 
 <br>
 
@@ -268,22 +277,28 @@ In this exercise, you'll create a new template for the home page of our applicat
 ### Step 3: Extend the base template and add content
 
 - Open your newly created `home.html` and set it up to extend from the base template.
- 
+
 - Add some content and link the necessary CSS files with the following:
 
   ```html
-  {% extends 'base.html' %}
-  {% load static %}
-  {% block head %}
-  <link rel="stylesheet" href="{% static 'css/home.css' %}" />
-  {% endblock %}
-  {% block content %}
+  {% extends 'base.html' %} {% load static %} {% block head %}
+  <link
+    rel="stylesheet"
+    href="{% static 'css/home.css' %}"
+  />
+  {% endblock %} {% block content %}
 
   <section class="logo-container">
     <div class="cat-container">
-      <img src="{% static 'images/splash.svg' %}" alt="The Cat Collector Cat" />
+      <img
+        src="{% static 'images/splash.svg' %}"
+        alt="The Cat Collector Cat"
+      />
     </div>
-    <img src="{% static 'images/logotype.svg' %}" alt="Text reads: Cat Collector" />
+    <img
+      src="{% static 'images/logotype.svg' %}"
+      alt="Text reads: Cat Collector"
+    />
   </section>
 
   {% endblock %}
@@ -293,7 +308,7 @@ In this exercise, you'll create a new template for the home page of our applicat
 
 - Create a new CSS file `home.css` in `static/css/` to style your home page.
 
-- Add the following CSS code: 
+- Add the following CSS code:
 
   ```css
   main {
@@ -393,4 +408,5 @@ You've successfully created a basic yet functional Django application that displ
 At this point, you're probably familiar with the essentials of Django's URL configuration and the general structure of a Django app. While we've covered the fundamentals of views and Django Template Language, there's more to explore.
 
 We’re going to get our first look at Models in the next lesson where we’ll use one to replace the current `Cat` class so that we can save cats in the database!
+
 <!-- {% endraw %} -->
