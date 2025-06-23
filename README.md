@@ -11,24 +11,24 @@ Welcome to Cat Collector, your first venture into building a full CRUD applicati
 
 ## Content
 
-| Part                | Time | Lesson                                                                                 | Skills                                                                              |
-| ------------------- | ---- | -------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
-| Part 1<br>~4 Hours  | 10   | [Setup](./setup/README.md)                                                             | Setting up the development environment.                                             |
-|                     | 15   | [Concepts](./concepts/README.md)                                                       | Understand the structure and philosophy behind Django's design.                     |
-|                     | 40   | [Django URLs and Views](./django-urls-and-views/README.md)                             | Define and implement URL routing in Django.                                         |
-|                     | 60   | [Django Templates](./django-templates/README.md)                                       | Use Django's Template Language (DTL) to create dynamic HTML templates.              |
-|                     | 40   | [Including Static Files in Templates](./including-static-files-in-templates/README.md) | Link static files like CSS, JavaScript, and images using the `static` template tag. |
-|                     | 40   | [Rendering Data in Templates](./rendering-data-in-templates/README.md)                 | Render dynamic data within a Django template.                                       |
-| Part 2<br>~2 Hours  | 60   | [Django Models](./django-models/README.md)                                             | Define Models to represent database entities.                                       |
-|                     | 30   | [Using Django's ORM in the Terminal](./using-djangos-orm-in-the-terminal/README.md)    | Perform CRUD operations using Django's ORM within the Django shell environment.     |
-|                     | 30   | [Using Django's ORM in the App](./using-djangos-orm-in-the-app/README.md)              | Use Django's ORM and Admin dashboard to see cats as they are added to the database. |
-| Part 3<br>~1 Hour   | 60   | [Django Class-based Views](./django-class-based-views/README.md)                       | Create new pages using Django's built in Class-based Views.                         |
-| Part 4<br>~4 Hours  | 120  | [Django One-to-Many Relationships](./django-one-to-many-relationships/README.md)       | Create a one-to-many data relationship in Django : `Cats` -< `Feedings`.            |
-|                     | 120  | [Adding a Third Model](./adding-a-third-model/README.md)                               | Create a `Toys` model with full CRUD capabilities through Class-Based Views.        |
-| Part 5<br>~2 Hours  | 120  | [Django Many-to-Many Relationships](./django-many-to-many-relationships/README.md)     | Add a many-to-many data relationship in Django : `Cats` >-< `Toys`.                 |
-| Part 6<br>~4 Hours  | 240  | [Django Authentication](./django-authentication/README.md)                             | Add Authentication with Django's built in Authentication Dashboard.                 |
-| Level Up<br>~1 Hour | 30   | [Adding a Custom Date Picker](./adding-a-custom-date-picker/README.md)                 | Adding a custom Date Picker with customizable UI and styling.                       |
-|                     | 30   | [Adding Custom Model Methods](./adding-custom-model-methods/README.md)                 | Implement custom methods within Django models to display a feeding status.          |
+| Part     | Approx. Delivery Time | Lesson                                                                                 | Skills                                                                              |
+| -------- | --------------------- | -------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| Part 1   | 10 min                | [Setup](./setup/README.md)                                                             | Setting up the development environment.                                             |
+|          | 15 min                | [Concepts](./concepts/README.md)                                                       | Understand the structure and philosophy behind Django's design.                     |
+|          | 40 min                | [Django URLs and Views](./django-urls-and-views/README.md)                             | Define and implement URL routing in Django.                                         |
+|          | 60 min                | [Django Templates](./django-templates/README.md)                                       | Use Django's Template Language (DTL) to create dynamic HTML templates.              |
+|          | 40 min                | [Including Static Files in Templates](./including-static-files-in-templates/README.md) | Link static files like CSS, JavaScript, and images using the `static` template tag. |
+|          | 40 min                | [Rendering Data in Templates](./rendering-data-in-templates/README.md)                 | Render dynamic data within a Django template.                                       |
+| Part 2   | 60 min                | [Django Models](./django-models/README.md)                                             | Define Models to represent database entities.                                       |
+|          | 30 min                | [Using Django's ORM in the Terminal](./using-djangos-orm-in-the-terminal/README.md)    | Perform CRUD operations using Django's ORM within the Django shell environment.     |
+|          | 30 min                | [Using Django's ORM in the App](./using-djangos-orm-in-the-app/README.md)              | Use Django's ORM and Admin dashboard to see cats as they are added to the database. |
+| Part 3   | 60 min                | [Django Class-based Views](./django-class-based-views/README.md)                       | Create new pages using Django's built in Class-based Views.                         |
+| Part 4   | 120 min               | [Django One-to-Many Relationships](./django-one-to-many-relationships/README.md)       | Create a one-to-many data relationship in Django : `Cats` -< `Feedings`.            |
+|          | 120 min               | [Adding a Third Model](./adding-a-third-model/README.md)                               | Create a `Toys` model with full CRUD capabilities through Class-Based Views.        |
+| Part 5   | 120 min               | [Django Many-to-Many Relationships](./django-many-to-many-relationships/README.md)     | Add a many-to-many data relationship in Django : `Cats` >-< `Toys`.                 |
+| Part 6   | 240 min               | [Django Authentication](./django-authentication/README.md)                             | Add Authentication with Django's built in Authentication Dashboard.                 |
+| Level Up | 30 min                | [Adding a Custom Date Picker](./adding-a-custom-date-picker/README.md)                 | Adding a custom Date Picker with customizable UI and styling.                       |
+|          | 30 min                | [Adding Custom Model Methods](./adding-custom-model-methods/README.md)                 | Implement custom methods within Django models to display a feeding status.          |
 
 ## References
 
