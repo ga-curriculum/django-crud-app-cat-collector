@@ -43,7 +43,7 @@ Welcome to Cat Collector, your first venture into building a full CRUD applicati
 
 ### Assets
 
-🖼️ [Cat Collector Assets](https://git.generalassemb.ly/modular-curriculum-all-courses/cat-collector-assets)
+🖼️ [Cat Collector Assets](https://github.com/ga-curriculum/cat-collector-assets)
 
 ### Course landing pages
 

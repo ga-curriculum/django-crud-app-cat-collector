@@ -69,7 +69,7 @@ Once you have confirmed your css loads properly, you can remove the background c
 
 ## Image files
 
-We're going to be using some adorable cat pictures in this app. You can get all of the images we're going to use from [this repo](https://git.generalassemb.ly/modular-curriculum-all-courses/cat-collector-assets). The following steps will guide you through adding these images to your project by cloning them to your device.
+We're going to be using some adorable cat pictures in this app. You can get all of the images we're going to use from [this repo](https://github.com/ga-curriculum/cat-collector-assets). The following steps will guide you through adding these images to your project by cloning them to your device.
 
 All of these images need to go in a new directory inside `static` called `images`.
 
@@ -78,7 +78,7 @@ To add these to your project, first **make sure you are in your project's root d
 > 🚨 Check your terminal and ensure you are in your project's root directory before running the following command!
 
 ```bash
-git clone https://git.generalassemb.ly/modular-curriculum-all-courses/cat-collector-assets.git ./main_app/static/images
+git clone https://github.com/ga-curriculum/cat-collector-assets.git ./main_app/static/images
 rm -rf ./main_app/static/images/.git
 ```
 
